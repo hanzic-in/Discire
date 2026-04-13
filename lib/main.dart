@@ -107,11 +107,12 @@ class HomePage extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         itemCount: items.length,
         itemBuilder: (context, index) {
+          final isActive = index == 0;
           return Container(
             margin: const EdgeInsets.only(left: 16),
             padding: const EdgeInsets.symmetric(horizontal: 16),
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: isActive ? Colors.black : Colors.white,
               borderRadius: BorderRadius.circular(20),
               boxShadow: [
                 BoxShadow(
@@ -122,7 +123,12 @@ class HomePage extends StatelessWidget {
               ],
             ),
             alignment: Alignment.center,
-            child: Text(items[index]),
+            child: Text(
+              items[index],
+              style: TextStyle(
+                color: isActive ? Colors.white : Colors.black,
+              ),
+            ),
           );
         },
       ),
@@ -151,7 +157,8 @@ class HomePage extends StatelessWidget {
             itemBuilder: (context, index) {
               return Container(
                 width: 140,
-                margin: const EdgeInsets.only(left: 16),
+                padding: const EdgeInsets.all(16),
+                margin: const EdgeInsets.only(left: 16, bottom: 10),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(20),
@@ -164,7 +171,7 @@ class HomePage extends StatelessWidget {
                   ],
                 ),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: const [
                     CircleAvatar(
                       radius: 30,
@@ -180,6 +187,13 @@ class HomePage extends StatelessWidget {
                       style: TextStyle(
                         color: Colors.grey,
                         fontSize: 12,
+                      ),
+                    ),
+                    Text(
+                      "Bandung",
+                      style: TextStyle(
+                        color: Colors.grey,
+                        fontSize: 11,
                       ),
                     ),
                   ],
