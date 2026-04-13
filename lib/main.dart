@@ -72,6 +72,9 @@ class HomePage extends StatelessWidget {
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(25),
+          border: Border.all(
+            color: Colors.grey.withOpacity(0.2),
+          ),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(0.05),
@@ -163,9 +166,15 @@ class HomePage extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: const [
-                    CircleAvatar(radius: 30),
+                    CircleAvatar(
+                      radius: 30,
+                      backgroundColor: Color(0xFFE0E0E0),
+                    ),
                     SizedBox(height: 10),
-                    Text("User"),
+                    Text(
+                      "Rina",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
                     Text(
                       "UI Designer",
                       style: TextStyle(
