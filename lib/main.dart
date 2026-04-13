@@ -31,6 +31,7 @@ class HomePage extends StatelessWidget {
             _search(),
             _chips(),
             _nearby(),
+            _bottomNav(),
           ],
         ),
       ),
@@ -263,41 +264,41 @@ class HomePage extends StatelessWidget {
 }
 
   Widget _bottomNav() {
-  return Container(
-    margin: const EdgeInsets.all(16),
-    padding: const EdgeInsets.symmetric(horizontal: 20),
-    height: 70,
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(30),
-      boxShadow: [
-        BoxShadow(
-          color: Colors.black.withOpacity(0.08),
-          blurRadius: 20,
-          offset: const Offset(0, 10),
-        ),
-      ],
-    ),
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Icon(Icons.home, color: Colors.black),
-        Icon(Icons.search, color: Colors.grey),
-
-        // tombol tengah
-        Container(
-          height: 50,
-          width: 50,
-          decoration: BoxDecoration(
-            color: Colors.black,
-            shape: BoxShape.circle,
+    return Container(
+      margin: const EdgeInsets.all(16),
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      height: 70,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(30),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.08),
+            blurRadius: 20,
+            offset: const Offset(0, 10),
           ),
-          child: const Icon(Icons.add, color: Colors.white),
-        ),
+        ],
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Icon(Icons.home, color: Colors.black),
+          Icon(Icons.search, color: Colors.grey),
+        // tombol tengah
+          Container(
+            height: 50,
+            width: 50,
+            decoration: BoxDecoration(
+              color: Colors.black,
+              shape: BoxShape.circle,
+            ),
+            child: const Icon(Icons.add, color: Colors.white),
+          ),
 
-        Icon(Icons.chat_bubble_outline, color: Colors.grey),
-        Icon(Icons.person_outline, color: Colors.grey),
-      ],
-    ),
-  );
+          Icon(Icons.chat_bubble_outline, color: Colors.grey),
+          Icon(Icons.person_outline, color: Colors.grey),
+        ],
+      ),
+    );
+  }
 }
