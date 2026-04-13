@@ -170,30 +170,57 @@ class HomePage extends StatelessWidget {
                     ),
                   ],
                 ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: const [
-                    CircleAvatar(
-                      radius: 30,
-                      backgroundColor: Color(0xFFE0E0E0),
-                    ),
-                    SizedBox(height: 10),
-                    Text(
-                      "Rina",
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    Text(
-                      "UI Designer",
-                      style: TextStyle(
-                        color: Colors.grey,
-                        fontSize: 12,
+                child: Stack(
+                  children: [
+                    // background
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        image: const DecorationImage(
+                          image: NetworkImage(
+                            "https://picsum.photos/200",
+                          ),
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
-                    Text(
-                      "Bandung",
-                      style: TextStyle(
-                        color: Colors.grey,
-                        fontSize: 11,
+                    // overlay
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        gradient: LinearGradient(
+                          begin: Alignment.bottomCenter,
+                          end: Alignment.topCenter,
+                          colors: [
+                            Colors.black.withOpacity(0.6),
+                            Colors.transparent,
+                          ],
+                        ),
+                      ),
+                    ),
+                    // text
+                    Positioned(
+                      bottom: 12,
+                      left: 12,
+                      right: 12,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: const [
+                          Text(
+                            "Rina",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            "UI Designer • Bandung",
+                            style: TextStyle(
+                              color: Colors.white70,
+                              fontSize: 12,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ],
