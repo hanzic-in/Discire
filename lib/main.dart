@@ -23,13 +23,24 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();  
 }  
   class _HomePageState extends State<HomePage> {  
-  int currentIndex = 0;  
+  int currentIndex = 0;
+  List<String> chats = [];
+
+    void _goToChat(String name) {
+      setState(() {
+        if (!chats.contains(name)) {
+          chats.add(name);
+        }
+        currentIndex = 2;
+      });
+    }
   
   @override
   Widget build(BuildContext context) {  
     return Scaffold(  
       backgroundColor: const Color(0xFFF5F6FA),  
-      bottomNavigationBar: _bottomNav(),  
+      bottomNavigationBar: _bottomNav(),
+
       body: SafeArea(
         child: _getPage(),
       ),
@@ -150,144 +161,168 @@ class HomePage extends StatefulWidget {
   );
 }
 
-  Widget _searchPage() {
-  return const Center(child: Text("Search Page"));
-}
+    Widget _searchPage() {
+      return const Center(child: Text("Search Page"));
+    }
 
-Widget _chatPage() {
-  return const Center(child: Text("Chat Page"));
-}
+    Widget _chatPage() {
+      if (chats.isEmpty) {
+        return const Center(child: Text("Belum ada chat 😴"));
+      }
 
-Widget _profilePage() {
-  return const Center(child: Text("Profile Page"));
-}
+      return ListView.builder(
+        itemCount: chats.length,
+        itemBuilder: (context, index) {
+          return ListTile(
+            leading: const CircleAvatar(
+              backgroundColor: Colors.black,
+              child: Icon(Icons.person, color: Colors.white),
+            ),
+            title: Text(chats[index]),
+            subtitle: const Text("Tap to chat"),
+          );
+        },
+      );
+    }
+
+    Widget _profilePage() {
+      return const Center(child: Text("Profile Page"));
+    }
   
-  Widget _nearby() {  
-  return Column(  
-    crossAxisAlignment: CrossAxisAlignment.start,  
-    children: [  
-      const Padding(  
-        padding: EdgeInsets.fromLTRB(16, 20, 16, 10),  
-        child: Text(  
-          "Nearby Souls ✨",  
-          style: TextStyle(  
-            fontWeight: FontWeight.bold,  
-            fontSize: 16,  
-          ),  
-        ),  
-      ),  
-      SizedBox(  
-        height: 220,  
-        child: ListView.builder(  
-          scrollDirection: Axis.horizontal,  
-          itemCount: 5,  
-          itemBuilder: (context, index) {  
-            return SizedBox(  
-              width: 150,  
-              child: GestureDetector(  
-                onTap: () {  
-                  print("Klik user $index");  
-                },  
-                child: Container(  
-                  margin: const EdgeInsets.only(left: 16, bottom: 10),  
-                  decoration: BoxDecoration(  
-                    color: Colors.white,  
-                    borderRadius: BorderRadius.circular(20),  
-                    boxShadow: [  
-                      BoxShadow(  
-                        color: Colors.black.withOpacity(0.06),  
-                        blurRadius: 12,  
-                        offset: const Offset(0, 6),  
-                      ),  
-                    ],  
-                  ),  
-                  child: Stack(  
-                    children: [  
-                      // background  
-                      Container(  
-                        decoration: BoxDecoration(  
-                          borderRadius: BorderRadius.circular(20),  
-                          image: DecorationImage(  
-                            image: NetworkImage(  
-                              "https://i.pravatar.cc/300?img=${index + 1}",  
-                            ),  
-                            fit: BoxFit.cover,  
-                          ),  
-                        ),  
-                      ),  
-  
-                      // overlay  
-                      Container(  
-                        decoration: BoxDecoration(  
-                          borderRadius: BorderRadius.circular(20),  
-                          gradient: LinearGradient(  
-                            begin: Alignment.bottomCenter,  
-                            end: Alignment.topCenter,  
-                            colors: [  
-                              Colors.black.withOpacity(0.6),  
-                              Colors.transparent,  
-                            ],  
-                          ),  
-                        ),  
-                      ),  
-  
-                      // badge  
-                      Positioned(  
-                        top: 10,  
-                        left: 10,  
-                        child: Container(  
-                          padding: const EdgeInsets.symmetric(  
-                              horizontal: 8, vertical: 4),  
-                          decoration: BoxDecoration(  
-                            color: Colors.white.withOpacity(0.2),  
-                            borderRadius: BorderRadius.circular(10),  
-                          ),  
-                          child: const Text(  
-                            "Nearby",  
-                            style: TextStyle(  
-                              color: Colors.white,  
-                              fontSize: 10,  
-                            ),  
-                          ),  
-                        ),  
-                      ),  
-  
-                      // text  
-                      Positioned(  
-                        bottom: 12,  
-                        left: 12,  
-                        right: 12,  
-                        child: Column(  
-                          crossAxisAlignment: CrossAxisAlignment.start,  
-                          children: const [  
-                            Text(  
-                              "Rina",  
-                              style: TextStyle(  
-                                color: Colors.white,  
-                                fontWeight: FontWeight.bold,  
-                              ),  
-                            ),  
-                            Text(  
-                              "UI Designer • Bandung",  
-                              style: TextStyle(  
-                                color: Colors.white70,  
-                                fontSize: 12,  
-                              ),  
-                            ),  
-                          ],  
-                        ),  
-                      ),  
-                    ],  
-                  ),  
-                ),  
+    Widget _nearby() {  
+      return Column(  
+        crossAxisAlignment: CrossAxisAlignment.start,  
+        children: [  
+          const Padding(  
+            padding: EdgeInsets.fromLTRB(16, 20, 16, 10),  
+            child: Text(  
+              "Nearby Souls ✨",  
+              style: TextStyle(  
+                fontWeight: FontWeight.bold,  
+                fontSize: 16,  
               ),  
-            );  
-          },  
-        ),  
-      ),  
-    ],  
-  );  
-}  
+            ),  
+          ),  
+          SizedBox(  
+            height: 220,  
+            child: ListView.builder(  
+              scrollDirection: Axis.horizontal,  
+              itemCount: 5,  
+              itemBuilder: (context, index) {
+                final name = "User $index";
+                return SizedBox(  
+                  width: 150,  
+                  child: GestureDetector(  
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => UserDetailPage(
+                            index: index,
+                            onConnect: () => _goToChat(name),
+                          ),
+                        ),
+                      );
+                    },
+                    child: Container(  
+                      margin: const EdgeInsets.only(left: 16, bottom: 10),  
+                      decoration: BoxDecoration(
+                        color: Colors.white,  
+                        borderRadius: BorderRadius.circular(20),  
+                        boxShadow: [  
+                          BoxShadow(  
+                            color: Colors.black.withOpacity(0.06),  
+                            blurRadius: 12,  
+                            offset: const Offset(0, 6),  
+                          ),  
+                        ],  
+                      ),  
+                      child: Stack(  
+                        children: [  
+                          // background  
+                          Container(  
+                            decoration: BoxDecoration(  
+                              borderRadius: BorderRadius.circular(20),  
+                              image: DecorationImage(  
+                                image: NetworkImage(  
+                                  "https://i.pravatar.cc/300?img=${index + 1}",  
+                                ),  
+                                fit: BoxFit.cover,  
+                              ),  
+                            ),  
+                          ),  
+  
+                          // overlay  
+                          Container(  
+                            decoration: BoxDecoration(  
+                              borderRadius: BorderRadius.circular(20),  
+                              gradient: LinearGradient(
+                                begin: Alignment.bottomCenter,  
+                                end: Alignment.topCenter,  
+                                colors: [  
+                                  Colors.black.withOpacity(0.6), 
+                                  Colors.transparent,  
+                                ],  
+                              ),  
+                            ),  
+                          ),  
+                          // badge  
+                          Positioned(  
+                            top: 10,  
+                            left: 10,  
+                            child: Container(  
+                              padding: const EdgeInsets.symmetric(  
+                                horizontal: 8, vertical: 4),  
+                              decoration: BoxDecoration(  
+                                color: Colors.white.withOpacity(0.2),  
+                                borderRadius: BorderRadius.circular(10),  
+                              ),  
+                              child: const Text(  
+                                "Nearby",  
+                                style: TextStyle(  
+                                  color: Colors.white,  
+                                  fontSize: 10,  
+                                ),  
+                              ),  
+                            ),  
+                          ),  
+   
+                          // text  
+                          Positioned(  
+                            bottom: 12,  
+                            left: 12,  
+                            right: 12,  
+                            child: Column(  
+                              crossAxisAlignment: CrossAxisAlignment.start,  
+                              children: [
+                                Text(
+                                  name,
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                const Text(
+                                  "UI Designer • Bandung",
+                                  style: TextStyle(
+                                    color: Colors.white70,
+                                    fontSize: 12,
+                                  ),
+                                ),
+                              ], 
+                            ),  
+                          ),  
+                        ],  
+                      ),  
+                    ),  
+                  ),  
+                );  
+              },  
+            ),  
+          ),  
+        ],  
+      );  
+    }
   
     Widget _wipFeed() {  
       return Column(  
@@ -482,5 +517,103 @@ Widget _profilePage() {
         ),  
       ),  
     );  
+  }
+}
+
+class UserDetailPage extends StatelessWidget {
+  final int index;
+  final VoidCallback onConnect;
+
+  const UserDetailPage({
+    super.key,
+    required this.index,
+    required this.onConnect,
+  });
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: const Color(0xFFF5F6FA),
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        iconTheme: const IconThemeData(color: Colors.black),
+      ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // FOTO
+          Container(
+            height: 300,
+            width: double.infinity,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: NetworkImage(
+                  "https://i.pravatar.cc/300?img=${index + 1}",
+                ),
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+
+          const SizedBox(height: 16),
+
+          // INFO
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16),
+            child: Text(
+              "Rina, 22",
+              style: TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16),
+            child: Text(
+              "UI Designer • Bandung",
+              style: TextStyle(color: Colors.grey),
+            ),
+          ),
+
+          const SizedBox(height: 16),
+
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16),
+            child: Text(
+              "Suka design, lagi belajar Flutter, pengen ketemu orang baru 🚀",
+            ),
+          ),
+
+          const Spacer(),
+
+          // BUTTON
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: Container(
+              height: 55,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: Colors.black,
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: InkWell(
+                onTap: () {
+                  Navigator.pop(context);
+                  onConnect();
+                },
+                child: const Center(
+                  child: Text(
+                    "Connect",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+              ),
+            ),
+          )
+        ],
+      ),
+    );
   }
 }
