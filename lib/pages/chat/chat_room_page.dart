@@ -49,7 +49,6 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
 
       body: Column(
         children: [
-          /// 🔥 CHAT LIST
           Expanded(
             child: ListView.builder(
               padding: const EdgeInsets.all(16),
@@ -65,7 +64,6 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
             ),
           ),
 
-          /// 🔥 INPUT AREA
           Container(
             padding: const EdgeInsets.fromLTRB(16, 10, 16, 20),
             decoration: const BoxDecoration(
