@@ -34,7 +34,7 @@ class ChatListPage extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (_) => const ChatRoomPage(name: "Aria Chen"),
+                  builder: (_) => ChatRoomPage(name: "Aria Chen"),
                   ),
                   );
             },
