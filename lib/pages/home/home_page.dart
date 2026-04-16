@@ -1,6 +1,8 @@
-import 'package:flutter/material.dart';
-import 'chat_room_page.dart';
-import 'user_detail_page.dart';
+import 'widgets/header.dart';
+import 'widgets/search_bar.dart';
+import 'widgets/chips.dart';
+import 'widgets/nearby_section.dart';
+import '../chat/chat_list_page.dart';
 
 class HomePage extends StatefulWidget {  
   const HomePage({super.key});  
@@ -142,17 +144,16 @@ class HomePage extends StatefulWidget {
     );  
   } 
 
-  Widget _homePage() {
+Widget _homePage() {
   return SingleChildScrollView(
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        _header(),
-        _search(),
-        _chips(),
-        _nearby(),
-        _wipFeed(),
-        const SizedBox(height: 100),
+      children: const [
+        HomeHeader(),
+        HomeSearchBar(),
+        HomeChips(),
+        NearbySection(),
+        SizedBox(height: 100),
       ],
     ),
   );
@@ -438,7 +439,7 @@ Widget _chatPage() {
     case 1:
       return _searchPage();
     case 2:
-      return _chatPage();
+    return const ChatListPage();
     case 3:
       return _profilePage();
     default:
