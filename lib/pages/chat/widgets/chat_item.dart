@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'chat_room_page.dart';
+import '../chat_room_page.dart';
 
 class ChatItem extends StatelessWidget {
   final String name;
