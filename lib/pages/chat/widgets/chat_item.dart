@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'chat_room_page.dart';
 
 class ChatItem extends StatelessWidget {
   final String name;
@@ -93,10 +94,11 @@ Widget build(BuildContext context) {
                     style: const TextStyle(color: Colors.white, fontSize: 10),
                   ),
                 )
-            ],
-          )
-        ],
+              ],
+            )
+          ],
+        ),
       ),
-    ),
-  );
+    );
+  }
 }
