@@ -18,11 +18,11 @@ class ChatItem extends StatelessWidget {
     this.onTap,
   });
 
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
+@override
+Widget build(BuildContext context) {
+  return GestureDetector(
+    onTap: onTap,
+    child: Container(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
@@ -39,8 +39,6 @@ class ChatItem extends StatelessWidget {
                 radius: 28,
                 backgroundImage: NetworkImage(image),
               ),
-
-              // online dot
               Positioned(
                 bottom: 0,
                 right: 0,
@@ -56,45 +54,33 @@ class ChatItem extends StatelessWidget {
               )
             ],
           ),
-
           const SizedBox(width: 12),
-
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   name,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 4),
                 Text(
                   message,
-                  style: const TextStyle(
-                    color: Colors.grey,
-                    fontSize: 13,
-                  ),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(color: Colors.grey, fontSize: 13),
                 ),
               ],
             ),
           ),
-
           Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Text(
                 time,
-                style: const TextStyle(
-                  fontSize: 11,
-                  color: Colors.grey,
-                ),
+                style: const TextStyle(fontSize: 11, color: Colors.grey),
               ),
               const SizedBox(height: 6),
-
               if (unread > 0)
                 Container(
                   padding: const EdgeInsets.all(6),
@@ -104,16 +90,13 @@ class ChatItem extends StatelessWidget {
                   ),
                   child: Text(
                     unread.toString(),
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 10,
-                    ),
+                    style: const TextStyle(color: Colors.white, fontSize: 10),
                   ),
                 )
             ],
           )
         ],
       ),
-    );
-  }
+    ),
+  );
 }
