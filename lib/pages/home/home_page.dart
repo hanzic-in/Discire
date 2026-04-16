@@ -68,88 +68,58 @@ class HomePage extends StatefulWidget {
   }
 }
   
-  Widget _bottomNav() {  
-    return SafeArea(  
-      child: Container(  
-        margin: const EdgeInsets.all(16),  
-        padding: const EdgeInsets.symmetric(horizontal: 20),  
-        height: 70,  
-        decoration: BoxDecoration(  
-          color: Colors.white,        
-          borderRadius: BorderRadius.circular(30),  
-          boxShadow: [  
-            BoxShadow(  
-              color: Colors.black.withOpacity(0.08),  
-              blurRadius: 20,  
-              offset: const Offset(0, 10),  
-            ),  
-          ],  
-        ),  
-        child: Row(  
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,  
-          children: [  
-            IconButton(  
-              onPressed: () {  
-                setState(() => currentIndex = 0);  
-              },  
-              icon: Icon(  
-                Icons.home,  
-                color: currentIndex == 0 ? Colors.black : Colors.grey,  
-              ),  
-            ),  
-            IconButton(  
-              onPressed: () {  
-                setState(() => currentIndex = 1);  
-              },  
-              icon: Icon(  
-                Icons.search,  
-                color: currentIndex == 1 ? Colors.black : Colors.grey,  
-              ),  
-            ),  
-            // tombol tengah  
-            Container(
-              height: 55,
-              width: 55,
-              decoration: BoxDecoration(
-                color: Colors.black,
-                shape: BoxShape.circle,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.3),
-                    blurRadius: 10,
-                    offset: const Offset(0, 5),
-                  ),
-                ],
+  Widget _bottomNav() {
+  return Stack(
+    alignment: Alignment.bottomCenter,
+    children: [
+      ClipPath(
+        clipper: BottomNavClipper(),
+        child: Container(
+          height: 80,
+          margin: const EdgeInsets.all(16),
+          padding: const EdgeInsets.symmetric(horizontal: 30),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(30),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              IconButton(
+                onPressed: () => setState(() => currentIndex = 0),
+                icon: Icon(Icons.home),
               ),
-              child: IconButton(
-                onPressed: () {
-                  print("Add clicked");
-                },
-                icon: const Icon(Icons.add, color: Colors.white),
+              IconButton(
+                onPressed: () => setState(() => currentIndex = 1),
+                icon: Icon(Icons.search),
               ),
-            ), 
-  
-            IconButton(  
-              onPressed: () {  
-                setState(() => currentIndex = 2);  
-              },  
-              icon: Icon(  
-                Icons.chat_bubble_outline,  
-                color: currentIndex == 2 ? Colors.black : Colors.grey,  
-              ),  
-            ),  
-            IconButton(  
-              onPressed: () {  
-                setState(() => currentIndex = 3);  
-              },  
-              icon: Icon(  
-                Icons.person_outline,  
-                color: currentIndex == 3 ? Colors.black : Colors.grey,  
-              ),  
-            ),  
-          ],  
-        ),  
-      ),  
-    );  
-  }
+              const SizedBox(width: 40),
+              IconButton(
+                onPressed: () => setState(() => currentIndex = 2),
+                icon: Icon(Icons.chat),
+              ),
+              IconButton(
+                onPressed: () => setState(() => currentIndex = 3),
+                icon: Icon(Icons.person),
+              ),
+            ],
+          ),
+        ),
+      ),
+
+      Positioned(
+        bottom: 30,
+        child: Container(
+          height: 60,
+          width: 60,
+          decoration: const BoxDecoration(
+            color: Colors.black,
+            shape: BoxShape.circle,
+          ),
+          child: const Icon(Icons.compare_arrows, color: Colors.white),
+        ),
+      )
+    ],
+  );
+}
 }
