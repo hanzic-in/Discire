@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'widgets/chat_item.dart';
+import 'chat_room_page.dart';
 
 class ChatListPage extends StatelessWidget {
   const ChatListPage({super.key});
