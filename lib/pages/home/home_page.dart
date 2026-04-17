@@ -5,6 +5,7 @@ import 'widgets/chips.dart';
 import 'widgets/nearby_section.dart';
 import '../chat/chat_list_page.dart';
 import '../../widgets/bottom_nav_clipper.dart';
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 
 class HomePage extends StatefulWidget {  
   const HomePage({super.key});  
@@ -21,8 +22,26 @@ class HomePage extends StatefulWidget {
   Widget build(BuildContext context) {  
     return Scaffold(  
       backgroundColor: const Color(0xFFF5F6FA),  
-      bottomNavigationBar: _bottomNav(),
-
+      bottomNavigationBar: CurvedNavigationBar(
+        index: currentIndex,
+        height: 65,
+        backgroundColor: const Color(0xFFF5F6FA),
+        color: Colors.white,
+        buttonBackgroundColor: Colors.black,
+        animationDuration: const Duration(milliseconds: 300),
+        items: const [
+          Icon(Icons.home),
+          Icon(Icons.search),
+          Icon(Icons.add, color: Colors.white),
+          Icon(Icons.chat_bubble_outline),
+          Icon(Icons.person_outline),
+        ],
+        onTap: (index) {
+          setState(() {
+            currentIndex = index;
+          });
+        },
+      ),
       body: SafeArea(
         child: _getPage(),
       ),
@@ -54,73 +73,21 @@ class HomePage extends StatefulWidget {
       return const Center(child: Text("Profile Page"));
     }
     
-  Widget _getPage() {
-  switch (currentIndex) {
-    case 0:
-      return _homePage();
-    case 1:
-      return _searchPage();
-    case 2:
-    return const ChatListPage();
-    case 3:
-      return _profilePage();
-    default:
-      return _homePage();
-  }
-}
-  
-  Widget _bottomNav() {
-  return Stack(
-    alignment: Alignment.bottomCenter,
-    children: [
-      ClipPath(
-        clipper: BottomNavClipper(),
-        child: Container(
-          height: 80,
-          margin: const EdgeInsets.all(16),
-          padding: const EdgeInsets.symmetric(horizontal: 30),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(30),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              IconButton(
-                onPressed: () => setState(() => currentIndex = 0),
-                icon: Icon(Icons.home),
-              ),
-              IconButton(
-                onPressed: () => setState(() => currentIndex = 1),
-                icon: Icon(Icons.search),
-              ),
-              const SizedBox(width: 40),
-              IconButton(
-                onPressed: () => setState(() => currentIndex = 2),
-                icon: Icon(Icons.chat),
-              ),
-              IconButton(
-                onPressed: () => setState(() => currentIndex = 3),
-                icon: Icon(Icons.person),
-              ),
-            ],
-          ),
-        ),
-      ),
+    Widget _getPage() {
+      switch (currentIndex) {
+        case 0:
+          return _homePage();
+        case 1:
+          return _searchPage();
+        case 2:  
+          return const Center(child: Text("Add Page"));
+        case 3:
+          return const ChatListPage();
+        case 4:
+          return _profilePage();
+        default:
+          return _homePage();
+      }
+    }
 
-      Positioned(
-        bottom: 30,
-        child: Container(
-          height: 60,
-          width: 60,
-          decoration: const BoxDecoration(
-            color: Colors.black,
-            shape: BoxShape.circle,
-          ),
-          child: const Icon(Icons.compare_arrows, color: Colors.white),
-        ),
-      )
-    ],
-  );
-}
 }
