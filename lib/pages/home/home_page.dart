@@ -4,6 +4,7 @@ import 'widgets/search_bar.dart';
 import 'widgets/chips.dart';
 import 'widgets/nearby_section.dart';
 import '../chat/chat_list_page.dart';
+import '../../widgets/bottom_nav_clipper.dart';
 
 class HomePage extends StatefulWidget {  
   const HomePage({super.key});  
