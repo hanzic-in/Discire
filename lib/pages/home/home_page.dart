@@ -4,7 +4,6 @@ import 'widgets/search_bar.dart';
 import 'widgets/chips.dart';
 import 'widgets/nearby_section.dart';
 import '../chat/chat_list_page.dart';
-import '../../widgets/bottom_nav_clipper.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 
 class HomePage extends StatefulWidget {  
@@ -27,14 +26,29 @@ class HomePage extends StatefulWidget {
         height: 65,
         backgroundColor: const Color(0xFFF5F6FA),
         color: Colors.white,
-        buttonBackgroundColor: Colors.black,
+        buttonBackgroundColor: Colors.white,
         animationDuration: const Duration(milliseconds: 300),
-        items: const [
-          Icon(Icons.home),
-          Icon(Icons.search),
-          Icon(Icons.add, color: Colors.white),
-          Icon(Icons.chat_bubble_outline),
-          Icon(Icons.person_outline),
+        items: [
+          Icon(
+            Icons.home,
+            color: currentIndex == 0 ? Colors.black : Colors.grey,
+          ),
+          Icon(
+            Icons.search,
+            color: currentIndex == 1 ? Colors.black : Colors.grey,
+          ),
+          Icon(
+            Icons.add,
+            color: currentIndex == 2 ? Colors.black : Colors.grey,
+          ),
+          Icon(
+            Icons.chat_bubble_outline,
+            color: currentIndex == 3 ? Colors.black : Colors.grey,
+          ),
+          Icon(
+            Icons.person_outline,
+            color: currentIndex == 4 ? Colors.black : Colors.grey,
+          ),
         ],
         onTap: (index) {
           setState(() {
