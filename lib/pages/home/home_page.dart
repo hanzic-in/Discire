@@ -21,7 +21,17 @@ class HomePage extends StatefulWidget {
   Widget build(BuildContext context) {  
     return Scaffold(  
       backgroundColor: const Color(0xFFF5F6FA),  
-      bottomNavigationBar: CurvedNavigationBar(
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.08),
+              blurRadius: 20,
+              offset: const Offset(0, -5),
+            ),
+          ],
+        ),
+        child: CurvedNavigationBar(
         index: currentIndex,
         height: 65,
         backgroundColor: const Color(0xFFF5F6FA),
