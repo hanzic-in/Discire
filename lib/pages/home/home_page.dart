@@ -71,6 +71,7 @@ class HomePage extends StatefulWidget {
       child: _getPage(),
     ),
   );
+  }
   
    Widget _getPage() {
      switch (currentIndex) {
