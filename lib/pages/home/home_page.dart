@@ -66,11 +66,11 @@ class HomePage extends StatefulWidget {
           });
         },
       ),
-      body: SafeArea(
-        child: _getPage(),
-      ),
-    );  
-  }  
+    body: SafeArea(
+      child: _getPage(),
+    ),
+  );  
+),
   
   
   
