@@ -96,8 +96,9 @@ class HomePage extends StatefulWidget {
     Widget _profilePage() {
       return const Center(child: Text("Profile Page"));
     }
-    
-    Widget _getPage() {
+}
+
+        Widget _getPage() {
       switch (currentIndex) {
         case 0:
           return _homePage();
@@ -113,5 +114,3 @@ class HomePage extends StatefulWidget {
           return _homePage();
       }
     }
-
-}
