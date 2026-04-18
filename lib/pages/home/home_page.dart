@@ -72,7 +72,22 @@ class HomePage extends StatefulWidget {
     ),
   );
   
-  
+   Widget _getPage() {
+     switch (currentIndex) {
+       case 0:
+         return _homePage();
+       case 1: 
+         return _searchPage();
+       case 2:  
+         return const Center(child: Text("Add Page"));
+       case 3:
+         return const ChatListPage();
+       case 4:
+         return _profilePage();
+       default:
+        return _homePage();
+     }
+   }
   
   Widget _homePage() {
     return SingleChildScrollView(
@@ -97,22 +112,7 @@ class HomePage extends StatefulWidget {
       return const Center(child: Text("Profile Page"));
     }
 
-    Widget _getPage() {
-      switch (currentIndex) {
-        case 0:
-          return _homePage();
-        case 1:
-          return _searchPage();
-        case 2:  
-          return const Center(child: Text("Add Page"));
-        case 3:
-          return const ChatListPage();
-        case 4:
-          return _profilePage();
-        default:
-          return _homePage();
-      }
-    }
+
 }
 
 
