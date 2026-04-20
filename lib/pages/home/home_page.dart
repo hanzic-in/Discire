@@ -21,8 +21,8 @@ class HomePage extends StatefulWidget {
 
     
 @override
-Widget build(BuildContext context) {  
-  return Scaffold(  
+Widget build(BuildContext context) {
+  return Scaffold(
     backgroundColor: const Color(0xFFF5F6FA),  
     bottomNavigationBar: SafeArea(
       child: Container(
@@ -71,11 +71,12 @@ Widget build(BuildContext context) {
         },
       ),
     ),
+  ),
     body: SafeArea(
       child: _getPage(),
     ),
   );
-  }
+    
   
    Widget _getPage() {
      switch (currentIndex) {
@@ -95,18 +96,21 @@ Widget build(BuildContext context) {
    }
   
   Widget _homePage() {
-    return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: const [
-          HomeHeader(),
-          HomeSearchBar(),
-          HomeChips(),
-          NearbySection(),
-          PostSection(),
-          SizedBox(height: 100),
-        ],
-      ),
+    return MainLayout(
+      usePadding: false,
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: const [
+            HomeHeader(),
+            HomeSearchBar(),
+            HomeChips(),
+            NearbySection(),
+            PostSection(),
+            SizedBox(height: 100),
+          ],
+        ),
+      ),      
     );
   }
     
