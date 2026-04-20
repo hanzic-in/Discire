@@ -98,6 +98,20 @@ class _ProfilePageState extends State<ProfilePage> with TickerProviderStateMixin
 
             const SizedBox(height: 25),
 
+            // --- interest ---
+            const Text(
+              "MINAT", 
+              style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, letterSpacing: 1.2, color: Colors.grey)
+            ),
+            const SizedBox(height: 10),
+            Wrap(
+              spacing: 8,
+              runSpacing: 8,
+              children: ProfileData.interests.map((interest) => _buildInterestChip(interest)).toList(),
+            ),
+
+            const SizedBox(height: 25),
+            
             // --- TABBAR SECTION ---
             TabBar(
               controller: _tabController,
@@ -130,24 +144,24 @@ class _ProfilePageState extends State<ProfilePage> with TickerProviderStateMixin
     );
   }
 
-  // LOGIKA PINDAH TAB
+  // TAB MOVE LOGIC
   Widget _buildTabContent(int index) {
     switch (index) {
       case 0:
-        return _buildWorkGrid(); // Panggil Grid Pinterest
+        return _buildWorkGrid();
       case 1:
         return const Center(child: Padding(
           padding: EdgeInsets.symmetric(vertical: 40),
           child: Text("Belum ada postingan baru", style: TextStyle(color: Colors.grey)),
         ));
       case 2:
-        return _buildActivityList(); // Panggil Daftar Aktivitas
+        return _buildActivityList();
       default:
         return const SizedBox();
     }
   }
 
-  // WIDGET KARYA (MASONRY GRID)
+  // WORK WIDGETS
   Widget _buildWorkGrid() {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -173,7 +187,7 @@ class _ProfilePageState extends State<ProfilePage> with TickerProviderStateMixin
     );
   }
 
-  // WIDGET AKTIVITAS
+  // ACTIVITY WIDGETS
   Widget _buildActivityList() {
     return Column(
       children: [
@@ -220,6 +234,18 @@ class _ProfilePageState extends State<ProfilePage> with TickerProviderStateMixin
     );
   }
 
+    Widget _buildInterestChip(String label) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.grey[200]!),
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Text(label, style: const TextStyle(fontSize: 13)),
+    );
+    }
+  
+
   Widget _buildStat(String value, String label) {
     return Column(
       children: [
@@ -230,7 +256,6 @@ class _ProfilePageState extends State<ProfilePage> with TickerProviderStateMixin
   }
 }
 
-// DATA TETEP DI SINI
 class ProfileData {
   static const String name = "hanz zyn";
   static const String location = "Jakarta, Indonesia";
