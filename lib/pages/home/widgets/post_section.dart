@@ -84,7 +84,7 @@ class PostSection extends StatelessWidget {
               ListTile(
                 leading: CircleAvatar(
                   backgroundColor: Colors.grey[200],
-                  backgroundImage: const NetworkImage("https://i.pravatar.cc/300?u=aria"),
+                  foregroundImage: const NetworkImage("https://i.pravatar.cc/300?u=aria"),
                   onForegroundImageError: (exception, stackTrace) {},
                   child: const Icon(Icons.person, color: Colors.grey),
                 ),
