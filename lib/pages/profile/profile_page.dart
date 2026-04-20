@@ -68,8 +68,11 @@ class ProfilePage extends StatelessWidget {
 
             const SizedBox(height: 30),
 
-            // Bio & Minat
-            const Text("MINAT", style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, letterSpacing: 1.2, color: Colors.grey)),
+             // Bio & Minat
+            Text(
+              "MINAT", 
+              style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, letterSpacing: 1.2, color: Colors.grey)
+            ),
             const SizedBox(height: 10),
             Wrap(
               spacing: 8,
@@ -80,7 +83,10 @@ class ProfilePage extends StatelessWidget {
             const SizedBox(height: 30),
 
             // Pencapaian
-            const Text("PENCAPAIAN", style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, letterSpacing: 1.2, color: Colors.grey)),
+            const Text(
+              "PENCAPAIAN", 
+              style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, letterSpacing: 1.2, color: Colors.grey)
+            ),
             const SizedBox(height: 10),
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
@@ -154,3 +160,12 @@ class ProfilePage extends StatelessWidget {
     );
   }
 }
+
+class ProfileData {
+  static const String name = "hanz zyn";
+  static const String location = "Jakarta, Indonesia";
+  static const List<String> interests = [
+    "UI/UX Design", "React", "Figma", "Ilustrasi", "Fotografi", "Musik"
+  ];
+}
+
