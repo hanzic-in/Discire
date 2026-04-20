@@ -52,6 +52,14 @@ class PostSection extends StatelessWidget {
                       height: 200,
                       width: double.infinity,
                       fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) {
+                        return Container(
+                          height: 200,
+                          width: double.infinity,
+                          color: Colors.grey[200],
+                          child: const Icon(Icons.broken_image, color: Colors.grey, size: 50),
+                        );
+                      },
                     ),
                   ),
                   Positioned(
@@ -74,8 +82,11 @@ class PostSection extends StatelessWidget {
 
               // User Info
               ListTile(
-                leading: const CircleAvatar(
-                  backgroundImage: NetworkImage("https://i.pravatar.cc/300?u=aria"),
+                leading: CircleAvatar(
+                  backgroundColor: Colors.grey[200],
+                  backgroundImage: const NetworkImage("https://i.pravatar.cc/300?u=aria"),
+                  onForegroundImageError: (exception, stackTrace) {},
+                  child: const Icon(Icons.person, color: Colors.grey),
                 ),
                 title: const Text("Aria Chen", style: TextStyle(fontWeight: FontWeight.bold)),
                 subtitle: const Text("2h ago"),
