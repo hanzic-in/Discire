@@ -4,6 +4,7 @@ import 'widgets/search_bar.dart';
 import 'widgets/chips.dart';
 import 'widgets/nearby_section.dart';
 import '../chat/chat_list_page.dart';
+import '../profile/profile_page.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'widgets/post_section.dart';
 
@@ -99,6 +100,7 @@ class HomePage extends StatefulWidget {
           HomeHeader(),
           HomeSearchBar(),
           HomeChips(),
+          ProfilePage
           NearbySection(),
           PostSection(),
           SizedBox(height: 100),
@@ -111,11 +113,6 @@ class HomePage extends StatefulWidget {
       return const Center(child: Text("Search Page"));
     }
     
-    Widget _profilePage() {
-      return const Center(child: Text("Profile Page"));
-    }
-
-
 }
 
 
