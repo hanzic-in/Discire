@@ -100,7 +100,6 @@ class HomePage extends StatefulWidget {
           HomeHeader(),
           HomeSearchBar(),
           HomeChips(),
-          ProfilePage(),
           NearbySection(),
           PostSection(),
           SizedBox(height: 100),
