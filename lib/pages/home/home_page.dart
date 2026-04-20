@@ -86,7 +86,7 @@ class HomePage extends StatefulWidget {
        case 3:
          return const ChatListPage();
        case 4:
-         return _profilePage();
+         return const ProfilePage();
        default:
         return _homePage();
      }
