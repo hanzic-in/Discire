@@ -15,89 +15,71 @@ class HomePage extends StatefulWidget {
   @override  
   State<HomePage> createState() => _HomePageState();  
 }  
-  class _HomePageState extends State<HomePage> {
-    
-      int currentIndex = 0;
 
-    
-@override
-Widget build(BuildContext context) {
-  return Scaffold(
-    backgroundColor: const Color(0xFFF5F6FA),  
-    bottomNavigationBar: SafeArea(
-      child: Container(
-        decoration: BoxDecoration(
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.08),
-              blurRadius: 20,
-              offset: const Offset(0, -5),
-            ),
-          ],
+class _HomePageState extends State<HomePage> {
+  int currentIndex = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: const Color(0xFFF5F6FA),  
+      bottomNavigationBar: SafeArea(
+        child: Container(
+          decoration: BoxDecoration(
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.08),
+                blurRadius: 20,
+                offset: const Offset(0, -5),
+              ),
+            ],
+          ),
+          child: CurvedNavigationBar(
+            index: currentIndex,
+            height: 65,
+            backgroundColor: const Color(0xFFF5F6FA),
+            color: Colors.white,
+            buttonBackgroundColor: Colors.white,
+            animationDuration: const Duration(milliseconds: 300),
+            items: [
+              Icon(Icons.home, color: currentIndex == 0 ? Colors.black : Colors.grey),
+              Icon(Icons.search, color: currentIndex == 1 ? Colors.black : Colors.grey),
+              Icon(Icons.add, color: currentIndex == 2 ? Colors.black : Colors.grey),
+              Icon(Icons.chat_bubble_outline, color: currentIndex == 3 ? Colors.black : Colors.grey),
+              Icon(Icons.person_outline, color: currentIndex == 4 ? Colors.black : Colors.grey),
+            ],
+            onTap: (index) {
+              setState(() {
+                currentIndex = index;
+              });
+            },
+          ),
         ),
-        child: CurvedNavigationBar(
-        index: currentIndex,
-        height: 65,
-        backgroundColor: const Color(0xFFF5F6FA),
-        color: Colors.white,
-        buttonBackgroundColor: Colors.white,
-        animationDuration: const Duration(milliseconds: 300),
-        items: [
-          Icon(
-            Icons.home,
-            color: currentIndex == 0 ? Colors.black : Colors.grey,
-          ),
-          Icon(
-            Icons.search,
-            color: currentIndex == 1 ? Colors.black : Colors.grey,
-          ),
-          Icon(
-            Icons.add,
-            color: currentIndex == 2 ? Colors.black : Colors.grey,
-          ),
-          Icon(
-            Icons.chat_bubble_outline,
-            color: currentIndex == 3 ? Colors.black : Colors.grey,
-          ),
-          Icon(
-            Icons.person_outline,
-            color: currentIndex == 4 ? Colors.black : Colors.grey,
-          ),
-        ],
-        onTap: (index) {
-          setState(() {
-            currentIndex = index;
-          });
-        },
       ),
-    ),
-  ),
-    body: SafeArea(
-      child: _getPage(),
-    ),
-  );
-    
-  
-   Widget _getPage() {
-     switch (currentIndex) {
-       case 0:
-         return _homePage();
-       case 1: 
-         return _searchPage();
-       case 2:  
-         return const Center(child: Text("Add Page"));
-       case 3:
-         return const ChatListPage();
-       case 4:
-         return const ProfilePage();
-       default:
+      body: _getPage(),
+    );
+  }
+
+  Widget _getPage() {
+    switch (currentIndex) {
+      case 0:
         return _homePage();
-     }
-   }
-  
+      case 1: 
+        return _searchPage();
+      case 2:  
+        return const Center(child: Text("Add Page"));
+      case 3:
+        return const ChatListPage();
+      case 4:
+        return const ProfilePage();
+      default:
+        return _homePage();
+    }
+  }
+
   Widget _homePage() {
     return MainLayout(
-      usePadding: false,
+      usePadding: false, 
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -110,14 +92,11 @@ Widget build(BuildContext context) {
             SizedBox(height: 100),
           ],
         ),
-      ),      
+      ),
     );
   }
-    
-    Widget _searchPage() {
-      return const Center(child: Text("Search Page"));
-    }
-    
+
+  Widget _searchPage() {
+    return const Center(child: Text("Search Page"));
+  }
 }
-
-
