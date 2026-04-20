@@ -5,6 +5,7 @@ import 'widgets/chips.dart';
 import 'widgets/nearby_section.dart';
 import '../chat/chat_list_page.dart';
 import '../profile/profile_page.dart';
+import '../../widgets/main_layout.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'widgets/post_section.dart';
 
@@ -19,11 +20,12 @@ class HomePage extends StatefulWidget {
       int currentIndex = 0;
 
     
-  @override
-  Widget build(BuildContext context) {  
-    return Scaffold(  
-      backgroundColor: const Color(0xFFF5F6FA),  
-      bottomNavigationBar: Container(
+@override
+Widget build(BuildContext context) {  
+  return Scaffold(  
+    backgroundColor: const Color(0xFFF5F6FA),  
+    bottomNavigationBar: SafeArea(
+      child: Container(
         decoration: BoxDecoration(
           boxShadow: [
             BoxShadow(
