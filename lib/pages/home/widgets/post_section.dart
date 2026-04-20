@@ -1,61 +1,109 @@
 import 'package:flutter/material.dart';
 
 class PostSection extends StatelessWidget {
+  const PostSection({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        // Header
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20),
+          padding: const EdgeInsets.fromLTRB(16, 25, 16, 15),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("What's Happening", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-              Text("See all", style: TextStyle(color: Colors.grey)),
+              const Text(
+                "What's Happening",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+              ),
+              TextButton(
+                onPressed: () {},
+                child: const Text("See all", style: TextStyle(color: Colors.grey)),
+              ),
             ],
           ),
         ),
-        // Card
+
+        // Card Postingan
         Container(
-          margin: EdgeInsets.all(20),
+          margin: const EdgeInsets.symmetric(horizontal: 16),
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(25),
-            boxShadow: [],
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.05),
+                blurRadius: 15,
+                offset: const Offset(0, 5),
+              ),
+            ],
           ),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Stack(
                 children: [
                   ClipRRect(
-                    borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
-                    child: Image.network('url_gambar_postingan'),
+                    borderRadius: const BorderRadius.vertical(top: Radius.circular(25)),
+                    child: Image.network(
+                      "https://images.unsplash.com/photo-1586717791821-3f44a563dc4c?q=80&w=500",
+                      height: 200,
+                      width: double.infinity,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                   Positioned(
-                    top: 10, left: 10,
+                    top: 12,
+                    left: 12,
                     child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                      decoration: BoxDecoration(color: Colors.blue.withOpacity(0.7), borderRadius: BorderRadius.circular(10)),
-                      child: Text("Design", style: TextStyle(color: Colors.white, fontSize: 10)),
+                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                      decoration: BoxDecoration(
+                        color: Colors.blue.withOpacity(0.9),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: const Text(
+                        "Design",
+                        style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold),
+                      ),
                     ),
-                  )
+                  ),
                 ],
               ),
-              
+
+              // User Info
               ListTile(
-                leading: CircleAvatar(backgroundImage: NetworkImage('url_aria')),
-                title: Text("Aria Chen"),
-                subtitle: Text("2h ago"),
+                leading: const CircleAvatar(
+                  backgroundImage: NetworkImage("https://i.pravatar.cc/300?u=aria"),
+                ),
+                title: const Text("Aria Chen", style: TextStyle(fontWeight: FontWeight.bold)),
+                subtitle: const Text("2h ago"),
+                trailing: const Icon(Icons.more_horiz),
               ),
-              
-              Padding(
-                padding: EdgeInsets.all(15),
-                child: Text("New Design System..."),
-              )
+
+              // Teks Post
+              const Padding(
+                padding: EdgeInsets.fromLTRB(16, 0, 16, 20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "New Design System",
+                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                    ),
+                    SizedBox(height: 5),
+                    Text(
+                      "Just shipped our new design system for Q2. Clean, scalable, and pixel-perfect.",
+                      style: TextStyle(color: Colors.grey, fontSize: 14),
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
-        )
+        ),
+        const SizedBox(height: 100),
       ],
     );
   }
