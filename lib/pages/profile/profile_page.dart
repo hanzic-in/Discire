@@ -1,7 +1,20 @@
 import 'package:flutter/material.dart';
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
+
+  @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> with TickerProviderStateMixin {
+  late TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 3, vsync: this);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +33,7 @@ class ProfilePage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Profile Header
+            // --- HEADER SECTION ---
             Row(
               children: [
                 CircleAvatar(
@@ -31,25 +44,42 @@ class ProfilePage extends StatelessWidget {
                   child: const Icon(Icons.person, size: 40),
                 ),
                 const SizedBox(width: 20),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(ProfileData.name, style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
-                    Row(
-                      children: [
-                        const Icon(Icons.location_on_outlined, size: 14, color: Colors.grey),
-                        const SizedBox(width: 4),
-                        Text(ProfileData.location, style: const TextStyle(color: Colors.grey)),
-                      ],
-                    ),
-                  ],
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Text(ProfileData.name, style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+                          const SizedBox(width: 8),
+                          Text("he/him", style: TextStyle(color: Colors.grey[500], fontSize: 14)), // PRONOUNS
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          const Icon(Icons.location_on_outlined, size: 14, color: Colors.grey),
+                          const SizedBox(width: 4),
+                          Text(ProfileData.location, style: const TextStyle(color: Colors.grey)),
+                        ],
+                      ),
+                      const SizedBox(height: 8),
+                      // FOLLOWERS SECTION
+                      Row(
+                        children: [
+                          _buildFollowStats("1.2k", "Pengikut"),
+                          const SizedBox(width: 15),
+                          _buildFollowStats("850", "Mengikuti"),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
 
-            const SizedBox(height: 30),
+            const SizedBox(height: 25),
 
-            // Stats Section
+            // --- STATS SECTION ---
             Container(
               padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
@@ -66,65 +96,127 @@ class ProfilePage extends StatelessWidget {
               ),
             ),
 
-            const SizedBox(height: 30),
+            const SizedBox(height: 25),
 
-             // Bio & Minat
-            Text(
-              "MINAT", 
-              style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, letterSpacing: 1.2, color: Colors.grey)
-            ),
-            const SizedBox(height: 10),
-            Wrap(
-              spacing: 8,
-              runSpacing: 8,
-              children: ProfileData.interests.map((interest) => _buildInterestChip(interest)).toList(),
-            ),
-
-            const SizedBox(height: 30),
-
-            // Pencapaian
-            const Text(
-              "PENCAPAIAN", 
-              style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, letterSpacing: 1.2, color: Colors.grey)
-            ),
-            const SizedBox(height: 10),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  _buildAchievementBadge("Verified Human", const Color(0xFFE3F2FD), Colors.blue[700]!),
-                  _buildAchievementBadge("Early Adopter", const Color(0xFFF3E5F5), Colors.purple[700]!),
-                  _buildAchievementBadge("Spark Starter", const Color(0xFFFFF3E0), Colors.orange[700]!),
-                ],
-              ),
+            // --- TABBAR SECTION ---
+            TabBar(
+              controller: _tabController,
+              labelColor: Colors.black,
+              unselectedLabelColor: Colors.grey,
+              indicatorColor: Colors.black,
+              indicatorWeight: 3,
+              labelStyle: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+              tabs: const [
+                Tab(text: "Karya"),
+                Tab(text: "Post"),
+                Tab(text: "Aktivitas"),
+              ],
             ),
 
-            const SizedBox(height: 30),
+            const SizedBox(height: 20),
 
-            // Karya Section
-            const Text("KARYA & PROSES", style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, letterSpacing: 1.2, color: Colors.grey)),
-            const SizedBox(height: 15),
-            GridView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 10,
-                childAspectRatio: 1,
-              ),
-              itemCount: 4,
-              itemBuilder: (context, index) => Container(
-                decoration: BoxDecoration(
-                  color: Colors.grey[100],
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                child: const Icon(Icons.image_outlined, color: Colors.grey),
-              ),
+            // --- TAB CONTENT ---
+            AnimatedBuilder(
+              animation: _tabController,
+              builder: (context, child) {
+                return _buildTabContent(_tabController.index);
+              },
             ),
+
+            const SizedBox(height: 50),
           ],
         ),
       ),
+    );
+  }
+
+  // LOGIKA PINDAH TAB
+  Widget _buildTabContent(int index) {
+    switch (index) {
+      case 0:
+        return _buildWorkGrid(); // Panggil Grid Pinterest
+      case 1:
+        return const Center(child: Padding(
+          padding: EdgeInsets.symmetric(vertical: 40),
+          child: Text("Belum ada postingan baru", style: TextStyle(color: Colors.grey)),
+        ));
+      case 2:
+        return _buildActivityList(); // Panggil Daftar Aktivitas
+      default:
+        return const SizedBox();
+    }
+  }
+
+  // WIDGET KARYA (MASONRY GRID)
+  Widget _buildWorkGrid() {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Expanded(
+          child: Column(
+            children: [
+              _buildWorkItem("https://picsum.photos/200/300", 200),
+              _buildWorkItem("https://picsum.photos/200/150", 120),
+            ],
+          ),
+        ),
+        const SizedBox(width: 10),
+        Expanded(
+          child: Column(
+            children: [
+              _buildWorkItem("https://picsum.photos/201/150", 120),
+              _buildWorkItem("https://picsum.photos/201/300", 200),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  // WIDGET AKTIVITAS
+  Widget _buildActivityList() {
+    return Column(
+      children: [
+        _activityTile(Icons.chat_bubble_outline, "Membalas komentar Aria Chen", "1 jam yang lalu"),
+        _activityTile(Icons.favorite_border, "Menyukai UI Design System", "3 jam yang lalu"),
+      ],
+    );
+  }
+
+  // --- HELPER WIDGETS ---
+  Widget _activityTile(IconData icon, String title, String time) {
+    return ListTile(
+      contentPadding: EdgeInsets.zero,
+      leading: CircleAvatar(
+        backgroundColor: const Color(0xFFF1F3F5),
+        child: Icon(icon, size: 18, color: Colors.black),
+      ),
+      title: Text(title, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
+      subtitle: Text(time, style: const TextStyle(fontSize: 12)),
+    );
+  }
+
+  Widget _buildWorkItem(String url, double height) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 10),
+      decoration: BoxDecoration(
+        color: Colors.grey[100],
+        borderRadius: BorderRadius.circular(15),
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(15),
+        child: Image.network(url, height: height, width: double.infinity, fit: BoxFit.cover),
+      ),
+    );
+  }
+
+  Widget _buildFollowStats(String count, String label) {
+    return Row(
+      children: [
+        Text(count, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+        const SizedBox(width: 4),
+        Text(label, style: const TextStyle(color: Colors.grey, fontSize: 14)),
+      ],
     );
   }
 
@@ -136,36 +228,11 @@ class ProfilePage extends StatelessWidget {
       ],
     );
   }
-
-  Widget _buildInterestChip(String label) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.grey[200]!),
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Text(label, style: const TextStyle(fontSize: 13)),
-    );
-  }
-
-  Widget _buildAchievementBadge(String label, Color bgColor, Color textColor) {
-    return Container(
-      margin: const EdgeInsets.only(right: 10),
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-      decoration: BoxDecoration(
-        color: bgColor,
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Text(label, style: TextStyle(color: textColor, fontWeight: FontWeight.bold, fontSize: 11)),
-    );
-  }
 }
 
+// DATA TETEP DI SINI
 class ProfileData {
   static const String name = "hanz zyn";
   static const String location = "Jakarta, Indonesia";
-  static const List<String> interests = [
-    "UI/UX Design", "React", "Figma", "Ilustrasi", "Fotografi", "Musik"
-  ];
+  static const List<String> interests = ["UI/UX Design", "React", "Figma", "Ilustrasi", "Fotografi", "Musik"];
 }
-
