@@ -43,9 +43,9 @@ class _ProfilePageState extends State<ProfilePage> with TickerProviderStateMixin
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const ProfileHeader(),
-            const ProfileStats(),
-            const ProfileCapabilities(),
+            ProfileHeader(),
+            ProfileStats(),
+            ProfileCapabilities(),
             
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
