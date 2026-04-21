@@ -12,52 +12,46 @@ import 'dart:ui';
 class HomePage extends StatefulWidget {  
   const HomePage({super.key});  
   
-  @override  
-  State<HomePage> createState() => _HomePageState();  
-}  
-
-class _HomePageState extends State<HomePage> {
-  int currentIndex = 0;
-
   @override
   Widget build(BuildContext context) {
     bool isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Scaffold(
       backgroundColor:
-          isDark ? const Color(0xFF0D0D0D) : const Color(0xFFF5F6FA),
+          isDark ? const Color(0xFF0D0D0D) : const Color(0xFFF0F2F5),
       body: Stack(
         children: [
-          _getPage(),
+          _dummyPage(),
           Positioned(
             bottom: 20,
             left: 20,
             right: 20,
-            child: _buildGlassNav(isDark),
+            child: _buildNav(isDark),
           ),
         ],
       ),
     );
   }
 
-  Widget _buildGlassNav(bool isDark) {
+  Widget _buildNav(bool isDark) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(30),
       child: BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+        filter: ImageFilter.blur(sigmaX: 12, sigmaY: 12),
         child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
           height: 70,
           decoration: BoxDecoration(
             color: isDark
                 ? Colors.white.withOpacity(0.08)
-                : Colors.white.withOpacity(0.15),
+                : Colors.white.withOpacity(0.6),
             borderRadius: BorderRadius.circular(30),
             border: Border.all(
-              color: Colors.white.withOpacity(0.15),
-              width: 1,
+              color: Colors.white.withOpacity(0.3),
             ),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.15),
+                color: Colors.black.withOpacity(0.1),
                 blurRadius: 20,
                 offset: const Offset(0, 10),
               )
@@ -66,11 +60,10 @@ class _HomePageState extends State<HomePage> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              _navItem(Icons.home_rounded, 0),
-              _navItem(Icons.search_rounded, 1),
-              _buildAddButton(),
-              _navItem(Icons.chat_bubble_rounded, 3),
-              _navItem(Icons.person_rounded, 4),
+              _navItem(Icons.home_rounded, "Home", 0, isDark),
+              _navItem(Icons.search_rounded, "Search", 1, isDark),
+              _navItem(Icons.notifications_none_rounded, "Notif", 2, isDark),
+              _navItem(Icons.person_outline_rounded, "Profile", 3, isDark),
             ],
           ),
         ),
@@ -78,16 +71,53 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-
-  // --- WIDGET ICON NAVIGASI ---
-  Widget _navItem(IconData icon, int index) {
+  Widget _navItem(
+      IconData icon, String label, int index, bool isDark) {
     bool isActive = currentIndex == index;
+
     return GestureDetector(
       onTap: () => setState(() => currentIndex = index),
-      child: Icon(
-        icon,
-        color: isActive ? Colors.blueAccent : Colors.grey.withOpacity(0.8),
-        size: 28,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 250),
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+        decoration: BoxDecoration(
+          color: isActive
+              ? (isDark ? Colors.white : Colors.white)
+              : Colors.transparent,
+          borderRadius: BorderRadius.circular(20),
+          boxShadow: isActive
+              ? [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.08),
+                    blurRadius: 10,
+                    offset: const Offset(0, 4),
+                  )
+                ]
+              : [],
+        ),
+        child: Row(
+          children: [
+            Icon(
+              icon,
+              size: 22,
+              color: isActive
+                  ? Colors.black
+                  : (isDark
+                      ? Colors.white.withOpacity(0.6)
+                      : Colors.black.withOpacity(0.5)),
+            ),
+            if (isActive) ...[
+              const SizedBox(width: 6),
+              Text(
+                label,
+                style: const TextStyle(
+                  fontWeight: FontWeight.w600,
+                  color: Colors.black,
+                ),
+              ),
+            ]
+          ],
+        ),
       ),
     );
   }
