@@ -20,18 +20,8 @@ class _HomePageState extends State<HomePage> {
   int currentIndex = 0;
 
   @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  int currentIndex = 0;
-
-  final Color activeColor = const Color(0xFF4F8CFF);
-
-  @override
   Widget build(BuildContext context) {
     bool isDark = Theme.of(context).brightness == Brightness.dark;
-
     return Scaffold(
       backgroundColor:
           isDark ? const Color(0xFF0D0D0D) : const Color(0xFFF5F6FA),
