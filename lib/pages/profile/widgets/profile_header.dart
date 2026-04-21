@@ -61,7 +61,7 @@ class ProfileHeader extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // NAMA LENGKAP
+              // FULL NAME
               const Text(
                 "Hanzic",
                 style: TextStyle(
@@ -101,20 +101,14 @@ class ProfileHeader extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               // --- BIO SECTION ---
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    "Building Discire & Nexus. Focus on modular systems and mobile-first experience. ",
-                    maxLines: 3,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(fontSize: 14, height: 1.5, color: Color(0xFF2D3436)),
-                  ),
-                  GestureDetector(
-                    onTap: () {},
-                    child: const Padding(
-                      padding: EdgeInsets.only(top: 4),
-                      child: Text("selengkapnya", style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold, color: Colors.blueAccent)),
+                const Text(
+                  "Building Discire & Nexus. Focus on modular systems and mobile-first experience. Let's vibing with music and code! ",
+                  maxLines: 3,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    fontSize: 14,
+                    height: 1.5,
+                    color: Color(0xFF2D3436),
                     ),
                   ),
                 ],
