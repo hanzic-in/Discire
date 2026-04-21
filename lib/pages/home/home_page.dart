@@ -44,16 +44,17 @@ class _HomePageState extends State<HomePage> {
     return ClipRRect(
       borderRadius: BorderRadius.circular(30),
       child: BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10), // Efek Blur Kaca
+        filter: ImageFilter.blur(sigmaX: 15, sigmaY: 15),
         child: Container(
           height: 70,
           decoration: BoxDecoration(
             color: isDark 
                 ? Colors.black.withOpacity(0.5) 
-                : Colors.white.withOpacity(0.7),
+                : Colors.white.withOpacity(0.2),
             borderRadius: BorderRadius.circular(30),
             border: Border.all(
-              color: isDark ? Colors.white10 : Colors.white.withOpacity(0.2),
+              color: Colors.white.withOpacity(0.4), 
+              width: 1.5,
             ),
           ),
           child: Row(
@@ -70,6 +71,7 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+
 
   // --- WIDGET ICON NAVIGASI ---
   Widget _navItem(IconData icon, int index) {
