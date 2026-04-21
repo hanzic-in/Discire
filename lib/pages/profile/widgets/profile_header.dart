@@ -85,19 +85,34 @@ class ProfileHeader extends StatelessWidget {
                 children: [
                   const Icon(Icons.location_on_outlined, size: 14, color: Colors.grey),
                   const SizedBox(width: 4),
-                  Text(
-                    "Jakarta, Indonesia",
-                    style: TextStyle(
-                      color: Colors.grey[600],
-                      fontSize: 13,
-                    ),
-                  ),
+                  Text("Jakarta, Indonesia", style: TextStyle(color: Colors.grey[600], fontSize: 13)),
+                ],
+              ),
+
+              const SizedBox(height: 12),
+
+              // --- FOLLOWER & FOLLOWING SECTION ---
+              Row(
+                children: [
+                  _buildMiniStat("1.2k", "Pengikut"),
+                  const SizedBox(width: 20),
+                  _buildMiniStat("850", "Mengikuti"),
                 ],
               ),
             ],
           ),
         ),
         const SizedBox(height: 10),
+      ],
+    );
+  }
+
+    Widget _buildMiniStat(String count, String label) {
+    return Row(
+      children: [
+        Text(count, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+        const SizedBox(width: 4),
+        Text(label, style: const TextStyle(color: Colors.grey, fontSize: 14)),
       ],
     );
   }
