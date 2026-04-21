@@ -63,7 +63,7 @@ class ProfileHeader extends StatelessWidget {
             children: [
               // NAMA LENGKAP
               const Text(
-                "Hanz Zyn",
+                "Hanzic",
                 style: TextStyle(
                   fontSize: 26, 
                   fontWeight: FontWeight.bold,
