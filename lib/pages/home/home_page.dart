@@ -9,9 +9,15 @@ import '../../widgets/main_layout.dart';
 import 'widgets/post_section.dart';
 import 'dart:ui';
 
-class HomePage extends StatefulWidget {  
-  const HomePage({super.key});  
-  
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  int currentIndex = 0;
   @override
   Widget build(BuildContext context) {
     bool isDark = Theme.of(context).brightness == Brightness.dark;
