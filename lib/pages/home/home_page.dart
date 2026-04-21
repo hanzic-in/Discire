@@ -20,11 +20,21 @@ class _HomePageState extends State<HomePage> {
   int currentIndex = 0;
 
   @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  int currentIndex = 0;
+
+  final Color activeColor = const Color(0xFF4F8CFF);
+
+  @override
   Widget build(BuildContext context) {
-    bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    bool isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
-      backgroundColor: isDarkMode ? const Color(0xFF0D0D0D) : const Color(0xFFF5F6FA),
+      backgroundColor:
+          isDark ? const Color(0xFF0D0D0D) : const Color(0xFFF5F6FA),
       body: Stack(
         children: [
           _getPage(),
@@ -32,30 +42,36 @@ class _HomePageState extends State<HomePage> {
             bottom: 20,
             left: 20,
             right: 20,
-            child: _buildGlassNav(isDarkMode),
+            child: _buildGlassNav(isDark),
           ),
         ],
       ),
     );
   }
 
-  // --- FUNGSI BUAT BIKIN NAVBAR KACA ---
   Widget _buildGlassNav(bool isDark) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(30),
       child: BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 15, sigmaY: 15),
+        filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
         child: Container(
           height: 70,
           decoration: BoxDecoration(
-            color: isDark 
-                ? Colors.black.withOpacity(0.5) 
-                : Colors.white.withOpacity(0.2),
+            color: isDark
+                ? Colors.white.withOpacity(0.08)
+                : Colors.white.withOpacity(0.15),
             borderRadius: BorderRadius.circular(30),
             border: Border.all(
-              color: Colors.white.withOpacity(0.4), 
-              width: 1.5,
+              color: Colors.white.withOpacity(0.15),
+              width: 1,
             ),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.15),
+                blurRadius: 20,
+                offset: const Offset(0, 10),
+              )
+            ],
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
