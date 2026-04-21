@@ -21,44 +21,91 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
     return Scaffold(
-      backgroundColor: const Color(0xFFF5F6FA),  
-      bottomNavigationBar: SafeArea(
-        child: Container(
-          decoration: BoxDecoration(
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.08),
-                blurRadius: 20,
-                offset: const Offset(0, -5),
-              ),
-            ],
+      backgroundColor: isDarkMode ? const Color(0xFF0D0D0D) : const Color(0xFFF5F6FA),
+      body: Stack(
+        children: [
+          _getPage(),
+          Positioned(
+            bottom: 20,
+            left: 20,
+            right: 20,
+            child: _buildGlassNav(isDarkMode),
           ),
-          child: CurvedNavigationBar(
-            index: currentIndex,
-            height: 65,
-            backgroundColor: const Color(0xFFF5F6FA),
-            color: Colors.white,
-            buttonBackgroundColor: Colors.white,
-            animationDuration: const Duration(milliseconds: 300),
-            items: [
-              Icon(Icons.home, color: currentIndex == 0 ? Colors.black : Colors.grey),
-              Icon(Icons.search, color: currentIndex == 1 ? Colors.black : Colors.grey),
-              Icon(Icons.add, color: currentIndex == 2 ? Colors.black : Colors.grey),
-              Icon(Icons.chat_bubble_outline, color: currentIndex == 3 ? Colors.black : Colors.grey),
-              Icon(Icons.person_outline, color: currentIndex == 4 ? Colors.black : Colors.grey),
+        ],
+      ),
+    );
+  }
+
+  // --- FUNGSI BUAT BIKIN NAVBAR KACA ---
+  Widget _buildGlassNav(bool isDark) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(30),
+      child: BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10), // Efek Blur Kaca
+        child: Container(
+          height: 70,
+          decoration: BoxDecoration(
+            color: isDark 
+                ? Colors.black.withOpacity(0.5) 
+                : Colors.white.withOpacity(0.7),
+            borderRadius: BorderRadius.circular(30),
+            border: Border.all(
+              color: isDark ? Colors.white10 : Colors.white.withOpacity(0.2),
+            ),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              _navItem(Icons.home_rounded, 0),
+              _navItem(Icons.search_rounded, 1),
+              _buildAddButton(), // Tombol tengah yang biru nimbul
+              _navItem(Icons.chat_bubble_rounded, 3),
+              _navItem(Icons.person_rounded, 4),
             ],
-            onTap: (index) {
-              setState(() {
-                currentIndex = index;
-              });
-            },
           ),
         ),
       ),
-      body: _getPage(),
     );
   }
+
+  // --- WIDGET ICON NAVIGASI ---
+  Widget _navItem(IconData icon, int index) {
+    bool isActive = currentIndex == index;
+    return GestureDetector(
+      onTap: () => setState(() => currentIndex = index),
+      child: Icon(
+        icon,
+        color: isActive ? Colors.blueAccent : Colors.grey.withOpacity(0.8),
+        size: 28,
+      ),
+    );
+  }
+
+  // --- WIDGET TOMBOL ADD (TENGAH) ---
+  Widget _buildAddButton() {
+    return GestureDetector(
+      onTap: () => setState(() => currentIndex = 2),
+      child: Container(
+        padding: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          color: Colors.blueAccent,
+          shape: BoxShape.circle,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.blueAccent.withOpacity(0.3),
+              blurRadius: 10,
+              offset: const Offset(0, 4),
+            )
+          ],
+        ),
+        child: const Icon(Icons.add, color: Colors.white, size: 24),
+      ),
+    );
+  }
+
 
   Widget _getPage() {
     switch (currentIndex) {
