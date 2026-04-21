@@ -44,7 +44,7 @@ class ProfileHeader extends StatelessWidget {
                   ],
                 ),
                 child: CircleAvatar(
-                  radius: 45, // Ukuran foto profil
+                  radius: 45,
                   backgroundColor: const Color(0xFFF1F3F5),
                   backgroundImage: const NetworkImage("https://i.pravatar.cc/300?u=han"),
                   onBackgroundImageError: (_, __) {},
