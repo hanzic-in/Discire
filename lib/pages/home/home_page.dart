@@ -27,7 +27,7 @@ class _HomePageState extends State<HomePage> {
           isDark ? const Color(0xFF0D0D0D) : const Color(0xFFF0F2F5),
       body: Stack(
         children: [
-          _dummyPage(),
+          _getPage(),
           Positioned(
             bottom: 20,
             left: 20,
@@ -68,8 +68,9 @@ class _HomePageState extends State<HomePage> {
             children: [
               _navItem(Icons.home_rounded, "Home", 0, isDark),
               _navItem(Icons.search_rounded, "Search", 1, isDark),
-              _navItem(Icons.notifications_none_rounded, "Notif", 2, isDark),
-              _navItem(Icons.person_outline_rounded, "Profile", 3, isDark),
+              _navItem(Icons.add, "Add", 2, isDark),
+              _navItem(Icons.chat_bubble_rounded, "Chat", 3, isDark),
+              _navItem(Icons.person_outline_rounded, "Profile", 4, isDark),
             ],
           ),
         ),
