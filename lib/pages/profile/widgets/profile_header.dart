@@ -5,38 +5,99 @@ class ProfileHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Stack(
           clipBehavior: Clip.none,
-          alignment: Alignment.center,
           children: [
+            // 1. BANNER GIF
             Container(
               height: 180,
               width: double.infinity,
               decoration: const BoxDecoration(
+                color: Color(0xFFE0E0E0),
                 image: DecorationImage(
                   image: NetworkImage("https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJueXZueXpueXpueXpueXpueXpueXpueXpueXpueXpueXpueXpueCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3o7TKMGpxx6tI5mX9S/giphy.gif"),
                   fit: BoxFit.cover,
                 ),
               ),
             ),
+            
+            // 2. Photo Profile
             Positioned(
-              bottom: -50,
-              child: CircleAvatar(
-                radius: 54,
-                backgroundColor: Colors.white,
-                child: const CircleAvatar(
-                  radius: 50,
-                  backgroundImage: NetworkImage("https://i.pravatar.cc/300?u=han"),
+              bottom: -45,
+              left: 25,
+              child: Container(
+                padding: const EdgeInsets.all(4),
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  shape: BoxShape.circle,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 10,
+                      offset: Offset(0, 5),
+                    )
+                  ],
+                ),
+                child: CircleAvatar(
+                  radius: 45, // Ukuran foto profil
+                  backgroundColor: const Color(0xFFF1F3F5),
+                  backgroundImage: const NetworkImage("https://i.pravatar.cc/300?u=han"),
+                  onBackgroundImageError: (_, __) {},
+                  child: const Icon(Icons.person, size: 40, color: Colors.grey),
                 ),
               ),
             ),
           ],
         ),
-        const SizedBox(height: 60),
-        const Text("hanz zyn", style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
-        Text("Jakarta, Indonesia • he/him", style: TextStyle(color: Colors.grey[600])),
+      
+        const SizedBox(height: 55), 
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 25),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // NAMA LENGKAP
+              const Text(
+                "Hanz Zyn",
+                style: TextStyle(
+                  fontSize: 26, 
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: -0.5,
+                ),
+              ),
+              // USERNAME & PRONOUNS
+              Text(
+                "@hanzz_dev • he/him",
+                style: TextStyle(
+                  color: Colors.grey[600],
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              const SizedBox(height: 8),
+              // LOCATION
+              Row(
+                children: [
+                  const Icon(Icons.location_on_outlined, size: 14, color: Colors.grey),
+                  const SizedBox(width: 4),
+                  Text(
+                    "Jakarta, Indonesia",
+                    style: TextStyle(
+                      color: Colors.grey[600],
+                      fontSize: 13,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 10),
       ],
     );
   }
