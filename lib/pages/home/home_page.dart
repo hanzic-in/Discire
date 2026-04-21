@@ -6,7 +6,6 @@ import 'widgets/nearby_section.dart';
 import '../chat/chat_list_page.dart';
 import '../profile/profile_page.dart';
 import '../../widgets/main_layout.dart';
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'widgets/post_section.dart';
 
 class HomePage extends StatefulWidget {  
