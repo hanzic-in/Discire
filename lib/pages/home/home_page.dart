@@ -7,6 +7,7 @@ import '../chat/chat_list_page.dart';
 import '../profile/profile_page.dart';
 import '../../widgets/main_layout.dart';
 import 'widgets/post_section.dart';
+import 'dart:ui';
 
 class HomePage extends StatefulWidget {  
   const HomePage({super.key});  
@@ -60,7 +61,7 @@ class _HomePageState extends State<HomePage> {
             children: [
               _navItem(Icons.home_rounded, 0),
               _navItem(Icons.search_rounded, 1),
-              _buildAddButton(), // Tombol tengah yang biru nimbul
+              _buildAddButton(),
               _navItem(Icons.chat_bubble_rounded, 3),
               _navItem(Icons.person_rounded, 4),
             ],
@@ -129,13 +130,13 @@ class _HomePageState extends State<HomePage> {
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: const [
+          children: [
             HomeHeader(),
             HomeSearchBar(),
             HomeChips(),
             NearbySection(),
             PostSection(),
-            SizedBox(height: 100),
+            SizedBox(height: 120),
           ],
         ),
       ),
