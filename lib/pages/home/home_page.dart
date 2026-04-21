@@ -138,23 +138,27 @@ Widget _navItem(
   );
 }
 
-
-  Widget _getPage() {
-    switch (currentIndex) {
-      case 0:
-        return _homePage();
-      case 1: 
-        return _searchPage();
-      case 2:  
-        return const Center(child: Text("Add Page"));
-      case 3:
-        return const ChatListPage();
-      case 4:
-        return const ProfilePage();
-      default:
-        return _homePage();
-    }
+  AnimatedSwitcher(
+    duration: const Duration(milliseconds: 300),
+    child: _getPage(),
+),
+  
+Widget _getPage() {
+  switch (currentIndex) {
+    case 0:
+      return const Center(key: ValueKey(0), child: Text("Home"));
+    case 1:
+      return const Center(key: ValueKey(1), child: Text("Search"));
+    case 2:
+      return const Center(key: ValueKey(2), child: Text("Add"));
+    case 3:
+      return const Center(key: ValueKey(3), child: Text("Chat"));
+    case 4:
+      return const Center(key: ValueKey(4), child: Text("Profile"));
+    default:
+      return const Center(key: ValueKey(0), child: Text("Home"));
   }
+}
 
   Widget _homePage() {
     return MainLayout(
