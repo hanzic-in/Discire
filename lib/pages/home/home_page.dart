@@ -28,7 +28,12 @@ class _HomePageState extends State<HomePage> {
           isDark ? const Color(0xFF0D0D0D) : const Color(0xFFF0F2F5),
       body: Stack(
         children: [
-          _getPage(),
+          AnimatedSwitcher(
+            duration: const Duration(milliseconds: 300),
+            switchInCurve: Curves.easeOut,
+            switchOutCurve: Curves.easeIn,
+            child: _getPage(),
+          ),
           Positioned(
             bottom: 20,
             left: 20,
@@ -137,31 +142,27 @@ Widget _navItem(
     ),
   );
 }
-
-  AnimatedSwitcher(
-    duration: const Duration(milliseconds: 300),
-    child: _getPage(),
-),
   
 Widget _getPage() {
   switch (currentIndex) {
     case 0:
-      return const Center(key: ValueKey(0), child: Text("Home"));
+      return _homePage(key: const ValueKey(0));
     case 1:
-      return const Center(key: ValueKey(1), child: Text("Search"));
+      return const Center(key: ValueKey(1), child: Text("Search Page"));
     case 2:
-      return const Center(key: ValueKey(2), child: Text("Add"));
+      return const Center(key: ValueKey(2), child: Text("Add Page"));
     case 3:
-      return const Center(key: ValueKey(3), child: Text("Chat"));
+      return const ChatListPage(key: ValueKey(3));
     case 4:
-      return const Center(key: ValueKey(4), child: Text("Profile"));
+      return const ProfilePage(key: ValueKey(4));
     default:
-      return const Center(key: ValueKey(0), child: Text("Home"));
+      return _homePage(key: const ValueKey(0));
   }
 }
 
-  Widget _homePage() {
+  Widget _homePage({Key? key}) {
     return MainLayout(
+      key: key,
       usePadding: false, 
       child: SingleChildScrollView(
         child: Column(
@@ -172,7 +173,7 @@ Widget _getPage() {
             HomeChips(),
             NearbySection(),
             PostSection(),
-            SizedBox(height: 120),
+            const SizedBox(height: 120),
           ],
         ),
       ),
