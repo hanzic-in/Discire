@@ -101,8 +101,39 @@ class ProfileHeader extends StatelessWidget {
               ),
             ],
           ),
-        ),
         const SizedBox(height: 10),
+
+                      // --- BIO SECTION ---
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+           children: [
+             const Text(
+              "Building Discire & Nexus. Focus on modular systems and mobile-first experience. Let's vibing with music and code! If this bio is too long, it will be cut off so the profile stays clean and professional for everyone to see. ⚡",
+              maxLines: 3,
+              overflow: TextOverflow.ellipsis,
+               style: TextStyle(
+                 fontSize: 14,
+                 height: 1.5,
+                 color: Color(0xFF2D3436),
+               ),
+             ),
+            GestureDetector(
+               onTap: () {
+              },
+              child: const Padding(
+                padding: EdgeInsets.only(top: 4),
+                child: Text(
+                  "selengkapnya",
+                  style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.blueAccent)
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
       ],
     );
   }
