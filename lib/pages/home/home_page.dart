@@ -16,7 +16,8 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage>
+    with TickerProviderStateMixin {
   int currentIndex = 0;
 
   @override
@@ -28,12 +29,7 @@ class _HomePageState extends State<HomePage> {
           isDark ? const Color(0xFF0D0D0D) : const Color(0xFFF0F2F5),
       body: Stack(
         children: [
-          AnimatedSwitcher(
-            duration: const Duration(milliseconds: 300),
-            switchInCurve: Curves.easeOut,
-            switchOutCurve: Curves.easeIn,
-            child: _getPage(),
-          ),
+          _getPage(),
           Positioned(
             bottom: 20,
             left: 20,
@@ -84,79 +80,96 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-Widget _navItem(
-    IconData icon, String label, int index, bool isDark) {
-  bool isActive = currentIndex == index;
+  Widget _navItem(
+      IconData icon, String label, int index, bool isDark) {
+    bool isActive = currentIndex == index;
 
-  return Material(
-    color: Colors.transparent,
-    child: InkWell(
-      borderRadius: BorderRadius.circular(25),
-      splashColor: Colors.transparent,
-      highlightColor: Colors.transparent,
-      onTap: () {
-        if (currentIndex == index) return;
-        setState(() => currentIndex = index);
-      },
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 200),
-        curve: Curves.easeOut,
-        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-        decoration: BoxDecoration(
-          color: isActive ? Colors.white : Colors.transparent,
+    return Expanded(
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
           borderRadius: BorderRadius.circular(25),
-          boxShadow: isActive
-              ? [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.08),
-                    blurRadius: 10,
-                    offset: const Offset(0, 4),
-                  )
-                ]
-              : [],
-        ),
-        child: Row(
-          children: [
-            Icon(
-              icon,
-              size: 22,
-              color: isActive
-                  ? Colors.black
-                  : (isDark
-                      ? Colors.white.withOpacity(0.6)
-                      : Colors.black.withOpacity(0.5)),
-            ),
-            if (isActive) ...[
-              const SizedBox(width: 6),
-              Text(
-                label,
-                style: const TextStyle(
-                  fontWeight: FontWeight.w600,
-                  color: Colors.black,
-                ),
+          splashColor: Colors.transparent,
+          highlightColor: Colors.transparent,
+          onTap: () {
+            if (currentIndex == index) return;
+            setState(() => currentIndex = index);
+          },
+          child: Center(
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 250),
+              curve: Curves.easeInOut,
+              padding: const EdgeInsets.symmetric(
+                  horizontal: 14, vertical: 8),
+              decoration: BoxDecoration(
+                color: isActive ? Colors.white : Colors.transparent,
+                borderRadius: BorderRadius.circular(25),
+                boxShadow: isActive
+                    ? [
+                        BoxShadow(
+                          color:
+                              Colors.black.withOpacity(0.08),
+                          blurRadius: 10,
+                          offset: const Offset(0, 4),
+                        )
+                      ]
+                    : [],
               ),
-            ]
-          ],
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(
+                    icon,
+                    size: 22,
+                    color: isActive
+                        ? Colors.black
+                        : (isDark
+                            ? Colors.white.withOpacity(0.6)
+                            : Colors.black.withOpacity(0.5)),
+                  ),
+
+                  AnimatedSize(
+                    duration: const Duration(milliseconds: 250),
+                    curve: Curves.easeInOut,
+                    child: isActive
+                        ? Row(
+                            children: [
+                              const SizedBox(width: 6),
+                              Text(
+                                label,
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ],
+                          )
+                        : const SizedBox(),
+                  ),
+                ],
+              ),
+            ),
+          ),
         ),
       ),
-    ),
-  );
-}
-  
-Widget _getPage() {
-  switch (currentIndex) {
-    case 0:
-      return _homePage(key: const ValueKey(0));
-    case 1:
-      return const Center(key: ValueKey(1), child: Text("Search Page"));
-    case 2:
-      return const Center(key: ValueKey(2), child: Text("Add Page"));
-    case 3:
-      return const ChatListPage(key: ValueKey(3));
-    case 4:
-      return const ProfilePage(key: ValueKey(4));
-    default:
-      return _homePage(key: const ValueKey(0));
+    );
+  }
+
+  Widget _getPage() {
+    switch (currentIndex) {
+      case 0:
+        return const Center(child: Text("Home"));
+      case 1:
+        return const Center(child: Text("Search"));
+      case 2:
+        return const Center(child: Text("Add"));
+      case 3:
+        return const Center(child: Text("Chat"));
+      case 4:
+        return const Center(child: Text("Profile"));
+      default:
+        return const Center(child: Text("Home"));
+    }
   }
 }
 
