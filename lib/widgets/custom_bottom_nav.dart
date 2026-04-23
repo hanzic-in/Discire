@@ -54,7 +54,7 @@ class CustomBottomNav extends StatelessWidget {
   }
 
   Widget _navItem(
-      IconData icon, String label, int index, bool isDark) {
+      IconData icon, String label, int index) {
     bool isActive = currentIndex == index;
 
     return Expanded(
