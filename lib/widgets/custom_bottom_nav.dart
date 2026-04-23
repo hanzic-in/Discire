@@ -12,8 +12,9 @@ class CustomBottomNav extends StatelessWidget {
     required this.isDark,
     required this.onTap,
   });
-  
-  Widget _buildNav(bool isDark) {
+
+  @override
+  Widget build(BuildContext context) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(30),
       child: BackdropFilter(
