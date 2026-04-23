@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
-import 'widgets/header.dart';
-import 'widgets/search_bar.dart';
-import 'widgets/chips.dart';
-import 'widgets/nearby_section.dart';
+import 'home_content.dart';
 import '../chat/chat_list_page.dart';
 import '../profile/profile_page.dart';
-import '../../widgets/main_layout.dart';
-import 'widgets/post_section.dart';
-import 'dart:ui';
+import '../../widgets/custom_bottom_nav.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
