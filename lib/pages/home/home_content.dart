@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+import '../../widgets/main_layout.dart';
+import 'widgets/header.dart';
+import 'widgets/search_bar.dart';
+import 'widgets/chips.dart';
+import 'widgets/nearby_section.dart';
+import 'widgets/post_section.dart';
 
 class HomeContent extends StatelessWidget {
   const HomeContent({super.key});
