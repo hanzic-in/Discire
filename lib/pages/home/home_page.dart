@@ -56,28 +56,12 @@ class _HomePageState extends State<HomePage>
 
   Widget _getPage() {
     switch (currentIndex) {
-      case 0:
-        return Container(
-          key: const ValueKey(0),
-          child: _homePage(),
-        );
-      case 1:
-        return const Center(key: ValueKey(1), child: Text("SearchPage"));
-      case 2:
-        return const Center(key: ValueKey(2), child: Text("Add"));
-      case 3:
-        return const ChatListPage(key: ValueKey(3));
-      case 4:
-        return Container(
-          key: const ValueKey(4),
-          child: const ProfilePage(),
-        );
-      default:
-        return Container(
-          key: const ValueKey(0),
-          child: _homePage(),
-        );
-      }
+      case 0: return const HomeContent(key: ValueKey(0));
+      case 1: return const Center(key: ValueKey(1), child: Text("Search"));
+      case 2: return const Center(key: ValueKey(2), child: Text("Add"));
+      case 3: return const ChatListPage(key: ValueKey(3));
+      case 4: return const ProfilePage(key: ValueKey(4));
+      default: return const HomeContent(key: ValueKey(0));
     }
-
+  }
 }
