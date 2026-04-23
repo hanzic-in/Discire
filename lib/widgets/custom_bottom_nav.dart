@@ -57,8 +57,6 @@ class CustomBottomNav extends StatelessWidget {
     bool isActive = currentIndex == index;
 
     return Expanded(
-      child: InkWell(
-        color: Colors.transparent,
         child: InkWell(
           borderRadius: BorderRadius.circular(25),
           splashColor: Colors.transparent,
@@ -66,7 +64,6 @@ class CustomBottomNav extends StatelessWidget {
           onTap: () {
             if (currentIndex == index) return;
             onTap(index);
-            setState(() => currentIndex = index);
           },
           child: Center(
             child: AnimatedContainer(
