@@ -6,7 +6,13 @@ class CustomBottomNav extends StatelessWidget {
   final bool isDark;
   final Function(int) onTap;
 
-  const
+  const CustomBottomNav({
+    super.key,
+    required this.currentIndex,
+    required this.isDark,
+    required this.onTap,
+  });
+  
   Widget _buildNav(bool isDark) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(30),
