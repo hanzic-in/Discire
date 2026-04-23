@@ -53,12 +53,11 @@ class CustomBottomNav extends StatelessWidget {
     );
   }
 
-  Widget _navItem(
-      IconData icon, String label, int index) {
+  Widget _navItem(IconData icon, String label, int index, bool isDark) {
     bool isActive = currentIndex == index;
 
     return Expanded(
-      child: Material(
+      child: InkWell(
         color: Colors.transparent,
         child: InkWell(
           borderRadius: BorderRadius.circular(25),
@@ -66,6 +65,7 @@ class CustomBottomNav extends StatelessWidget {
           highlightColor: Colors.transparent,
           onTap: () {
             if (currentIndex == index) return;
+            onTap(index);
             setState(() => currentIndex = index);
           },
           child: Center(
