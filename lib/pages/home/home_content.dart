@@ -1,4 +1,4 @@
-import 'flutter:material.dart';
+import 'package:flutter/material.dart';
 
 class HomeContent extends StatelessWidget {
   const HomeContent({super.key});
