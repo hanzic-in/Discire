@@ -43,7 +43,11 @@ class _HomePageState extends State<HomePage>
             bottom: 20,
             left: 20,
             right: 20,
-            child: _buildNav(isDark),
+            child: CustomBottomNav(
+              currentIndex: currentIndex,
+              isDark: isDark,
+              onTap: (index) => setState(() => currentIndex = index),
+            ),
           ),
         ],
       ),
