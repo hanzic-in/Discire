@@ -73,31 +73,7 @@ class _HomePageState extends State<HomePage>
           key: const ValueKey(0),
           child: _homePage(),
         );
+      }
     }
-  }
 
-
-  Widget _homePage({Key? key}) {
-    return MainLayout(
-      key: key,
-      usePadding: false, 
-      child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            HomeHeader(),
-            HomeSearchBar(),
-            HomeChips(),
-            NearbySection(),
-            PostSection(),
-            const SizedBox(height: 120),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _searchPage() {
-    return const Center(child: Text("Search Page"));
-  }
 }
