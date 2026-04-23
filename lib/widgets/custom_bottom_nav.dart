@@ -1,3 +1,6 @@
+import 'package:flutter/material.dart';
+import 'dart:ui';
+
   Widget _buildNav(bool isDark) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(30),
