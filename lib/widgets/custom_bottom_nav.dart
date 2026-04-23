@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 import 'dart:ui';
 
+class CustomBottomNav extends StatelessWidget {
+  final int currentIndex;
+  final bool isDark;
+  final Function(int) onTap;
+
+  const
   Widget _buildNav(bool isDark) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(30),
