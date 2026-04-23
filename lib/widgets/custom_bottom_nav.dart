@@ -121,5 +121,5 @@ class CustomBottomNav extends StatelessWidget {
                ),
              ),
            ),
-         ),
+         );
        }
