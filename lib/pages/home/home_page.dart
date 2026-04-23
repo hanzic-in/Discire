@@ -55,9 +55,6 @@ class _HomePageState extends State<HomePage>
     );
   }
 
-  Widget _buildNav(bool isDark) {
-
-
   Widget _getPage() {
     switch (currentIndex) {
       case 0:
