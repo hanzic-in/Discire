@@ -36,7 +36,10 @@ class _HomePageState extends State<HomePage>
             transitionBuilder: (child, animation) {
               return FadeTransition(
                 opacity: animation,
-                child: child,
+                child: ScaleTransition(
+                  scale: Tween(begin: 0.98, end: 1.0).animate(animation),
+                  child: child,
+                ),
               );
             },
             child: _getPage(),
