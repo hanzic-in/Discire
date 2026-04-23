@@ -171,7 +171,7 @@ class _HomePageState extends State<HomePage>
       case 0:
         return _homePage(key: const ValueKey(0));
       case 1:
-        return const Center(key: ValueKey(1), child: Text("SearchPage"))
+        return const Center(key: ValueKey(1), child: Text("SearchPage"));
       case 2:
         return const Center(key: ValueKey(2), child: Text("Add"));
       case 3:
