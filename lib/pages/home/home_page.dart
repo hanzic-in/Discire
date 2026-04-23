@@ -29,7 +29,18 @@ class _HomePageState extends State<HomePage>
           isDark ? const Color(0xFF0D0D0D) : const Color(0xFFF0F2F5),
       body: Stack(
         children: [
-          _getPage(),
+          AnimatedSwitcher(
+            duration: const Duration(milliseconds: 300),
+            switchInCurve: Curves.easeOut,
+            switchOutCurve: Curves.easeIn,
+            transitionBuilder: (child, animation) {
+              return FadeTransition(
+                opacity: animation,
+                child: child,
+              );
+            },
+            child: _getPage(),
+          ),
           Positioned(
             bottom: 20,
             left: 20,
