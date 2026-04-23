@@ -174,8 +174,7 @@ class _HomePageState extends State<HomePage>
       case 0:
         return Container(
           key: const ValueKey(0),
-          color: Colors.transparent,
-          child _homePage(),
+          child: _homePage(),
         );
       case 1:
         return const Center(key: ValueKey(1), child: Text("SearchPage"));
@@ -186,7 +185,6 @@ class _HomePageState extends State<HomePage>
       case 4:
         return Container(
           key: const ValueKey(4),
-          color: Colors.transparent,
           child: const ProfilePage(),
         );
       default:
