@@ -81,7 +81,7 @@ class _ProfilePageState extends State<ProfilePage> with TickerProviderStateMixin
                       return _buildTabContent(_tabController.index);
                     },
                   ),
-                  const SizedBox(height: 50),
+                  const SizedBox(height: 100),
                 ],
               ),
             ),
