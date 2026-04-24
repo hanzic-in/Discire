@@ -16,7 +16,7 @@ class CustomBottomNav extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      minimum: const EdgeInsets.only(bottom: 10),
+      minimum: const EdgeInsets.only(bottom: 5),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: ClipRRect(
