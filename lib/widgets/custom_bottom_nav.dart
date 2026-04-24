@@ -43,20 +43,21 @@ class CustomBottomNav extends StatelessWidget {
                   ],
                 ),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     _navItem(Icons.home_rounded, "Home", 0, isDark),
                     _navItem(Icons.search_rounded, "Search", 1, isDark),
                     _navItem(Icons.add, "Add", 2, isDark),
                     _navItem(Icons.chat_bubble_rounded, "Chat", 3, isDark),
                     _navItem(Icons.person_outline_rounded, "Profile", 4, isDark),
-                  ],
+],
                 ),
               ),
             ),
           ),
-        );
+        ),
       ),
+  }
+      
   
   Widget _navItem(IconData icon, String label, int index, bool isDark) {
     bool isActive = currentIndex == index;
