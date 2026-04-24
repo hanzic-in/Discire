@@ -15,44 +15,49 @@ class CustomBottomNav extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(30),
-      child: BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 12, sigmaY: 12),
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
-          height: 70,
-          decoration: BoxDecoration(
-            color: isDark
-                ? Colors.white.withOpacity(0.08)
-                : Colors.white.withOpacity(0.6),
-            borderRadius: BorderRadius.circular(30),
-            border: Border.all(
-              color: Colors.white.withOpacity(0.3),
+    return SafeArea(
+      minimum: const EdgeInsets.only(bottom: 10),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(30),
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 12, sigmaY: 12),
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                height: 70,
+                decoration: BoxDecoration(
+                  color: isDark
+                  ? Colors.white.withOpacity(0.08)
+                  : Colors.white.withOpacity(0.6),
+                  borderRadius: BorderRadius.circular(30),
+                  border: Border.all(
+                    color: Colors.white.withOpacity(0.3),
+                 ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.1),
+                      blurRadius: 20,
+                      offset: const Offset(0, 10),
+                    )
+                  ],
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    _navItem(Icons.home_rounded, "Home", 0, isDark),
+                    _navItem(Icons.search_rounded, "Search", 1, isDark),
+                    _navItem(Icons.add, "Add", 2, isDark),
+                    _navItem(Icons.chat_bubble_rounded, "Chat", 3, isDark),
+                    _navItem(Icons.person_outline_rounded, "Profile", 4, isDark),
+                  ],
+                ),
+              ),
             ),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.1),
-                blurRadius: 20,
-                offset: const Offset(0, 10),
-              )
-            ],
           ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              _navItem(Icons.home_rounded, "Home", 0, isDark),
-              _navItem(Icons.search_rounded, "Search", 1, isDark),
-              _navItem(Icons.add, "Add", 2, isDark),
-              _navItem(Icons.chat_bubble_rounded, "Chat", 3, isDark),
-              _navItem(Icons.person_outline_rounded, "Profile", 4, isDark),
-            ],
-          ),
-        ),
+        );
       ),
-    );
-  }
-
+  
   Widget _navItem(IconData icon, String label, int index, bool isDark) {
     bool isActive = currentIndex == index;
 
