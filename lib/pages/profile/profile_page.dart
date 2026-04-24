@@ -100,17 +100,22 @@ class _ProfilePageState extends State<ProfilePage> with TickerProviderStateMixin
     }
   }
 
-  Widget _buildWorkGrid() {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Expanded(child: Column(children: [_buildWorkItem("https://picsum.photos/200/300", 200), _buildWorkItem("https://picsum.photos/200/150", 120)])),
-        const SizedBox(width: 10),
-        Expanded(child: Column(children: [_buildWorkItem("https://picsum.photos/201/150", 120), _buildWorkItem("https://picsum.photos/201/300", 200)])),
-      ],
-    );
-  }
-
+Widget _buildWorkGrid() {
+  return GridView.builder(
+    shrinkWrap: true,
+    physics: NeverScrollableScrollPhysics(),
+    itemCount: 10,
+    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+      crossAxisCount: 2,
+      crossAxisSpacing: 10,
+      mainAxisSpacing: 10,
+      childAspectRatio: 0.75,
+    ),
+    itemBuilder: (context, index) {
+      return _buildWorkItem("https://picsum.photos/200/300?random=$index", 200);
+    },
+  );
+}
   Widget _buildActivityList() {
     return Column(
       children: [
