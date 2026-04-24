@@ -43,7 +43,7 @@ class CustomBottomNav extends StatelessWidget {
                   ],
                 ),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     _navItem(Icons.home_rounded, "Home", 0, isDark),
                     _navItem(Icons.search_rounded, "Search", 1, isDark),
