@@ -72,7 +72,10 @@ class _HomeContentState extends State<HomeContent> {
             style: TextStyle(
               fontSize: 16,
               fontWeight: isActive ? FontWeight.bold : FontWeight.normal,
-              color: isActive ? Colors.black : Colors.grey,
+              final isDark = Theme.of(context).brightness == Brightness.dark;
+              color: isActive
+                ? (isDark ? Colors.white : Colors.black)
+                : Colors.grey,
             ),
           ),
           const SizedBox(height: 4),
@@ -80,7 +83,7 @@ class _HomeContentState extends State<HomeContent> {
             duration: const Duration(milliseconds: 200),
             height: 2,
             width: isActive ? 24 : 0,
-            color: Colors.black,
+            color: isDark ? Colors.white : Colors.black,
           ),
         ],
       ),
