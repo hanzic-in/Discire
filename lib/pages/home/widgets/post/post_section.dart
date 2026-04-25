@@ -41,7 +41,7 @@ class PostSection extends StatelessWidget {
 
   Widget _buildPost(Post post) {
     switch (post.type) {
-      case PostType.text:
+      case PostType.post:
         return TextPost(post: post);
 
       default:
