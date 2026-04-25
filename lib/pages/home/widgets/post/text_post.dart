@@ -9,16 +9,13 @@ class TextPost extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-      decoration: BoxDecoration(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      decoration: const BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // 🔥 HEADER
           Row(
             children: [
               const CircleAvatar(
@@ -45,13 +42,16 @@ class TextPost extends StatelessWidget {
             ],
           ),
 
-          const SizedBox(height: 12),
+          const SizedBox(height: 10),
 
-          // CONTENT
           Text(
             post.content,
             style: const TextStyle(fontSize: 14),
           ),
+
+          const SizedBox(height: 12),
+
+          const Divider(height: 1),
         ],
       ),
     );
