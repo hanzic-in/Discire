@@ -1,6 +1,5 @@
 enum PostType {
-  text,
-  image,
+  post,
   article,
 }
 
