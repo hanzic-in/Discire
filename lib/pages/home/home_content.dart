@@ -61,7 +61,8 @@ class _HomeContentState extends State<HomeContent> {
 
   Widget _tabItem(String title, int index) {
     final isActive = currentTab == index;
-
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    
     return GestureDetector(
       onTap: () => setState(() => currentTab = index),
       child: Column(
@@ -72,7 +73,7 @@ class _HomeContentState extends State<HomeContent> {
             style: TextStyle(
               fontSize: 16,
               fontWeight: isActive ? FontWeight.bold : FontWeight.normal,
-              final isDark = Theme.of(context).brightness == Brightness.dark;
+              
               color: isActive
                 ? (isDark ? Colors.white : Colors.black)
                 : Colors.grey,
