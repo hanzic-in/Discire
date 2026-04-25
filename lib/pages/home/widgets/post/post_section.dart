@@ -9,11 +9,11 @@ class PostSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final List<Post> posts = [
       Post(
-        type: PostType.text,
+        type: PostType.post,
         content: "Lagi belajar Flutter, pusing tapi seru 😭",
       ),
       Post(
-        type: PostType.text,
+        type: PostType.post,
         content: "Ada yang ngerti state management gak sih?",
       ),
     ];
