@@ -57,11 +57,14 @@ class TextPost extends StatelessWidget {
           const SizedBox(height: 10),
 
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               _actionItem(Icons.favorite_border, "12"),
+              const SizedBox(width: 20),
               _actionItem(Icons.chat_bubble_outline, "4"),
+              const SizedBox(width: 20),
               _actionItem(Icons.repeat, "2"),
+              const SizedBox(width: 20),
               _actionItem(Icons.send, ""),
             ],
           ),
