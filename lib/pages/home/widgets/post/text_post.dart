@@ -76,9 +76,12 @@ class TextPost extends StatelessWidget {
     );
   }
 
-    Widget _actionItem(IconData icon, String count) {
-      return GestureDetector(
-        onTap: () {},
+  Widget _actionItem(IconData icon, String count) {
+    return InkWell(
+      borderRadius: BorderRadius.circular(6),
+      onTap: () {},
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
         child: Row(
           children: [
             Icon(icon, size: 18, color: Colors.grey),
@@ -91,6 +94,7 @@ class TextPost extends StatelessWidget {
             ],
           ],
         ),
-      );
-    }
+      ),
+    );
+  }
 }
