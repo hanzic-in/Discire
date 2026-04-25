@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'post/post_model.dart';
-import 'post/text_post.dart';
+import 'post_model.dart';
+import 'text_post.dart';
 
 class PostSection extends StatelessWidget {
   const PostSection({super.key});
