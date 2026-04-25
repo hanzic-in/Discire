@@ -3,7 +3,7 @@ import '../../widgets/main_layout.dart';
 import 'widgets/header.dart';
 import 'widgets/search_bar.dart';
 import 'widgets/nearby_section.dart';
-import 'widgets/post_section.dart';
+import 'widgets/post/post_section.dart';
 import 'widgets/voice_section.dart';
 
 class HomeContent extends StatefulWidget {
