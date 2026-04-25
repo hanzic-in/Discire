@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'post_model.dart';
+import 'dart:async';
 
 class TextPost extends StatelessWidget {
   final Post post;
@@ -112,4 +113,55 @@ class TextPost extends StatelessWidget {
       ),
     );
   }
+
+  Widget _buildImage(String url) {
+  return FutureBuilder<ImageInfo>(
+    future: _getImageInfo(url),
+    builder: (context, snapshot) {
+      if (!snapshot.hasData) {
+        return Container(
+          height: 200,
+          color: Colors.grey[200],
+        );
+      }
+
+      final image = snapshot.data!;
+      final ratio = image.image.width / image.image.height;
+
+      double aspectRatio;
+
+      if (ratio > 1) {
+        aspectRatio = 4 / 3;
+      } else if (ratio < 1) {
+        aspectRatio = 3 / 4;
+      } else {
+        aspectRatio = 1;
+      }
+
+      return AspectRatio(
+        aspectRatio: aspectRatio,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(10),
+          child: Image.network(
+            url,
+            fit: BoxFit.cover,
+          ),
+        ),
+      );
+    },
+  );
+}
+
+  Future<ImageInfo> _getImageInfo(String url) {
+  final completer = Completer<ImageInfo>();
+  final image = NetworkImage(url);
+
+  image.resolve(const ImageConfiguration()).addListener(
+    ImageStreamListener((info, _) {
+      completer.complete(info);
+    }),
+  );
+
+  return completer.future;
+}
 }
