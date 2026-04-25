@@ -51,10 +51,25 @@ class TextPost extends StatelessWidget {
 
             const SizedBox(height: 10),
 
-            Text(
-              post.content,
-              style: const TextStyle(fontSize: 14),
-            ),
+            if (post.images != null && post.images!.isNotEmpty) ...[
+              ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: Image.network(
+                  post.images!.first,
+                  width: double.infinity,
+                  height: 200,
+                  fit: BoxFit.cover,              
+                ),
+              ),
+              const SizedBox(height: 10),
+            ],
+
+            if (post.content != null && post.content!.isNotEmpty) ...[
+              Text(
+                post.content!,
+                style: const TextStyle(fontSize: 14),
+              ),
+            ],
 
             const SizedBox(height: 10),
 
