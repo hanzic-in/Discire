@@ -70,18 +70,18 @@ class TextPost extends StatelessWidget {
     );
   }
 
-  Widget _actionItem(IconData icon, String count) {
-  return Row(
-    children: [
-      Icon(icon, size: 18, color: Colors.grey),
-      if (count.isNotEmpty) ...[
-        const SizedBox(width: 4),
-        Text(
-          count,
-          style: const TextStyle(fontSize: 12, color: Colors.grey),
-        ),
+    Widget _actionItem(IconData icon, String count) {
+    return Row(
+      children: [
+        Icon(icon, size: 18, color: Colors.grey),
+        if (count.isNotEmpty) ...[
+          const SizedBox(width: 4),
+          Text(
+            count,
+            style: const TextStyle(fontSize: 12, color: Colors.grey),
+          ),
+        ],
       ],
-    ],
-  );
+    );
   }
 }
