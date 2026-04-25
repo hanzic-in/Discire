@@ -16,6 +16,11 @@ class PostSection extends StatelessWidget {
         type: PostType.post,
         content: "Ada yang ngerti state management gak sih?",
       ),
+        Post(
+          type: PostType.post,
+          content: "Ini hasil UI yang lagi gw buat, menurut lu gimana?",
+          images: ["https://images.unsplash.com/photo-1555066931-4365d14bab8c"],
+        ),
     ];
 
     return Column(
