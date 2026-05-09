@@ -13,8 +13,8 @@ class HomeHeader extends StatelessWidget {
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: [
-            Color(0xFFEDE9FF),
-            Color(0xFFEAF4FF),
+            Color(0xFFD9D4FF),
+            Color(0xFFCFE7FF),
           ],
         ),
       ),
