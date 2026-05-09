@@ -25,6 +25,13 @@ class _HomeContentState extends State<HomeContent> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
+              width: double.infinity,
+              constraints: const BoxConstraints(
+                minHeight: 340,
+              ),
+              padding: const EdgeInsets.only(
+                bottom: 60,
+              ),
               decoration: const BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
@@ -37,8 +44,8 @@ class _HomeContentState extends State<HomeContent> {
                   ],
                   stops: [
                     0.0,
-                    0.55,
-                    0.82,
+                    0.45,
+                    0.78,
                     1.0,
                   ],
                 ),
@@ -50,7 +57,7 @@ class _HomeContentState extends State<HomeContent> {
                   const SizedBox(height: 12),
 
                   _buildTabSwitch(),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 40),
                 ],
               ),
             ),
