@@ -36,7 +36,7 @@ class _HomeContentState extends State<HomeContent> {
                   ],
                   stops: [
                     0.0,
-                    0.72,
+                    0.80,
                     1.0,
                   ],
                 ),
