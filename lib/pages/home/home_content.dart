@@ -27,8 +27,8 @@ class _HomeContentState extends State<HomeContent> {
             Container(
               decoration: const BoxDecoration(
                 gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
                   colors: [
                     Color(0xFFD9D4FF),
                     Color(0xFFCFE7FF),
