@@ -10,18 +10,6 @@ class HomeHeader extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(16, 60, 16, 24),
       decoration: BoxDecoration(
         color: const Color(0xFFF3F5FF),
-        borderRadius: const BorderRadius.only(
-          bottomLeft: Radius.circular(32),
-          bottomRight: Radius.circular(32),
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: const Color(0xFF6C63FF).withOpacity(0.08),
-            blurRadius: 40,
-            spreadRadius: 6,
-            offset: const Offset(0, 10),
-          ),
-        ],
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
