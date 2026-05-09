@@ -9,7 +9,14 @@ class HomeHeader extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.fromLTRB(16, 60, 16, 24),
       decoration: BoxDecoration(
-        color: const Color(0xFFF5F7FB),
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            Color(0xFFEDE9FF),
+            Color(0xFFEAF4FF),
+          ],
+        ),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -48,9 +55,10 @@ class HomeHeader extends StatelessWidget {
               shape: BoxShape.circle,
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.04),
-                  blurRadius: 12,
-                  offset: const Offset(0, 4),
+                  color: Color(0xFF6C63FF).withOpacity(0.05),
+                  blurRadius: 30,
+                  spreadRadius: 1,
+                  offset: Offset(0, 10),
                 ),
               ],
             ),
