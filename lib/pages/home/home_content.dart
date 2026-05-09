@@ -24,11 +24,28 @@ class _HomeContentState extends State<HomeContent> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const HomeHeader(),
-            const HomeSearchBar(),
-            const SizedBox(height: 12),
+            Container(
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [
+                    Color(0xFFD9D4FF),
+                    Color(0xFFCFE7FF),
+                  ],
+                ),
+              ),
+              child: Column(
+                children: [
+                  const HomeHeader(),
+                  const HomeSearchBar(),
+                  const SizedBox(height: 12),
 
-            _buildTabSwitch(),
+                  _buildTabSwitch(),
+                  const SizedBox(height: 16),
+                ],
+              ),
+            ),
             const SizedBox(height: 16),
 
             if (currentTab == 0) ...[
