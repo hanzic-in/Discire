@@ -30,7 +30,7 @@ class _HomeContentState extends State<HomeContent> {
                 minHeight: 280,
               ),
               padding: const EdgeInsets.only(
-                bottom: 24,
+                bottom: 10,
               ),
               decoration: const BoxDecoration(
                 gradient: LinearGradient(
@@ -57,7 +57,7 @@ class _HomeContentState extends State<HomeContent> {
                   const SizedBox(height: 12),
 
                   _buildTabSwitch(),
-                  const SizedBox(height: 24),
+                  const SizedBox(height: 10),
                 ],
               ),
             ),
