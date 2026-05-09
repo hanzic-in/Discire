@@ -44,8 +44,8 @@ class _HomeContentState extends State<HomeContent> {
                   ],
                   stops: [
                     0.0,
-                    0.45,
-                    0.78,
+                    0.55,
+                    0.88,
                     1.0,
                   ],
                 ),
@@ -57,7 +57,7 @@ class _HomeContentState extends State<HomeContent> {
                   const SizedBox(height: 12),
 
                   _buildTabSwitch(),
-                  const SizedBox(height: 40),
+                  const SizedBox(height: 16),
                 ],
               ),
             ),
