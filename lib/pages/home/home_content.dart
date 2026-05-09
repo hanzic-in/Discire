@@ -27,19 +27,19 @@ class _HomeContentState extends State<HomeContent> {
             Container(
               width: double.infinity,
               constraints: const BoxConstraints(
-                minHeight: 340,
+                minHeight: 280,
               ),
               padding: const EdgeInsets.only(
-                bottom: 60,
+                bottom: 24,
               ),
               decoration: const BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   colors: [
-                    Color(0xFFD1C7FF),
-                    Color(0xFFC7DDFF),
-                    Color(0xFFEAF2FF),
+                    Color(0xFFCFC2FF),
+                    Color(0xFFBDDFFF),
+                    Color(0xFFE4F1FF),
                     Color(0xFFF5F7FB),
                   ],
                   stops: [
@@ -57,7 +57,7 @@ class _HomeContentState extends State<HomeContent> {
                   const SizedBox(height: 12),
 
                   _buildTabSwitch(),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 24),
                 ],
               ),
             ),
