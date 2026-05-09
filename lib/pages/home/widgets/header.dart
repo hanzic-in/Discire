@@ -9,7 +9,7 @@ class HomeHeader extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.fromLTRB(16, 60, 16, 24),
       decoration: BoxDecoration(
-        color: const Color(0xFFF3F5FF),
+        color: const Color(0xFFF5F7FB),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
