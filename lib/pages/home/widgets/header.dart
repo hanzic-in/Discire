@@ -8,19 +8,20 @@ class HomeHeader extends StatelessWidget {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.fromLTRB(16, 60, 16, 24),
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [
-            Color(0xFF6C63FF),
-            Color(0xFF4DA8FF),
-          ],
+      decoration: BoxDecoration(
+        color: const Color(0xFFF3F5FF),
+        borderRadius: const BorderRadius.only(
+          bottomLeft: Radius.circular(32),
+          bottomRight: Radius.circular(32),
         ),
-        borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(28),
-          bottomRight: Radius.circular(28),
-        ),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFF6C63FF).withOpacity(0.08),
+            blurRadius: 40,
+            spreadRadius: 6,
+            offset: const Offset(0, 10),
+          ),
+        ],
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -31,32 +32,44 @@ class HomeHeader extends StatelessWidget {
               Text(
                 "Jakarta, Indonesia",
                 style: TextStyle(
-                  color: Colors.white70,
+                  color: Color(0xFF7B8190),
                   fontSize: 12,
+                  fontWeight: FontWeight.w500,
                 ),
               ),
-              SizedBox(height: 4),
+
+              SizedBox(height: 6),
+
               Text(
                 "Hai, Explorer 👋",
                 style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 26,
+                  color: Color(0xFF1E1E1E),
+                  fontSize: 28,
                   fontWeight: FontWeight.bold,
+                  letterSpacing: -0.5,
                 ),
               ),
             ],
           ),
 
           Container(
-            height: 45,
-            width: 45,
+            height: 48,
+            width: 48,
             decoration: BoxDecoration(
-              color: Colors.white24,
+              color: Colors.white.withOpacity(0.75),
               shape: BoxShape.circle,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.04),
+                  blurRadius: 12,
+                  offset: const Offset(0, 4),
+                ),
+              ],
             ),
             child: const Icon(
-              Icons.notifications_none,
-              color: Colors.white,
+              Icons.notifications_none_rounded,
+              color: Color(0xFF444444),
+              size: 24,
             ),
           ),
         ],
