@@ -89,17 +89,16 @@ class _AnimatedGreetingState extends State<AnimatedGreeting>
       position: _slideAnimation,
       child: FadeTransition(
         opacity: _fadeAnimation,
-          child: Text(
-            visibleText,
-            key: ValueKey(visibleText),
-            style: widget.style ??
-            const TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.w800,
-              color: Color(0xFF171717),
-              letterSpacing: -0.6,
-            ),
+        child: Text(
+          visibleText,
+          style: widget.style ??
+          const TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.w800,
+            color: Color(0xFF171717),
+            letterSpacing: -0.6,
           ),
+        ),
       ),
     );
   }
