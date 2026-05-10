@@ -40,7 +40,12 @@ final List<Map<String, String>> users = [
           padding: EdgeInsets.fromLTRB(16, 0, 16, 10),
           child: Text(
             "Nearby Souls ✨",
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+            style: TextStyle(
+              fontWeight: FontWeight.w700,
+              fontSize: 18,
+              letterSpacing: -0.2,
+              color: Color(0xFF1B1B1F),
+            ),
           ),
         ),
         SizedBox(
