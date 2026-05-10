@@ -49,7 +49,7 @@ class CustomBottomNav extends StatelessWidget {
                     _navItem(Icons.add, "Add", 2, isDark),
                     _navItem(Icons.chat_bubble_rounded, "Chat", 3, isDark),
                     _navItem(Icons.person_outline_rounded, "Profile", 4, isDark),
-],
+                  ],
                 ),
               ),
             ),
@@ -84,7 +84,7 @@ class CustomBottomNav extends StatelessWidget {
                     ? [
                         BoxShadow(
                           color:
-                              Colors.black.withOpacity(0.08),
+                          Colors.black.withOpacity(0.08),
                           blurRadius: 10,
                           offset: const Offset(0, 4),
                         )
@@ -97,11 +97,7 @@ class CustomBottomNav extends StatelessWidget {
                   Icon(
                     icon,
                     size: 22,
-                    color: isActive
-                        ? Colors.black
-                        : (isDark
-                            ? Colors.white.withOpacity(0.42)
-                            : Colors.black.withOpacity(0.5)),
+                    color: isActive ? Colors.black : (isDark ? Colors.white.withOpacity(0.42) : Colors.black.withOpacity(0.5)),
                   ),
 
                   AnimatedSize(
