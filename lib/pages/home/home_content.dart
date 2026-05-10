@@ -27,23 +27,21 @@ class _HomeContentState extends State<HomeContent> {
             Container(
               width: double.infinity,
               padding: const EdgeInsets.only(
-                bottom: 18,
+                bottom: 14,
               ),
               decoration: const BoxDecoration(
                 gradient: LinearGradient(
-  begin: Alignment.topCenter,
+  begin: Alignment.topLeft,
   end: Alignment.bottomCenter,
   colors: [
-    Color(0xFFC4B8FF),
-    Color(0xFFB9DFFF),
-    Color(0xFFDCEEFF),
+    Color(0xFFB7AEFF),
+    Color(0xFFB4DFFF),
     Color(0xFFF5F7FB),
   ],
   stops: [
     0.0,
-    0.30,
-    0.72,
-    1.0,
+    0.38,
+    0.68,
   ],
 ),
               ),
