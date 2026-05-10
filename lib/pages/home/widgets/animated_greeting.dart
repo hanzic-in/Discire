@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 
 class AnimatedGreeting extends StatefulWidget {
   final String text;
+  final TextStyle? style;
 
   const AnimatedGreeting({
     super.key,
     required this.text,
+    this.style,
   });
 
   @override
@@ -89,7 +91,8 @@ class _AnimatedGreetingState extends State<AnimatedGreeting>
         opacity: _fadeAnimation,
         child: Text(
           visibleText,
-          style: const TextStyle(
+          style: widget.style ??
+          const TextStyle(
             fontSize: 24,
             fontWeight: FontWeight.w800,
             color: Color(0xFF171717),
