@@ -36,7 +36,7 @@ class _HomeContentState extends State<HomeContent> {
   colors: [
     Color(0xFFB7AEFF),
     Color(0xFFB4DFFF),
-    Color(0xFFFFFFFF),
+    Color(0xFFF7F8FC),
   ],
   stops: [
     0.0,
