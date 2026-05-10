@@ -11,19 +11,19 @@ class HomeSearchBar extends StatelessWidget {
         height: 55,
         padding: const EdgeInsets.symmetric(horizontal: 16),
         decoration: BoxDecoration(
-  color: Colors.white.withOpacity(0.9),
+  color: Colors.white.withOpacity(0.92),
   borderRadius: BorderRadius.circular(30),
   boxShadow: [
     BoxShadow(
-      color: Colors.white.withOpacity(0.45),
-      blurRadius: 24,
-      spreadRadius: 2,
-      offset: const Offset(0, 6),
+      color: Colors.black.withOpacity(0.06),
+      blurRadius: 18,
+      offset: const Offset(0, 10),
     ),
     BoxShadow(
-      color: Colors.black.withOpacity(0.04),
-      blurRadius: 16,
-      offset: const Offset(0, 8),
+      color: Colors.white.withOpacity(0.18),
+      blurRadius: 12,
+      spreadRadius: 1,
+      offset: const Offset(0, -2),
     ),
   ],
 ),
