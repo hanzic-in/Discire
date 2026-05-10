@@ -106,14 +106,15 @@ final List<Map<String, String>> users = [
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(22),
                         gradient: LinearGradient(
-                          begin: Alignment.bottomCenter,
-                          end: Alignment.topCenter,
-                          stops: const [0.15, 0.8],
-                          colors: [
-                            Colors.black.withOpacity(0.32),
-                            Colors.transparent,
-                          ],
-                        ),
+  begin: Alignment.bottomCenter,
+  end: Alignment.topCenter,
+  stops: const [0.0, 0.35, 0.75],
+  colors: [
+    Colors.black.withOpacity(0.58),
+    Colors.black.withOpacity(0.18),
+    Colors.transparent,
+  ],
+),
                       ),
                     ),
 
