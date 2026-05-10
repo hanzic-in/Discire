@@ -57,6 +57,10 @@ final List<Map<String, String>> users = [
                 width: 160,
                 margin: const EdgeInsets.only(left: 16),
                 decoration: BoxDecoration(
+                  border: Border.all(
+                    color: Colors.white.withOpacity(0.10),
+                    width: 1,
+                  ),
                   borderRadius: BorderRadius.circular(22),
                   boxShadow: [
                     BoxShadow(
@@ -109,10 +113,10 @@ final List<Map<String, String>> users = [
                         gradient: LinearGradient(
   begin: Alignment.bottomCenter,
   end: Alignment.topCenter,
-  stops: const [0.0, 0.35, 0.75],
+  stops: const [0.0, 0.32, 0.75],
   colors: [
-    Colors.black.withOpacity(0.58),
-    Colors.black.withOpacity(0.18),
+    Colors.black.withOpacity(0.42),
+    Colors.black.withOpacity(0.12),
     Colors.transparent,
   ],
 ),
