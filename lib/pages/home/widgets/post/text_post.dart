@@ -127,7 +127,11 @@ class TextPost extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
         child: Row(
           children: [
-            Icon(icon, size: 18, color: Colors.grey),
+            Icon(
+              icon,
+              size: 18,
+              color: const Color(0xFF7B8190),
+            ),
             if (count.isNotEmpty) ...[
               const SizedBox(width: 4),
               Text(
