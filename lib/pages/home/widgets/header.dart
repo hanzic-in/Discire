@@ -26,7 +26,7 @@ class HomeHeader extends StatelessWidget {
 
               const SizedBox(height: 6),
               AnimatedGreeting(
-                text: "Hi, Han 👋",
+                text: "Hi, Han",
                 style: const TextStyle(
                   color: Color(0xFF1E1E1E),
                   fontSize: 28,
