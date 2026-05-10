@@ -27,7 +27,7 @@ class _HomeContentState extends State<HomeContent> {
             Container(
               width: double.infinity,
               padding: const EdgeInsets.only(
-                bottom: 40,
+                bottom: 8,
               ),
               decoration: const BoxDecoration(
                 gradient: LinearGradient(
