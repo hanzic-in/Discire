@@ -54,7 +54,7 @@ class _HomeContentState extends State<HomeContent> {
                 children: [
                   const HomeHeader(),
                   const HomeSearchBar(),
-                  const SizedBox(height: 12),
+                  const SizedBox(height: 4),
 
                   _buildTabSwitch(),
                   const SizedBox(height: 10),
@@ -80,7 +80,7 @@ class _HomeContentState extends State<HomeContent> {
 
   Widget _buildTabSwitch() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
+      padding: const EdgeInsets.symmetric(horizontal: 8),
       child: Row(
         children: [
           _tabItem("For You", 0),
