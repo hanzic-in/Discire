@@ -30,16 +30,16 @@ class _AnimatedGreetingState extends State<AnimatedGreeting>
 
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 700),
+      duration: const Duration(milliseconds: 1200),
     );
 
     _slideAnimation = Tween<Offset>(
-      begin: const Offset(-0.08, 0),
+      begin: const Offset(-0.025, 0),
       end: Offset.zero,
     ).animate(
       CurvedAnimation(
         parent: _controller,
-        curve: Curves.easeOutCubic,
+        curve: Curves.easeOutQuart,
       ),
     );
 
@@ -49,7 +49,7 @@ class _AnimatedGreetingState extends State<AnimatedGreeting>
     ).animate(
       CurvedAnimation(
         parent: _controller,
-        curve: Curves.easeOut,
+        curve: Curves.easeOutQuart,
       ),
     );
 
