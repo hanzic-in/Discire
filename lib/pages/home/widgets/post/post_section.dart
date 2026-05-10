@@ -35,7 +35,7 @@ class PostSection extends StatelessWidget {
         ),
 
         ...posts.map((post) => Padding(
-          padding: const EdgeInsets.only(bottom: 4),
+          padding: const EdgeInsets.only(bottom: 10),
           child: _buildPost(post),
         )).toList(),
  
