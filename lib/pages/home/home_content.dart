@@ -34,10 +34,9 @@ class _HomeContentState extends State<HomeContent> {
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   colors: [
-                    Color(0xFFCFC2FF),
-                    Color(0xFFBDDFFF),
-                    Color(0xFFE4F1FF),
-                    Color(0xFFF5F7FB),
+                    Color(0xFFB9A7FF),
+                    Color(0xFF9FD3FF),
+                    Color(0xFFEFF6FF),
                   ],
                   stops: [
                     0.0,
