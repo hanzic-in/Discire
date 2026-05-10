@@ -62,7 +62,7 @@ class _AnimatedGreetingState extends State<AnimatedGreeting>
     int index = 0;
 
     timer = Timer.periodic(
-      const Duration(milliseconds: 42),
+      const Duration(milliseconds: 68),
       (timer) {
         if (index < widget.text.length) {
           setState(() {
