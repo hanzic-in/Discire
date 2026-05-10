@@ -62,7 +62,7 @@ class _HomeContentState extends State<HomeContent> {
 
             if (currentTab == 0) ...[
               const NearbySection(),
-              const SizedBox(height: 4),
+              const SizedBox(height: 0),
               const PostSection(),
             ] else ...[
               const VoiceSection(),
