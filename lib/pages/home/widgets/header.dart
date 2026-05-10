@@ -14,8 +14,8 @@ class HomeHeader extends StatelessWidget {
         children: [
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
-              Text(
+            children: [
+              const Text(
                 "Jakarta, Indonesia",
                 style: TextStyle(
                   color: Color(0xFF7B8190),
@@ -24,7 +24,7 @@ class HomeHeader extends StatelessWidget {
                 ),
               ),
 
-              SizedBox(height: 6),
+              const SizedBox(height: 6),
               AnimatedGreeting(
                 text: "Hi, Han 👋",
                 style: const TextStyle(
