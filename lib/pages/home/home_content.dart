@@ -101,7 +101,7 @@ class _HomeContentState extends State<HomeContent> {
             title,
             style: TextStyle(
               fontSize: 16,
-              fontWeight: isActive ? FontWeight.bold : FontWeight.normal,
+              fontWeight: isActive ? FontWeight.w700 : FontWeight.w500,
               
               color: isActive
                 ? (isDark ? Colors.white : Colors.black)
