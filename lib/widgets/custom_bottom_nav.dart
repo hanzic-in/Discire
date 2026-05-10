@@ -82,8 +82,8 @@ class CustomBottomNav extends StatelessWidget {
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                   colors: [
-                    Color(0xFF7C6CFF),
-                    Color(0xFF5B6CFF),
+                    Color(0xFF8D84FF),
+                    Color(0xFF6F8CFF),
                   ],
                 )
                 : null,
