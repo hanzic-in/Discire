@@ -79,9 +79,11 @@ class CustomBottomNav extends StatelessWidget {
                   horizontal: 14, vertical: 8),
               decoration: BoxDecoration(
                 gradient: isActive ? const LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
                   colors: [
-                    Color(0xFFFFFFFF),
-                    Color(0xFFF4F7FF),
+                    Color(0xFF7C6CFF),
+                    Color(0xFF5B6CFF),
                   ],
                 )
                 : null,
