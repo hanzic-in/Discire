@@ -29,7 +29,7 @@ class CustomBottomNav extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: isDark
                   ? Colors.white.withOpacity(0.08)
-                  : Colors.white.withOpacity(0.6),
+                  : Colors.white.withOpacity(0.42),
                   borderRadius: BorderRadius.circular(30),
                   border: Border.all(
                     color: Colors.white.withOpacity(0.3),
@@ -102,7 +102,7 @@ class CustomBottomNav extends StatelessWidget {
                   Icon(
                     icon,
                     size: 22,
-                    color: isActive ? Colors.black : (isDark ? Colors.white.withOpacity(0.42) : Color(0xFF6F7688)),
+                    color: isActive ? Colors.black : (isDark ? Colors.white.withOpacity(0.68) : Color(0xFF6F7688)),
                   ),
 
                   AnimatedSize(
@@ -117,6 +117,7 @@ class CustomBottomNav extends StatelessWidget {
                                 style: const TextStyle(
                                   fontSize: 13,
                                   letterSpacing: -0.1,
+                                  fontWeight: FontWeight.w600,
                                   color: Colors.black,
                                 ),
                               ),
