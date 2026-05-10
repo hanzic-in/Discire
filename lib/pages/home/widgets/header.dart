@@ -40,9 +40,9 @@ class HomeHeader extends StatelessWidget {
               AnimatedGreeting(
                 text: "Hi, Han",
                 style: const TextStyle(
-                  color: Color(0xFF1E1E1E),
+                  color: Color(0xFF1B1B1F),
                   fontSize: 28,
-                  fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.w700,
                   letterSpacing: -0.5,
                 ),
               ),
