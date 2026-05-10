@@ -64,7 +64,7 @@ final List<Map<String, String>> users = [
                   borderRadius: BorderRadius.circular(22),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.80),
+                      color: Colors.black.withOpacity(0.32),
                       blurRadius: 24,
                       spreadRadius: -4,
                       offset: const Offset(0, 10),
