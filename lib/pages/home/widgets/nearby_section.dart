@@ -60,10 +60,11 @@ final List<Map<String, String>> users = [
                   borderRadius: BorderRadius.circular(22),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.07),
-                      blurRadius: 18,
-                      offset: const Offset(0, 8),
-                    )
+                      color: Colors.black.withOpacity(0.10),
+                      blurRadius: 24,
+                      spreadRadius: -4,
+                      offset: const Offset(0, 10),
+                    ),
                   ],
                 ),
                 child: Stack(
