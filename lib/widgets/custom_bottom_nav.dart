@@ -45,7 +45,7 @@ class CustomBottomNav extends StatelessWidget {
                 child: Row(
                   children: [
                     _navItem(Icons.home_rounded, "Home", 0, isDark),
-                    _navItem(Icons.search_rounded, "Search", 1, isDark),
+                    _navItem(Icons.diversity_3_rounded, "Community", 1, isDark),
                     _navItem(Icons.add, "Add", 2, isDark),
                     _navItem(Icons.chat_bubble_rounded, "Chat", 3, isDark),
                     _navItem(Icons.person_outline_rounded, "Profile", 4, isDark),
@@ -100,7 +100,7 @@ class CustomBottomNav extends StatelessWidget {
                     color: isActive
                         ? Colors.black
                         : (isDark
-                            ? Colors.white.withOpacity(0.6)
+                            ? Colors.white.withOpacity(0.42)
                             : Colors.black.withOpacity(0.5)),
                   ),
 
