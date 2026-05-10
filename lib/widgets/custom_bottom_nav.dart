@@ -89,9 +89,9 @@ class CustomBottomNav extends StatelessWidget {
                 borderRadius: BorderRadius.circular(25),
                 boxShadow: isActive ? [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.08),
-                    blurRadius: 10,
-                    offset: const Offset(0, 4),
+                    color: const Color(0xFF7C6CFF).withOpacity(0.10),
+                    blurRadius: 18,
+                    offset: Offset(0, 6),
                   )
                 ]
                 : [],
