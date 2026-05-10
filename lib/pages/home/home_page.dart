@@ -20,7 +20,7 @@ class _HomePageState extends State<HomePage>
     bool isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
-      backgroundColor: isDark ? const Color(0xFF0D0D0D) : const Color(0xFFF5F7FB),
+      backgroundColor: isDark ? const Color(0xFF0D0D0D) : const Color(0xFFF7F8FC),
       body: Stack(
         children: [
           AnimatedSwitcher(
