@@ -115,7 +115,8 @@ class CustomBottomNav extends StatelessWidget {
                               Text(
                                 label,
                                 style: const TextStyle(
-                                  fontWeight: FontWeight.w600,
+                                  fontSize: 13,
+                                  letterSpacing: -0.1,
                                   color: Colors.black,
                                 ),
                               ),
