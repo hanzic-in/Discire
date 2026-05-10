@@ -22,7 +22,7 @@ class CustomBottomNav extends StatelessWidget {
         child: ClipRRect(
           borderRadius: BorderRadius.circular(30),
           child: BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 12, sigmaY: 12),
+            filter: ImageFilter.blur(sigmaX: 22, sigmaY: 22),
               child: Container(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 height: 70,
@@ -78,18 +78,23 @@ class CustomBottomNav extends StatelessWidget {
               padding: const EdgeInsets.symmetric(
                   horizontal: 14, vertical: 8),
               decoration: BoxDecoration(
-                color: isActive ? Colors.white : Colors.transparent,
+                gradient: isActive ? const LinearGradient(
+                  colors: [
+                    Color(0xFFFFFFFF),
+                    Color(0xFFF4F7FF),
+                  ],
+                )
+                : null,
+                color: isActive ? null : Colors.transparent,
                 borderRadius: BorderRadius.circular(25),
-                boxShadow: isActive
-                    ? [
-                        BoxShadow(
-                          color:
-                          Colors.black.withOpacity(0.08),
-                          blurRadius: 10,
-                          offset: const Offset(0, 4),
-                        )
-                      ]
-                    : [],
+                boxShadow: isActive ? [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.08),
+                    blurRadius: 10,
+                    offset: const Offset(0, 4),
+                  )
+                ]
+                : [],
               ),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
