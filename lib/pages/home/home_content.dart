@@ -31,21 +31,21 @@ class _HomeContentState extends State<HomeContent> {
               ),
               decoration: const BoxDecoration(
                 gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    Color(0xFFC6BAFF),
-                    Color(0xFFD8EAFF),
-                    Color(0xFFF7F9FC),
-                    Color(0xFFF5F7FB),
-                  ],
-                  stops: [
-                    0.0,
-                    0.42,
-                    0.72,
-                    1.0,
-                  ],
-                ),
+  begin: Alignment.topCenter,
+  end: Alignment.bottomCenter,
+  colors: [
+    Color(0xFFC4B8FF),
+    Color(0xFFB9DFFF),
+    Color(0xFFDCEEFF),
+    Color(0xFFF5F7FB),
+  ],
+  stops: [
+    0.0,
+    0.30,
+    0.72,
+    1.0,
+  ],
+),
               ),
               child: Column(
                 children: [
