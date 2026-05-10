@@ -108,9 +108,9 @@ final List<Map<String, String>> users = [
                         gradient: LinearGradient(
                           begin: Alignment.bottomCenter,
                           end: Alignment.topCenter,
-                          stops: const [0.15, 0.7],
+                          stops: const [0.15, 0.8],
                           colors: [
-                            Colors.black.withOpacity(0.38),
+                            Colors.black.withOpacity(0.42),
                             Colors.transparent,
                           ],
                         ),
