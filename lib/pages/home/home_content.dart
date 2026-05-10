@@ -26,11 +26,8 @@ class _HomeContentState extends State<HomeContent> {
           children: [
             Container(
               width: double.infinity,
-              constraints: const BoxConstraints(
-                minHeight: 200,
-              ),
               padding: const EdgeInsets.only(
-                bottom: 10,
+                bottom: 2,
               ),
               decoration: const BoxDecoration(
                 gradient: LinearGradient(
@@ -65,7 +62,7 @@ class _HomeContentState extends State<HomeContent> {
 
             if (currentTab == 0) ...[
               const NearbySection(),
-              const SizedBox(height: 16),
+              const SizedBox(height: 4),
               const PostSection(),
             ] else ...[
               const VoiceSection(),
