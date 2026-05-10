@@ -15,14 +15,25 @@ class HomeHeader extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                "Jakarta, Indonesia",
-                style: TextStyle(
-                  color: Color(0xFF667085),
-                  fontSize: 12.5,
-                  fontWeight: FontWeight.w600,
-                  letterSpacing: 0.2,
-                ),
+              const Row(
+                children: [
+                  Icon(
+                    Icons.location_on_rounded,
+                    size: 14,
+                    color: Color(0xFF667085),
+                  ),
+
+                  SizedBox(width: 4),
+                  Text(
+                    "Jakarta, Indonesia",
+                    style: TextStyle(
+                      color: Color(0xFF667085),
+                      fontSize: 12.5,
+                      fontWeight: FontWeight.w600,
+                      letterSpacing: 0.2,
+                    ),
+                  ),
+                ],
               ),
 
               const SizedBox(height: 6),
