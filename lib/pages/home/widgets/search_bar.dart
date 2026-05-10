@@ -27,14 +27,14 @@ class HomeSearchBar extends StatelessWidget {
 ),
         child: const Row(
           children: [
-            style: TextStyle(
-  color: Color(0xFF8A90A2),
-  fontWeight: FontWeight.w500,
-),
+            Icon(Icons.search, color: Color(0xFF7A8194)),
             SizedBox(width: 10),
             Text(
               "Search people, interests...",
-              style: TextStyle(color: Colors.grey),
+              style: TextStyle(
+  color: Color(0xFF8A90A2),
+  fontWeight: FontWeight.w500,
+),
             ),
           ],
         ),
