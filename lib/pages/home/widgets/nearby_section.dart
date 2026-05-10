@@ -72,7 +72,7 @@ class NearbySection extends StatelessWidget {
                           end: Alignment.topCenter,
                           stops: const [0.2, 0.75],
                           colors: [
-                            Colors.black.withOpacity(0.45),
+                            Colors.black.withOpacity(0.28),
                             Colors.transparent,
                           ],
                         ),
