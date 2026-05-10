@@ -62,7 +62,7 @@ class _HomeContentState extends State<HomeContent> {
 
             if (currentTab == 0) ...[
               const NearbySection(),
-              const SizedBox(height: 4),
+              const SizedBox(height: 14),
               const PostSection(),
             ] else ...[
               const VoiceSection(),
@@ -77,7 +77,7 @@ class _HomeContentState extends State<HomeContent> {
 
   Widget _buildTabSwitch() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8),
+      padding: const EdgeInsets.fromLTRB(16, 0, 16, 6),
       child: Row(
         children: [
           _tabItem("For You", 0),
