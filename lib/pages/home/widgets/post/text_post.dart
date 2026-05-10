@@ -14,12 +14,18 @@ class TextPost extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
         decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(10),
+          color: Colors.white.withOpacity(0.94),
+          borderRadius: BorderRadius.circular(24),
           border: Border.all(
-            color: Colors.grey.shade200,
-            width: 1,
+            color: Colors.black.withOpacity(0.03),
           ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.035),
+              blurRadius: 18,
+              offset: const Offset(0, 8),
+            ),
+          ],
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
