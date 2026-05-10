@@ -48,7 +48,6 @@ class NearbySection extends StatelessWidget {
                 ),
                 child: Stack(
                   children: [
-                    // Gambar Utama
                     ClipRRect(
                       borderRadius: BorderRadius.circular(20),
                       child: Image.network(
@@ -63,43 +62,26 @@ class NearbySection extends StatelessWidget {
                       ),
                     ),
 
-                    // Overlay Gradient
                     Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
                         gradient: LinearGradient(
                           begin: Alignment.bottomCenter,
                           end: Alignment.topCenter,
-                          stops: const [0.2, 0.75],
+                          stops: const [0.15, 0.7],
                           colors: [
-                            Colors.black.withOpacity(0.28),
+                            Colors.black.withOpacity(0.38),
                             Colors.transparent,
                           ],
                         ),
                       ),
                     ),
 
-                    // Online Indicator
                     Positioned(
-                      top: 12,
-                      right: 12,
-                      child: Container(
-                        height: 12,
-                        width: 12,
-                        decoration: BoxDecoration(
-                          color: const Color(0xFF4CAF50),
-                          shape: BoxShape.circle,
-                          border: Border.all(color: Colors.white, width: 2),
-                        ),
-                      ),
-                    ),
-
-                    // User Info (Name, Role, Location)
-                    Positioned(
-                      bottom: 12,
-                      left: 12,
-                      right: 12,
-                      child: Column(
+                      bottom: 14,
+                      left: 14,
+                      right: 14,
+                      child: Column(      
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,
                         children: [
@@ -107,33 +89,25 @@ class NearbySection extends StatelessWidget {
                             user['name']!,
                             style: const TextStyle(
                               color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14,
+                              fontWeight: FontWeight.w700,
+                              fontSize: 16,
                             ),
                           ),
+
+                          const SizedBox(height: 2),
+
                           Text(
                             user['role']!,
                             style: TextStyle(
-                              color: Colors.white.withOpacity(0.8),
-                              fontSize: 11,
-                            ),
-                          ),
-                          const SizedBox(height: 4),
-                          Row(
-                            children: [
-                              const Icon(Icons.location_on, color: Colors.white, size: 10),
-                              const SizedBox(width: 4),
-                              Text(
-                                user['dist']!,
-                                style: const TextStyle(color: Colors.white, fontSize: 10),
-                              ),
-                            ],
+                              color: Colors.white.withOpacity(0.82),
+                              fontSize: 12,
+                              fontWeight: FontWeight.w500,
+                            ),                         
                           ),
                         ],
                       ),
                     ),
                   ],
-                ),
               );
             },
           ),
