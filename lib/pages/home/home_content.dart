@@ -27,7 +27,7 @@ class _HomeContentState extends State<HomeContent> {
             Container(
               width: double.infinity,
               constraints: const BoxConstraints(
-                minHeight: 220,
+                minHeight: 200,
               ),
               padding: const EdgeInsets.only(
                 bottom: 10,
