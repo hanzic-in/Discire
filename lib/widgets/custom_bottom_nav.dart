@@ -46,7 +46,7 @@ class CustomBottomNav extends StatelessWidget {
                   children: [
                     _navItem(Icons.home_rounded, "Home", 0, isDark),
                     _navItem(Icons.diversity_3_rounded, "Community", 1, isDark),
-                    _navItem(Icons.add, "Add", 2, isDark),
+                    _navItem(Icons.edit_rounded, "Add", 2, isDark),
                     _navItem(Icons.chat_bubble_rounded, "Chat", 3, isDark),
                     _navItem(Icons.person_outline_rounded, "Profile", 4, isDark),
                   ],
