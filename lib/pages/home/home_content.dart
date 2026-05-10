@@ -51,7 +51,7 @@ class _HomeContentState extends State<HomeContent> {
                 children: [
                   const HomeHeader(),
                   const HomeSearchBar(),
-                  const SizedBox(height: 4),
+                  const SizedBox(height: 14),
 
                   _buildTabSwitch(),
                   const SizedBox(height: 10),
@@ -62,7 +62,7 @@ class _HomeContentState extends State<HomeContent> {
 
             if (currentTab == 0) ...[
               const NearbySection(),
-              const SizedBox(height: 14),
+              const SizedBox(height: 4),
               const PostSection(),
             ] else ...[
               const VoiceSection(),
