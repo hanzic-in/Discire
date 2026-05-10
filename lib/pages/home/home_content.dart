@@ -51,7 +51,7 @@ class _HomeContentState extends State<HomeContent> {
                 children: [
                   const HomeHeader(),
                   const HomeSearchBar(),
-                  const SizedBox(height: 14),
+                  const SizedBox(height: 18),
 
                   _buildTabSwitch(),
                   const SizedBox(height: 10),
