@@ -73,7 +73,11 @@ class TextPost extends StatelessWidget {
                   ],
                 ),
                 const Spacer(),
-                const Icon(Icons.more_horiz, size: 20),
+                const Icon(
+                  Icons.more_horiz_rounded,
+                  size: 20,
+                  color: Color(0xFF98A2B3),
+                ),
               ],
             ),
 
@@ -176,7 +180,7 @@ class TextPost extends StatelessWidget {
       return AspectRatio(
         aspectRatio: aspectRatio,
         child: ClipRRect(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(18),
           child: Image.network(
             url,
             fit: BoxFit.cover,
