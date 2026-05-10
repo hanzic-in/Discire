@@ -39,7 +39,7 @@ class TextPost extends StatelessWidget {
                     shape: BoxShape.circle,
                     gradient: LinearGradient(
                       colors: [
-                        Color(0xFF8B8DFF),
+                        Color(0xFF9395FF),
                         Color(0xFF78B8FF),
                       ],
                     ),
