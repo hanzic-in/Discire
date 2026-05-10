@@ -60,7 +60,7 @@ class _HomeContentState extends State<HomeContent> {
 
             if (currentTab == 0) ...[
               
-              const SizedBox(height: 10),
+              const SizedBox(height: 2),
               const PostSection(),
             ],
             const SizedBox(height: 16),
