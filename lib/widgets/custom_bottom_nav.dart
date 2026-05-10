@@ -30,7 +30,7 @@ class CustomBottomNav extends StatelessWidget {
                   color: isDark
                   ? Colors.white.withOpacity(0.08)
                   : const Color(0xFFF6F8FF).withOpacity(0.72),
-                  borderRadius: BorderRadius.circular(30),
+                  borderRadius: BorderRadius.circular(26),
                   border: Border.all(
                     color: Colors.white.withOpacity(0.3),
                  ),
@@ -45,9 +45,9 @@ class CustomBottomNav extends StatelessWidget {
                 child: Row(
                   children: [
                     _navItem(Icons.home_rounded, "Home", 0, isDark),
-                    _navItem(Icons.diversity_3_rounded, "Community", 1, isDark),
+                    _navItem(Icons.forum_rounded, "Forum", 1, isDark),
                     _navItem(Icons.edit_rounded, "Add", 2, isDark),
-                    _navItem(Icons.forum_rounded, "Chat", 3, isDark),
+                    _navItem(Icons.chat_rounded, "Chat", 3, isDark),
                     _navItem(Icons.person_outline_rounded, "Profile", 4, isDark),
                   ],
                 ),
