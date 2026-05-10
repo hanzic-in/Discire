@@ -82,7 +82,12 @@ class TextPost extends StatelessWidget {
             if (post.content != null && post.content!.isNotEmpty) ...[
               Text(
                 post.content!,
-                style: const TextStyle(fontSize: 14),
+                style: const TextStyle(
+                  fontSize: 14.5,
+                  height: 1.45,
+                  color: Color(0xFF222222),
+                  fontWeight: FontWeight.w500,
+                  letterSpacing: -0.1,),
               ),
             ],
 
