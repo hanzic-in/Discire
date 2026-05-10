@@ -32,7 +32,7 @@ class PostSection extends StatelessWidget {
             "Latest",
             style: TextStyle(
               fontWeight: FontWeight.w700,
-              fontSize: 17,
+              fontSize: 18,
               letterSpacing: -0.2,
               color: Color(0xFF1B1B1F),
             ),
