@@ -142,7 +142,7 @@ class TextPost extends StatelessWidget {
                 count,
                 style: TextStyle(
                   fontSize: 12,
-                  color: Color(0xFF7B8190),
+                  color: Color(0xFF6B7280),
                   fontWeight: FontWeight.w500,
                 ),
               ),
