@@ -133,7 +133,7 @@ class TextPost extends StatelessWidget {
           children: [
             Icon(
               icon,
-              size: 18,
+              size: 20,
               color: const Color(0xFF7B8190),
             ),
             if (count.isNotEmpty) ...[
@@ -180,7 +180,7 @@ class TextPost extends StatelessWidget {
       return AspectRatio(
         aspectRatio: aspectRatio,
         child: ClipRRect(
-          borderRadius: BorderRadius.circular(18),
+          borderRadius: BorderRadius.circular(20),
           child: Image.network(
             url,
             fit: BoxFit.cover,
