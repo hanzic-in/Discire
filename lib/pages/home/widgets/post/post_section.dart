@@ -30,7 +30,10 @@ class PostSection extends StatelessWidget {
           padding: EdgeInsets.fromLTRB(16, 25, 16, 15),
           child: Text(
             "What's Happening",
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+            style: TextStyle(
+              fontWeight: FontWeight.w700,
+              fontSize: 17,
+              letterSpacing: -0.2,),
           ),
         ),
 
