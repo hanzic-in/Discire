@@ -44,7 +44,7 @@ final List<Map<String, String>> users = [
           ),
         ),
         SizedBox(
-          height: 240,
+          height: 270,
           child: ListView.builder(
             clipBehavior: Clip.none,
             scrollDirection: Axis.horizontal,
