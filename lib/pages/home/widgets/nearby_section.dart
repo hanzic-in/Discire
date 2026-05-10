@@ -17,7 +17,7 @@ class NearbySection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Padding(
-          padding: EdgeInsets.fromLTRB(16, 20, 16, 10),
+          padding: EdgeInsets.fromLTRB(16, 6, 16, 10),
           child: Text(
             "Nearby Souls ✨",
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
