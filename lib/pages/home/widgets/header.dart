@@ -18,9 +18,10 @@ class HomeHeader extends StatelessWidget {
               const Text(
                 "Jakarta, Indonesia",
                 style: TextStyle(
-                  color: Color(0xFF7B8190),
-                  fontSize: 12,
-                  fontWeight: FontWeight.w500,
+                  color: Color(0xFF667085),
+                  fontSize: 12.5,
+                  fontWeight: FontWeight.w600,
+                  letterSpacing: 0.2,
                 ),
               ),
 
