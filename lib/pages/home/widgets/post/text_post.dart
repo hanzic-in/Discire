@@ -14,7 +14,7 @@ class TextPost extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-          color: Colors.white.withOpacity(0.94),
+          color: const Color(0xFFFDFDFE),
           borderRadius: BorderRadius.circular(24),
           border: Border.all(
             color: Colors.black.withOpacity(0.03),
