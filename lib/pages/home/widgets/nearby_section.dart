@@ -44,7 +44,7 @@ final List<Map<String, String>> users = [
           ),
         ),
         SizedBox(
-          height: 270,
+          height: 252,
           child: ListView.builder(
             clipBehavior: Clip.none,
             scrollDirection: Axis.horizontal,
@@ -60,9 +60,9 @@ final List<Map<String, String>> users = [
                   borderRadius: BorderRadius.circular(22),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.10),
-                      blurRadius: 16,
-                      offset: const Offset(0, 6),
+                      color: Colors.black.withOpacity(0.07),
+                      blurRadius: 18,
+                      offset: const Offset(0, 8),
                     )
                   ],
                 ),
@@ -110,7 +110,7 @@ final List<Map<String, String>> users = [
                           end: Alignment.topCenter,
                           stops: const [0.15, 0.8],
                           colors: [
-                            Colors.black.withOpacity(0.42),
+                            Colors.black.withOpacity(0.32),
                             Colors.transparent,
                           ],
                         ),
