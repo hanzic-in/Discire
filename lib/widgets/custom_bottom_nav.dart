@@ -22,7 +22,7 @@ class CustomBottomNav extends StatelessWidget {
         child: ClipRRect(
           borderRadius: BorderRadius.circular(30),
           child: BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 22, sigmaY: 22),
+            filter: ImageFilter.blur(sigmaX: 16, sigmaY: 16),
               child: Container(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 height: 70,
@@ -101,8 +101,8 @@ class CustomBottomNav extends StatelessWidget {
                 children: [
                   Icon(
                     icon,
-                    size: isActive ? 23 : 21,
-                    color: isActive ? Colors.black : (isDark ? Colors.white.withOpacity(0.68) : Color(0xFF6F7688)),
+                    size: isActive ? 23 : 22,
+                    color: isActive ? Colors.black : (isDark ? Colors.white.withOpacity(0.68) : const Color(0xFF555B68)),
                   ),
 
                   AnimatedSize(
