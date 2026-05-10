@@ -19,7 +19,7 @@ class HomeSearchBar extends StatelessWidget {
   ),
   boxShadow: [
     BoxShadow(
-      color: Colors.black.withOpacity(0.40),
+      color: Colors.black.withOpacity(0.10),
       blurRadius: 16,
       offset: const Offset(0, 6),
     ),
