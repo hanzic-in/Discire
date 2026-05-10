@@ -31,7 +31,7 @@ class _HomeContentState extends State<HomeContent> {
               ),
               decoration: const BoxDecoration(
                 gradient: LinearGradient(
-  begin: Alignment.topLeft,
+  begin: Alignment.topCenter,
   end: Alignment.bottomCenter,
   colors: [
     Color(0xFFB7AEFF),
