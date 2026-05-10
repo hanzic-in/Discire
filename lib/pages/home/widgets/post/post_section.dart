@@ -34,6 +34,7 @@ class PostSection extends StatelessWidget {
               fontWeight: FontWeight.w700,
               fontSize: 17,
               letterSpacing: -0.2,),
+            color: Color(0xFF1B1B1F),
           ),
         ),
 
