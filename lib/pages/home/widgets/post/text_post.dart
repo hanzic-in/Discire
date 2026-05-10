@@ -85,7 +85,7 @@ class TextPost extends StatelessWidget {
 
             if (post.images != null && post.images!.isNotEmpty) ...[
               ClipRRect(
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(22),
                 child: _buildImage(post.images!.first)
               ),
               const SizedBox(height: 10),
