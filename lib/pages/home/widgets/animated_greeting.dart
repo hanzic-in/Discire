@@ -89,7 +89,7 @@ class _AnimatedGreetingState extends State<AnimatedGreeting>
       position: _slideAnimation,
       child: FadeTransition(
         opacity: _fadeAnimation,
-        AnimatedSwitcher(
+        child: AnimatedSwitcher(
           duration: const Duration(milliseconds: 180),
           switchInCurve: Curves.easeOut,
           child: Text(
