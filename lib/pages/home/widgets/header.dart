@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'animated_greeting.dart';
 
 class HomeHeader extends StatelessWidget {
   const HomeHeader({super.key});
@@ -24,15 +25,8 @@ class HomeHeader extends StatelessWidget {
               ),
 
               SizedBox(height: 6),
-
-              Text(
-                "Hai, Explorer 👋",
-                style: TextStyle(
-                  color: Color(0xFF1E1E1E),
-                  fontSize: 28,
-                  fontWeight: FontWeight.bold,
-                  letterSpacing: -0.5,
-                ),
+              AnimatedGreeting(
+                text: "Hi, Han 👋",
               ),
             ],
           ),
