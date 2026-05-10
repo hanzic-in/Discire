@@ -27,7 +27,7 @@ class _HomeContentState extends State<HomeContent> {
             Container(
               width: double.infinity,
               padding: const EdgeInsets.only(
-                bottom: 28,
+                bottom: 18,
               ),
               decoration: const BoxDecoration(
                 gradient: LinearGradient(
@@ -37,10 +37,12 @@ class _HomeContentState extends State<HomeContent> {
                     Color(0xFFB9A7FF),
                     Color(0xFF9FD3FF),
                     Color(0xFFEFF6FF),
+                    Color(0xFFF5F7FB),
                   ],
                   stops: [
                     0.0,
-                    0.55,
+                    0.45,
+                    0.82,
                     1.0,
                   ],
                 ),
@@ -50,16 +52,17 @@ class _HomeContentState extends State<HomeContent> {
                   const HomeHeader(),
                   const HomeSearchBar(),
                   const SizedBox(height: 18),
-
+                  
                   _buildTabSwitch(),
-                  const SizedBox(height: 10),
+                  const SizedBox(height: 20),
+                  const NearbySection(),
                 ],
               ),
             ),
 
             if (currentTab == 0) ...[
-              const NearbySection(),
-              const SizedBox(height: 0),
+              
+              const SizedBox(height: 10),
               const PostSection(),
             ],
             const SizedBox(height: 16),
