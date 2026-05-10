@@ -102,7 +102,7 @@ class CustomBottomNav extends StatelessWidget {
                   Icon(
                     icon,
                     size: 22,
-                    color: isActive ? Colors.black : (isDark ? Colors.white.withOpacity(0.42) : Colors.black.withOpacity(0.5)),
+                    color: isActive ? Colors.black : (isDark ? Colors.white.withOpacity(0.42) : Color(0xFF6F7688)),
                   ),
 
                   AnimatedSize(
