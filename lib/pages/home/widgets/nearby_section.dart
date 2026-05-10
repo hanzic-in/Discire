@@ -57,7 +57,6 @@ final List<Map<String, String>> users = [
                 width: 160,
                 margin: const EdgeInsets.only(left: 16),
                 decoration: BoxDecoration(
-                  color: Colors.white,
                   borderRadius: BorderRadius.circular(22),
                   boxShadow: [
                     BoxShadow(
@@ -70,7 +69,7 @@ final List<Map<String, String>> users = [
                 child: Stack(
                   children: [
                     ClipRRect(
-  borderRadius: BorderRadius.circular(20),
+  borderRadius: BorderRadius.circular(22),
   child: Image.network(
     user['img']!,
     fit: BoxFit.cover,
@@ -105,7 +104,7 @@ final List<Map<String, String>> users = [
 
                     Container(
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
+                        borderRadius: BorderRadius.circular(22),
                         gradient: LinearGradient(
                           begin: Alignment.bottomCenter,
                           end: Alignment.topCenter,
