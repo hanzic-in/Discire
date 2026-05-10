@@ -29,7 +29,7 @@ class CustomBottomNav extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: isDark
                   ? Colors.white.withOpacity(0.08)
-                  : Colors.white.withOpacity(0.42),
+                  : const Color(0xFFF6F8FF).withOpacity(0.72),
                   borderRadius: BorderRadius.circular(30),
                   border: Border.all(
                     color: Colors.white.withOpacity(0.3),
