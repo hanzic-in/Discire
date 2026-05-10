@@ -6,12 +6,32 @@ class NearbySection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     
-    final List<Map<String, String>> users = [
-      {"name": "Aria Chen", "role": "UI Designer", "dist": "1.2 km", "img": "https://i.pravatar.cc/300?u=aria"},
-      {"name": "Ryo Tanaka", "role": "Software Engineer", "dist": "2.4 km", "img": "https://i.pravatar.cc/300?u=ryo"},
-      {"name": "Maya Putri", "role": "Content Creator", "dist": "3.1 km", "img": "https://i.pravatar.cc/300?u=maya"},
-      {"name": "Han", "role": "Fullstack Dev", "dist": "0.5 km", "img": "https://i.pravatar.cc/300?u=han"},
-    ];
+final List<Map<String, String>> users = [
+  {
+    "name": "Aria Chen",
+    "role": "UI Designer",
+    "img":
+        "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1200&auto=format&fit=crop",
+  },
+  {
+    "name": "Ryo Tanaka",
+    "role": "Software Engineer",
+    "img":
+        "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=1200&auto=format&fit=crop",
+  },
+  {
+    "name": "Maya Putri",
+    "role": "Content Creator",
+    "img":
+        "https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?q=80&w=1200&auto=format&fit=crop",
+  },
+  {
+    "name": "Han",
+    "role": "Fullstack Dev",
+    "img":
+        "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=1200&auto=format&fit=crop",
+  },
+];
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -49,18 +69,38 @@ class NearbySection extends StatelessWidget {
                 child: Stack(
                   children: [
                     ClipRRect(
-                      borderRadius: BorderRadius.circular(20),
-                      child: Image.network(
-                        user['img']!,
-                        fit: BoxFit.cover,
-                        height: double.infinity,
-                        width: double.infinity,
-                        errorBuilder: (context, error, stackTrace) => Container(
-                          color: Colors.grey[200],
-                          child: const Icon(Icons.person, color: Colors.grey),
-                        ),
-                      ),
-                    ),
+  borderRadius: BorderRadius.circular(20),
+  child: Image.network(
+    user['img']!,
+    fit: BoxFit.cover,
+    height: double.infinity,
+    width: double.infinity,
+
+    loadingBuilder: (context, child, loadingProgress) {
+      if (loadingProgress == null) return child;
+
+      return Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              Color(0xFFF8F8F8),
+              Color(0xFFEDEDED),
+            ],
+          ),
+        ),
+      );
+    },
+
+    errorBuilder: (context, error, stackTrace) {
+      return Image.network(
+        "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=1200&auto=format&fit=crop",
+        fit: BoxFit.cover,
+      );
+    },
+  ),
+),
 
                     Container(
                       decoration: BoxDecoration(
