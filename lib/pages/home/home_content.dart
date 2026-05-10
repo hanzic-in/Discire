@@ -97,12 +97,10 @@ class _HomeContentState extends State<HomeContent> {
           Text(
             title,
             style: TextStyle(
-              fontSize: 16,
-              fontWeight: isActive ? FontWeight.w700 : FontWeight.w500,
-              
-              color: isActive
-                ? (isDark ? Colors.white : Colors.black)
-                : Colors.grey,
+              fontSize: 17,
+              fontWeight: isActive ? FontWeight.w700 : FontWeight.w600,
+              letterSpacing: -0.2,
+              color: isActive ? const Color(0xFF1B1B1F) : const Color(0xFF8A90A2),
             ),
           ),
           const SizedBox(height: 4),
