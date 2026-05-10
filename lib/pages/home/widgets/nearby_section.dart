@@ -17,7 +17,7 @@ class NearbySection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Padding(
-          padding: EdgeInsets.fromLTRB(16, 6, 16, 10),
+          padding: EdgeInsets.fromLTRB(16, 0, 16, 10),
           child: Text(
             "Nearby Souls ✨",
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
@@ -70,9 +70,9 @@ class NearbySection extends StatelessWidget {
                         gradient: LinearGradient(
                           begin: Alignment.bottomCenter,
                           end: Alignment.topCenter,
-                          stops: const [0.1, 0.5],
+                          stops: const [0.2, 0.75],
                           colors: [
-                            Colors.black.withOpacity(0.8),
+                            Colors.black.withOpacity(0.45),
                             Colors.transparent,
                           ],
                         ),
