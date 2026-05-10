@@ -12,7 +12,7 @@ class TextPost extends StatelessWidget {
     return Material(
       color: Colors.transparent,
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
         decoration: BoxDecoration(
           color: Colors.white.withOpacity(0.94),
           borderRadius: BorderRadius.circular(24),
