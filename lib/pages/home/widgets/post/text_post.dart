@@ -56,11 +56,19 @@ class TextPost extends StatelessWidget {
                   children: const [
                     Text(
                       "Han",
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 15,
+                        color: Color(0xFF1E1E1E),
+                      ),
                     ),
                     Text(
                       "2m ago",
-                      style: TextStyle(fontSize: 12, color: Colors.grey),
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Color(0xFF98A2B3),
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                   ],
                 ),
