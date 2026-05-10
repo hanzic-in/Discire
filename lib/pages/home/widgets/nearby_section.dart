@@ -57,10 +57,10 @@ final List<Map<String, String>> users = [
                 margin: const EdgeInsets.only(left: 16),
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(22),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.05),
+                      color: Colors.black.withOpacity(0.92),
                       blurRadius: 10,
                       offset: const Offset(0, 5),
                     )
