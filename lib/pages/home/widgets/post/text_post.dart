@@ -136,7 +136,11 @@ class TextPost extends StatelessWidget {
               const SizedBox(width: 4),
               Text(
                 count,
-                style: const TextStyle(fontSize: 12, color: Colors.grey),
+                style: TextStyle(
+                  fontSize: 12,
+                  color: Color(0xFF7B8190),
+                  fontWeight: FontWeight.w500,
+                ),
               ),
             ],
           ],
