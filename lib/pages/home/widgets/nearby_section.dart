@@ -47,7 +47,7 @@ class NearbySection extends StatelessWidget {
             clipBehavior: Clip.none,
             scrollDirection: Axis.horizontal,
             itemCount: users.length,
-            padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
+            padding: const EdgeInsets.only(right: AppSpacing.md),
             itemBuilder: (context, index) => _buildUserCard(context, users[index]),
           ),
         ),
