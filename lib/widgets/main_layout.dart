@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
+import '../core/theme/app_theme.dart'; 
 
 class MainLayout extends StatelessWidget {
   final Widget child;
   final bool usePadding;
-  final Color backgroundColor;
 
   const MainLayout({
     super.key, 
     required this.child, 
     this.usePadding = true,
-    this.backgroundColor = const Color(0xFFF5F6FA),
   });
 
   @override
   Widget build(BuildContext context) {
+    final theme = AppThemeExtension.of(context);
     double screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      backgroundColor: backgroundColor,
+      backgroundColor: theme.background,
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(
