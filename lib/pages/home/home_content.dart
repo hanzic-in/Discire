@@ -5,6 +5,7 @@ import 'widgets/header.dart';
 import 'widgets/search_bar.dart';
 import 'widgets/nearby_section.dart';
 import 'widgets/post/post_section.dart';
+import 'widgets/voice_section.dart';
 
 class HomeContent extends StatefulWidget {
   const HomeContent({super.key});
@@ -19,20 +20,17 @@ class _HomeContentState extends State<HomeContent> {
   @override
   Widget build(BuildContext context) {
     final theme = AppThemeExtension.of(context);
-    
+
     return MainLayout(
       usePadding: false,
-      child: CustomScrollView(
-        slivers: [
-          // SLIVER 1: Header + Search + Gradient (scrollable, hilang ke atas)
-          SliverAppBar(
-            expandedHeight: 280, // Header + Search + spacing
-            floating: false,
-            pinned: false, // ← Bukan sticky, ikut scroll!
-            elevation: 0,
-            backgroundColor: Colors.transparent,
-            flexibleSpace: FlexibleSpaceBar(
-              background: Container(
+      child: NestedScrollView(
+        physics: const BouncingScrollPhysics(),
+        headerSliverBuilder: (context, innerBoxIsScrolled) {
+          return [
+            /// HEADER + SEARCH
+            SliverToBoxAdapter(
+              child: Container(
+                width: double.infinity,
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
@@ -41,71 +39,74 @@ class _HomeContentState extends State<HomeContent> {
                     stops: const [0.0, 0.38, 0.68],
                   ),
                 ),
-                child: SafeArea(
-                  bottom: false,
-                  child: Column(
-                    children: const [
-                      HomeHeader(),
-                      HomeSearchBar(),
-                    ],
-                  ),
+                child: Column(
+                  children: [
+                    const HomeHeader(),
+                    const HomeSearchBar(),
+                    const SizedBox(height: 18),
+                  ],
                 ),
               ),
             ),
-          ),
-          
-          // SLIVER 2: Tab Switcher — STICKY!
-          SliverPersistentHeader(
-            pinned: true, // ← STICKY!
-            delegate: _TabSwitcherDelegate(
-              child: Container(
-                color: theme.background, // Solid background
-                child: _buildTabSwitch(),
-              ),
-            ),
-          ),
-          
-          // SLIVER 3: Nearby + Post (scrollable)
-          SliverToBoxAdapter(
-            child: Column(
-              children: [
-                // NEARBY — Di atas gradient yang panjang?
-                // Gradient harus lanjut di sini!
-                Container(
+
+            /// STICKY TAB
+            SliverPersistentHeader(
+              pinned: true,
+              delegate: _TabHeaderDelegate(
+                height: 62,
+                child: Container(
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
-                      colors: [
-                        theme.headerGradient.last, // Warna terakhir gradient
-                        theme.background, // Fade ke background
-                      ],
+                      colors: theme.headerGradient,
+                      stops: const [0.0, 0.38, 0.68],
                     ),
                   ),
-                  child: const NearbySection(),
+                  child: _buildTabSwitch(),
                 ),
-                
-                // POST — Background solid
-                Container(
-                  color: theme.background,
-                  child: Column(
-                    children: [
-                      if (currentTab == 0) const PostSection(),
-                      const SizedBox(height: 120),
-                    ],
-                  ),
-                ),
-              ],
+              ),
+            ),
+          ];
+        },
+
+        /// SCROLLABLE CONTENT
+        body: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: theme.headerGradient,
+              stops: const [0.0, 0.38, 0.68],
             ),
           ),
-        ],
+          child: ListView(
+            padding: EdgeInsets.zero,
+            physics: const BouncingScrollPhysics(),
+            children: [
+              const NearbySection(),
+
+              if (currentTab == 0)
+                const PostSection()
+              else
+                const VoiceSection(),
+
+              const SizedBox(height: 120),
+            ],
+          ),
+        ),
       ),
     );
   }
 
   Widget _buildTabSwitch() {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(AppSpacing.md, 0, AppSpacing.md, 6),
+      padding: const EdgeInsets.fromLTRB(
+        AppSpacing.md,
+        8,
+        AppSpacing.md,
+        6,
+      ),
       child: Row(
         children: [
           _tabItem("For You", 0),
@@ -119,25 +120,37 @@ class _HomeContentState extends State<HomeContent> {
   Widget _tabItem(String title, int index) {
     final isActive = currentTab == index;
     final theme = AppThemeExtension.of(context);
-    
+
     return GestureDetector(
       onTap: () => setState(() => currentTab = index),
+      behavior: HitTestBehavior.opaque,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             title,
             style: AppTextStyles.title(context).copyWith(
-              fontWeight: isActive ? FontWeight.w700 : FontWeight.w600,
-              color: isActive ? theme.textPrimary : theme.textTertiary,
+              fontWeight:
+                  isActive ? FontWeight.w700 : FontWeight.w600,
+              color: isActive
+                  ? theme.textPrimary
+                  : theme.textTertiary,
             ),
           ),
+
           const SizedBox(height: 4),
+
           AnimatedContainer(
-            duration: const Duration(milliseconds: 200),
+            duration: const Duration(milliseconds: 220),
+            curve: Curves.easeOut,
             height: 2,
             width: isActive ? 24 : 0,
-            color: isActive ? theme.textPrimary : Colors.transparent,
+            decoration: BoxDecoration(
+              color: isActive
+                  ? theme.textPrimary
+                  : Colors.transparent,
+              borderRadius: BorderRadius.circular(999),
+            ),
           ),
         ],
       ),
@@ -145,16 +158,35 @@ class _HomeContentState extends State<HomeContent> {
   }
 }
 
-class _TabSwitcherDelegate extends SliverPersistentHeaderDelegate {
+class _TabHeaderDelegate extends SliverPersistentHeaderDelegate {
   final Widget child;
-  _TabSwitcherDelegate({required this.child});
+  final double height;
+
+  _TabHeaderDelegate({
+    required this.child,
+    required this.height,
+  });
 
   @override
-  Widget build(context, shrinkOffset, overlapsContent) => child;
+  double get minExtent => height;
+
   @override
-  double get maxExtent => 50;
+  double get maxExtent => height;
+
   @override
-  double get minExtent => 50;
+  Widget build(
+    BuildContext context,
+    double shrinkOffset,
+    bool overlapsContent,
+  ) {
+    return child;
+  }
+
   @override
-  bool shouldRebuild(_) => false;
+  bool shouldRebuild(
+    covariant _TabHeaderDelegate oldDelegate,
+  ) {
+    return oldDelegate.child != child ||
+        oldDelegate.height != height;
+  }
 }
