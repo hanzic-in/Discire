@@ -23,58 +23,59 @@ class _HomeContentState extends State<HomeContent> {
 
 return MainLayout(
   usePadding: false,
-  child: Column(
+  child: Stack(
     children: [
-      Expanded(
-        child: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: theme.headerGradient,
-              stops: const [0.0, 0.38, 0.68],
-            ),
-          ),
-
-          child: Column(
-            children: [
-              /// FIXED
-              const HomeHeader(),
-              const HomeSearchBar(),
-              const SizedBox(height: 18),
-
-              _buildTabSwitch(),
-
-              const SizedBox(height: 12),
-
-              /// SCROLL AREA
-              Expanded(
-                child: ListView(
-                  padding: EdgeInsets.zero,
-                  children: [
-                    /// MASIH KENA GRADIENT
-                    const NearbySection(),
-
-                    /// MULAI PUTIH
-                    Container(
-                      color: theme.background,
-                      child: Column(
-                        children: [
-                          if (currentTab == 0)
-                            const PostSection()
-                          else
-                            const VoiceSection(),
-
-                          const SizedBox(height: 120),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
+      /// FIXED GRADIENT BACKGROUND
+      Container(
+        height: 420,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: theme.headerGradient,
+            stops: const [0.0, 0.38, 0.68],
           ),
         ),
+      ),
+
+      /// CONTENT
+      Column(
+        children: [
+          /// FIXED HEADER
+          const HomeHeader(),
+          const HomeSearchBar(),
+          const SizedBox(height: 18),
+
+          _buildTabSwitch(),
+
+          const SizedBox(height: 12),
+
+          /// ONLY THIS SCROLLS
+          Expanded(
+            child: ListView(
+              padding: EdgeInsets.zero,
+              children: [
+                /// transparan
+                const NearbySection(),
+
+                /// putih mulai sini
+                Container(
+                  color: theme.background,
+                  child: Column(
+                    children: [
+                      if (currentTab == 0)
+                        const PostSection()
+                      else
+                        const VoiceSection(),
+
+                      const SizedBox(height: 120),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     ],
   ),
