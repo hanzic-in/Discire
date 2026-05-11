@@ -58,9 +58,7 @@ class _HomeContentState extends State<HomeContent> {
                   /// TRANSPARENT SECTION
                   const NearbySection(),
 
-                  /// SOLID BACKGROUND STARTS HERE
                   Container(
-                    color: theme.background,
                     child: Column(
                       children: [
                         if (currentTab == 0)
