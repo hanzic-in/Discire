@@ -41,6 +41,8 @@ class AppThemeExtension extends ThemeExtension<AppThemeExtension> {
   final Color divider;
   final Color shadow;
   final Color overlay;
+  final Color searchBar;
+  final Color searchBarBorder;
   final List<Color> headerGradient;
   final Color navBackground;
   final Color navActive;
@@ -77,6 +79,8 @@ class AppThemeExtension extends ThemeExtension<AppThemeExtension> {
       Color(0xFFB4DFFF),
       Color(0xFFF7F8FC),
     ],
+    searchBar: Color(0xFFF7F8FC),
+    searchBarBorder: Color(0xFFE5E7EB),
     navBackground: Color(0xB3F6F8FF),
     navActive: Colors.white,
     navInactive: Color(0xFF555B68),
@@ -97,9 +101,8 @@ class AppThemeExtension extends ThemeExtension<AppThemeExtension> {
       Color(0xFF1E1E24),
       Color(0xFF121218),
     ],
-
-
-
+    searchBar: Color(0xFF121218),
+    searchBarBorder: Color(0x1AFFFFFF),
     navBackground: Color(0xB31E1E24),
     navActive: Colors.white,
     navInactive: Color(0xFF8A8F9D),
