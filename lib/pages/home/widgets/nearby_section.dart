@@ -34,7 +34,7 @@ class NearbySection extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.fromLTRB(
-            AppSpacing.md, 0, AppSpacing.md, 20,
+            AppSpacing.md, 0, AppSpacing.md, AppSpacing.sectionGap,
           ),
           child: Text(
             "Discover",
