@@ -60,7 +60,7 @@ class NearbySection extends StatelessWidget {
     
     return Container(
       width: 160,
-      margin: const EdgeInsets.only(right: AppSpacing.md),
+      margin: const EdgeInsets.only(left: AppSpacing.md),
       decoration: BoxDecoration(
         border: Border.all(
           color: theme.divider.withOpacity(0.10),
