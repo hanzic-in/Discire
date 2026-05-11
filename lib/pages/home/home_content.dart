@@ -21,67 +21,60 @@ class _HomeContentState extends State<HomeContent> {
   Widget build(BuildContext context) {
     final theme = AppThemeExtension.of(context);
 
-    return MainLayout(
-      usePadding: false,
-      child: Column(
-        children: [
-          Container(
-            width: double.infinity,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: theme.headerGradient,
-                stops: const [0.0, 0.38, 0.68],
-              ),
-            ),
-            child: Column(
-              children: [
-                const HomeHeader(),
-                const HomeSearchBar(),
-                const SizedBox(height: 18),
-                _buildTabSwitch(),
-                const SizedBox(height: 12),
-              ],
-            ),
-          ),
+return MainLayout(
+  usePadding: false,
+  child: Container(
+    decoration: BoxDecoration(
+      gradient: LinearGradient(
+        begin: Alignment.topCenter,
+        end: Alignment.bottomCenter,
+        colors: theme.headerGradient,
+        stops: const [0.0, 0.38, 0.68],
+      ),
+    ),
 
-          Expanded(
-            child: Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: theme.headerGradient,
-                  stops: const [0.0, 0.38, 0.68],
+    child: Column(
+      children: [
+        /// FIXED HEADER
+        Column(
+          children: [
+            const HomeHeader(),
+            const HomeSearchBar(),
+            const SizedBox(height: 18),
+            _buildTabSwitch(),
+            const SizedBox(height: 12),
+          ],
+        ),
+
+        /// SCROLL
+        Expanded(
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: [
+              /// TRANSPARENT
+              const NearbySection(),
+
+              /// PUTIH MULAI SINI
+              Container(
+                color: theme.background,
+                child: Column(
+                  children: [
+                    if (currentTab == 0)
+                      const PostSection()
+                    else
+                      const VoiceSection(),
+
+                    const SizedBox(height: 120),
+                  ],
                 ),
               ),
-
-              child: ListView(
-                padding: EdgeInsets.zero,
-                physics: const BouncingScrollPhysics(),
-                children: [
-                  const NearbySection(),
-                  Container(
-                    color: theme.background,
-                    child: Column(
-                      children: [
-                        if (currentTab == 0)
-                          const PostSection()
-                        else
-                          const VoiceSection(),
-
-                        const SizedBox(height: 120),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            ],
           ),
-        ],
-      ),
-    );
+        ),
+      ],
+    ),
+  ),
+);
   }
 
   Widget _buildTabSwitch() {
