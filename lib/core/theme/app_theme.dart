@@ -103,7 +103,15 @@ class AppThemeExtension extends ThemeExtension<AppThemeExtension> {
   );
 
   static AppThemeExtension of(BuildContext context) {
-    return Theme.of(context).extension<AppThemeExtension>()!;
+    final brightness = Theme.of(context).brightness;
+    final ext = Theme.of(context).extension<AppThemeExtension>();
+  
+    if (ext == null) {
+      debugPrint('⚠️ AppThemeExtension null, fallback ke $brightness');
+      return brightness == Brightness.dark ? AppThemeExtension.dark : AppThemeExtension.light;
+    }
+  
+    return ext;
   }
 
   @override
