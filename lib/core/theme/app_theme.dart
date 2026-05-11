@@ -173,6 +173,8 @@ class AppThemeExtension extends ThemeExtension<AppThemeExtension> {
       shadow: Color.lerp(shadow, other.shadow, t)!,
       overlay: Color.lerp(overlay, other.overlay, t)!,
       headerGradient: headerGradient,
+      searchBar: Color.lerp(searchBar, other.searchBar, t)!,
+      searchBarBorder: Color.lerp(searchBarBorder, other.searchBarBorder, t)!,
       navBackground: Color.lerp(navBackground, other.navBackground, t)!,
       navActive: Color.lerp(navActive, other.navActive, t)!,
       navInactive: Color.lerp(navInactive, other.navInactive, t)!,
