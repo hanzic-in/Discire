@@ -3,6 +3,7 @@ import 'home_content.dart';
 import '../chat/chat_list_page.dart';
 import '../profile/profile_page.dart';
 import '../../widgets/custom_bottom_nav.dart';
+import '../../core/theme/app_theme.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -17,10 +18,10 @@ class _HomePageState extends State<HomePage>
 
   @override
   Widget build(BuildContext context) {
-    bool isDark = Theme.of(context).brightness == Brightness.dark;
-
+    final theme = AppThemeExtension.of(context);
+    
     return Scaffold(
-      backgroundColor: isDark ? const Color(0xFF0D0D0D) : const Color(0xFFF7F8FC),
+      backgroundColor: theme.background,
       body: Stack(
         children: [
           AnimatedSwitcher(
