@@ -15,6 +15,7 @@ class CustomBottomNav extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = AppThemeExtension.of(context);
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     
     return SafeArea(
       minimum: const EdgeInsets.only(bottom: 5),
@@ -43,11 +44,11 @@ class CustomBottomNav extends StatelessWidget {
               ),
               child: Row(
                 children: [
-                  _navItem(Icons.home_rounded, "Home", 0, theme),
-                  _navItem(Icons.forum_rounded, "Forum", 1, theme),
-                  _navItem(Icons.edit_rounded, "Add", 2, theme),
-                  _navItem(Icons.chat_rounded, "Chat", 3, theme),
-                  _navItem(Icons.person_outline_rounded, "Profile", 4, theme),
+                  _navItem(Icons.home_rounded, "Home", 0, theme, isDark),
+                  _navItem(Icons.forum_rounded, "Forum", 1, theme, isDark),
+                  _navItem(Icons.edit_rounded, "Add", 2, theme, isDark),
+                  _navItem(Icons.chat_rounded, "Chat", 3, theme, isDark),
+                  _navItem(Icons.person_outline_rounded, "Profile", 4, theme, isDark),
                 ],
               ),
             ),
@@ -57,7 +58,7 @@ class CustomBottomNav extends StatelessWidget {
     );
   }
 
-  Widget _navItem(IconData icon, String label, int index, AppThemeExtension theme) {
+  Widget _navItem(IconData icon, String label, int index, AppThemeExtension theme, bool isDark) {
     bool isActive = currentIndex == index;
 
     return Expanded(
