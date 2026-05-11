@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../core/theme/app_theme.dart';
 import '../../widgets/main_layout.dart';
 import 'widgets/header.dart';
 import 'widgets/search_bar.dart';
@@ -18,6 +19,8 @@ class _HomeContentState extends State<HomeContent> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = AppThemeExtension.of(context);
+    
     return MainLayout(
       usePadding: false,
       child: SingleChildScrollView(
@@ -26,23 +29,13 @@ class _HomeContentState extends State<HomeContent> {
           children: [
             Container(
               width: double.infinity,
-              padding: const EdgeInsets.only(
-                bottom: 8,
-              ),
-              decoration: const BoxDecoration(
+              padding: const EdgeInsets.only(bottom: AppSpacing.sm),
+              decoration: BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
-                  colors: [
-                    Color(0xFFB7AEFF),
-                    Color(0xFFB4DFFF),
-                    Color(0xFFF7F8FC),
-                  ],
-                  stops: [
-                    0.0,
-                    0.38,
-                    0.68,
-                  ],
+                  colors: theme.headerGradient,
+                  stops: const [0.0, 0.38, 0.68],
                 ),
               ),
               child: Column(
@@ -50,21 +43,14 @@ class _HomeContentState extends State<HomeContent> {
                   const HomeHeader(),
                   const HomeSearchBar(),
                   const SizedBox(height: 18),
-                  
                   _buildTabSwitch(),
                   const SizedBox(height: 20),
                   const NearbySection(),
                 ],
               ),
             ),
-
-            if (currentTab == 0) ...[
-              
-              const SizedBox(height: 0),
-              const PostSection(),
-            ],
+            if (currentTab == 0) const PostSection(),
             const SizedBox(height: 16),
-
             const SizedBox(height: 120),
           ],
         ),
@@ -74,7 +60,7 @@ class _HomeContentState extends State<HomeContent> {
 
   Widget _buildTabSwitch() {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 0, 16, 6),
+      padding: const EdgeInsets.fromLTRB(AppSpacing.md, 0, AppSpacing.md, 6),
       child: Row(
         children: [
           _tabItem("For You", 0),
@@ -87,7 +73,7 @@ class _HomeContentState extends State<HomeContent> {
 
   Widget _tabItem(String title, int index) {
     final isActive = currentTab == index;
-    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final theme = AppThemeExtension.of(context);
     
     return GestureDetector(
       onTap: () => setState(() => currentTab = index),
@@ -96,11 +82,9 @@ class _HomeContentState extends State<HomeContent> {
         children: [
           Text(
             title,
-            style: TextStyle(
-              fontSize: 17,
+            style: AppTextStyles.title(context).copyWith(
               fontWeight: isActive ? FontWeight.w700 : FontWeight.w600,
-              letterSpacing: -0.2,
-              color: isActive ? const Color(0xFF1B1B1F) : const Color(0xFF8A90A2),
+              color: isActive ? theme.textPrimary : theme.textTertiary,
             ),
           ),
           const SizedBox(height: 4),
@@ -108,7 +92,7 @@ class _HomeContentState extends State<HomeContent> {
             duration: const Duration(milliseconds: 200),
             height: 2,
             width: isActive ? 24 : 0,
-            color: isDark ? Colors.white : Colors.black,
+            color: isActive ? theme.textPrimary : Colors.transparent,
           ),
         ],
       ),
