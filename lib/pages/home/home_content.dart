@@ -23,38 +23,38 @@ class _HomeContentState extends State<HomeContent> {
 
     return MainLayout(
       usePadding: false,
-      child: NestedScrollView(
-        physics: const BouncingScrollPhysics(),
-        headerSliverBuilder: (context, innerBoxIsScrolled) {
-          return [
-            /// HEADER + SEARCH
-            SliverToBoxAdapter(
-              child: Container(
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: theme.headerGradient,
-                    stops: const [0.0, 0.38, 0.68],
-                  ),
-                ),
-                child: Column(
-                  children: [
-                    const HomeHeader(),
-                    const HomeSearchBar(),
-                    const SizedBox(height: 18),
-                  ],
-                ),
+      child: Column(
+        children: [
+          /// FIXED TOP AREA
+          Container(
+            width: double.infinity,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: theme.headerGradient,
+                stops: const [0.0, 0.38, 0.68],
               ),
             ),
+            child: Column(
+              children: [
+                const HomeHeader(),
+                const HomeSearchBar(),
+                const SizedBox(height: 18),
+                _buildTabSwitch(),
+                const SizedBox(height: 14),
+              ],
+            ),
+          ),
 
-            /// STICKY TAB
-            SliverPersistentHeader(
-              pinned: true,
-              delegate: _TabHeaderDelegate(
-                height: 62,
-                child: Container(
+          /// ONLY THIS SCROLLS
+          Expanded(
+            child: ListView(
+              padding: EdgeInsets.zero,
+              physics: const BouncingScrollPhysics(),
+              children: [
+                /// GRADIENT AREA ENDS HERE
+                Container(
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
                       begin: Alignment.topCenter,
@@ -63,38 +63,27 @@ class _HomeContentState extends State<HomeContent> {
                       stops: const [0.0, 0.38, 0.68],
                     ),
                   ),
-                  child: _buildTabSwitch(),
+                  child: const NearbySection(),
                 ),
-              ),
-            ),
-          ];
-        },
 
-        /// SCROLLABLE CONTENT
-        body: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: theme.headerGradient,
-              stops: const [0.0, 0.38, 0.68],
+                /// NORMAL BACKGROUND
+                Container(
+                  color: theme.background,
+                  child: Column(
+                    children: [
+                      if (currentTab == 0)
+                        const PostSection()
+                      else
+                        const VoiceSection(),
+
+                      const SizedBox(height: 120),
+                    ],
+                  ),
+                ),
+              ],
             ),
           ),
-          child: ListView(
-            padding: EdgeInsets.zero,
-            physics: const BouncingScrollPhysics(),
-            children: [
-              const NearbySection(),
-
-              if (currentTab == 0)
-                const PostSection()
-              else
-                const VoiceSection(),
-
-              const SizedBox(height: 120),
-            ],
-          ),
-        ),
+        ],
       ),
     );
   }
@@ -103,7 +92,7 @@ class _HomeContentState extends State<HomeContent> {
     return Padding(
       padding: const EdgeInsets.fromLTRB(
         AppSpacing.md,
-        8,
+        0,
         AppSpacing.md,
         6,
       ),
@@ -155,38 +144,5 @@ class _HomeContentState extends State<HomeContent> {
         ],
       ),
     );
-  }
-}
-
-class _TabHeaderDelegate extends SliverPersistentHeaderDelegate {
-  final Widget child;
-  final double height;
-
-  _TabHeaderDelegate({
-    required this.child,
-    required this.height,
-  });
-
-  @override
-  double get minExtent => height;
-
-  @override
-  double get maxExtent => height;
-
-  @override
-  Widget build(
-    BuildContext context,
-    double shrinkOffset,
-    bool overlapsContent,
-  ) {
-    return child;
-  }
-
-  @override
-  bool shouldRebuild(
-    covariant _TabHeaderDelegate oldDelegate,
-  ) {
-    return oldDelegate.child != child ||
-        oldDelegate.height != height;
   }
 }
