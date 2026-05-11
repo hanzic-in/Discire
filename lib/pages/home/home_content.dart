@@ -24,65 +24,59 @@ class _HomeContentState extends State<HomeContent> {
     return MainLayout(
       usePadding: false,
 
-      /// ROOT
-      child: Stack(
-        children: [
-          /// GLOBAL BACKGROUND GRADIENT
-          Positioned.fill(
-            child: Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: theme.headerGradient,
-                  stops: const [0.0, 0.38, 0.68],
-                ),
+      /// GLOBAL PAGE BACKGROUND
+      child: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: theme.headerGradient,
+            stops: const [0.0, 0.38, 0.68],
+          ),
+        ),
+
+        child: Column(
+          children: [
+            /// FIXED AREA
+            const HomeHeader(),
+
+            /// pastikan search bar transparan
+            const HomeSearchBar(),
+
+            const SizedBox(height: 18),
+
+            _buildTabSwitch(),
+
+            const SizedBox(height: 12),
+
+            /// ONLY THIS SCROLLS
+            Expanded(
+              child: ListView(
+                padding: EdgeInsets.zero,
+                physics: const BouncingScrollPhysics(),
+                children: [
+                  /// TRANSPARENT SECTION
+                  const NearbySection(),
+
+                  /// SOLID BACKGROUND STARTS HERE
+                  Container(
+                    color: theme.background,
+                    child: Column(
+                      children: [
+                        if (currentTab == 0)
+                          const PostSection()
+                        else
+                          const VoiceSection(),
+
+                        const SizedBox(height: 120),
+                      ],
+                    ),
+                  ),
+                ],
               ),
             ),
-          ),
-
-          /// CONTENT
-          Column(
-            children: [
-              /// FIXED AREA
-              const HomeHeader(),
-              const HomeSearchBar(),
-
-              const SizedBox(height: 18),
-
-              _buildTabSwitch(),
-
-              const SizedBox(height: 12),
-
-              /// ONLY THIS SCROLLS
-              Expanded(
-                child: ListView(
-                  padding: EdgeInsets.zero,
-                  physics: const BouncingScrollPhysics(),
-                  children: [
-                    /// TRANSPARENT
-                    const NearbySection(),
-
-                    /// WHITE SECTION STARTS HERE
-                    Container(
-                      color: theme.background,
-                      child: Column(
-                        children: [
-                          if (currentTab == 0)
-                            const PostSection()
-                          else
-                            const VoiceSection(),
-
-                          const SizedBox(height: 120),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
