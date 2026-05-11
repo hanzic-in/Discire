@@ -23,56 +23,60 @@ class _HomeContentState extends State<HomeContent> {
 
 return MainLayout(
   usePadding: false,
-  child: Container(
-    decoration: BoxDecoration(
-      gradient: LinearGradient(
-        begin: Alignment.topCenter,
-        end: Alignment.bottomCenter,
-        colors: theme.headerGradient,
-        stops: const [0.0, 0.38, 0.68],
-      ),
-    ),
+  child: Column(
+    children: [
+      Expanded(
+        child: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: theme.headerGradient,
+              stops: const [0.0, 0.38, 0.68],
+            ),
+          ),
 
-    child: Column(
-      children: [
-        /// FIXED HEADER
-        Column(
-          children: [
-            const HomeHeader(),
-            const HomeSearchBar(),
-            const SizedBox(height: 18),
-            _buildTabSwitch(),
-            const SizedBox(height: 12),
-          ],
-        ),
-
-        /// SCROLL
-        Expanded(
-          child: ListView(
-            padding: EdgeInsets.zero,
+          child: Column(
             children: [
-              /// TRANSPARENT
-              const NearbySection(),
+              /// FIXED
+              const HomeHeader(),
+              const HomeSearchBar(),
+              const SizedBox(height: 18),
 
-              /// PUTIH MULAI SINI
-              Container(
-                color: theme.background,
-                child: Column(
+              _buildTabSwitch(),
+
+              const SizedBox(height: 12),
+
+              /// SCROLL AREA
+              Expanded(
+                child: ListView(
+                  padding: EdgeInsets.zero,
                   children: [
-                    if (currentTab == 0)
-                      const PostSection()
-                    else
-                      const VoiceSection(),
+                    /// MASIH KENA GRADIENT
+                    const NearbySection(),
 
-                    const SizedBox(height: 120),
+                    /// MULAI PUTIH
+                    Container(
+                      color: theme.background,
+                      child: Column(
+                        children: [
+                          if (currentTab == 0)
+                            const PostSection()
+                          else
+                            const VoiceSection(),
+
+                          const SizedBox(height: 120),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               ),
             ],
           ),
         ),
-      ],
-    ),
+      ),
+    ],
   ),
 );
   }
