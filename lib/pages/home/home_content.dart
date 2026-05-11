@@ -23,8 +23,6 @@ class _HomeContentState extends State<HomeContent> {
 
     return MainLayout(
       usePadding: false,
-
-      /// GLOBAL PAGE BACKGROUND
       child: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -39,25 +37,16 @@ class _HomeContentState extends State<HomeContent> {
           children: [
             /// FIXED AREA
             const HomeHeader(),
-
-            /// pastikan search bar transparan
             const HomeSearchBar(),
-
             const SizedBox(height: 18),
-
             _buildTabSwitch(),
-
             const SizedBox(height: 12),
-
-            /// ONLY THIS SCROLLS
             Expanded(
               child: ListView(
                 padding: EdgeInsets.zero,
                 physics: const BouncingScrollPhysics(),
                 children: [
-                  /// TRANSPARENT SECTION
                   const NearbySection(),
-
                   Container(
                     child: Column(
                       children: [
@@ -65,7 +54,6 @@ class _HomeContentState extends State<HomeContent> {
                           const PostSection()
                         else
                           const VoiceSection(),
-
                         const SizedBox(height: 120),
                       ],
                     ),
