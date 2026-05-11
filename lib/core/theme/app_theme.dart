@@ -186,58 +186,67 @@ class AppThemeExtension extends ThemeExtension<AppThemeExtension> {
 
 class AppTextStyles {
   static TextStyle display(BuildContext context) => TextStyle(
-    fontSize: 24,
-    fontWeight: FontWeight.w700,
+    fontSize: 30,
+    fontWeight: FontWeight.w800,
     color: AppThemeExtension.of(context).textPrimary,
-    letterSpacing: -0.5,
-    height: 1.2,
+    letterSpacing: -1.0,
+    height: 1.1,
   );
 
   static TextStyle heading(BuildContext context) => TextStyle(
-    fontSize: 18,
+    fontSize: 22,
     fontWeight: FontWeight.w700,
     color: AppThemeExtension.of(context).textPrimary,
-    letterSpacing: -0.2,
-    height: 1.3,
+    letterSpacing: -0.6,
+    height: 1.2,
   );
 
   static TextStyle title(BuildContext context) => TextStyle(
-    fontSize: 16,
+    fontSize: 17,
     fontWeight: FontWeight.w700,
     color: AppThemeExtension.of(context).textPrimary,
-    letterSpacing: -0.1,
-    height: 1.4,
+    letterSpacing: -0.3,
+    height: 1.3,
   );
 
   static TextStyle body(BuildContext context) => TextStyle(
-    fontSize: 14,
+    fontSize: 15,
     fontWeight: FontWeight.w500,
     color: AppThemeExtension.of(context).textPrimary,
     letterSpacing: -0.1,
-    height: 1.45,
+    height: 1.55,
   );
 
-  static TextStyle caption(BuildContext context) => TextStyle(
-    fontSize: 12,
+  static TextStyle bodySecondary(BuildContext context) => TextStyle(
+    fontSize: 14,
     fontWeight: FontWeight.w500,
     color: AppThemeExtension.of(context).textSecondary,
-    letterSpacing: 0.1,
+    letterSpacing: -0.05,
     height: 1.5,
   );
 
-  // Inverse (untuk di atas gambar gelap)
-  static const titleInverse = TextStyle(
-    fontSize: 16,
-    fontWeight: FontWeight.w700,
-    color: Colors.white,
-    letterSpacing: -0.1,
+  static TextStyle caption(BuildContext context) => TextStyle(
+    fontSize: 13,
+    fontWeight: FontWeight.w600,
+    color: AppThemeExtension.of(context).textSecondary,
+    letterSpacing: 0,
     height: 1.4,
   );
 
-  static const captionInverse = TextStyle(
-    fontSize: 12,
-    fontWeight: FontWeight.w500,
+  // Inverse
+  static const titleInverse = TextStyle(
+    fontSize: 17,
+    fontWeight: FontWeight.w700,
     color: Colors.white,
+    letterSpacing: -0.3,
+    height: 1.3,
+  );
+
+  static const captionInverse = TextStyle(
+    fontSize: 13,
+    fontWeight: FontWeight.w500,
+    color: Colors.white70,
+    letterSpacing: 0,
     height: 1.4,
   );
 }
