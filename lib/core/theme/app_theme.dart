@@ -12,7 +12,7 @@ class AppColors {
   static const lightTextSecondary = Color(0xFF667085);
   static const lightTextTertiary = Color(0xFF98A2B3);
   static const lightSurface = Color(0xFFFDFDFE);
-  static const lightBackground = Color(0xFFF7F8FC);
+  static const lightBackground = Color(0xFFF7C6CFF);
   static const lightCard = Colors.white;
   
   // Dark mode
@@ -20,7 +20,7 @@ class AppColors {
   static const darkTextSecondary = Color(0xFF8A8F9D);
   static const darkTextTertiary = Color(0xFF5A6070);
   static const darkSurface = Color(0xFF1E1E24);
-  static const darkBackground = Color(0xFF121218);
+  static const darkBackground = Color(0xFF5B6CFF);
   static const darkCard = Color(0xFF25252D);
   
   // Universal
