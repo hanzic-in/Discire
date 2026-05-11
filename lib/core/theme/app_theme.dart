@@ -59,6 +59,8 @@ class AppThemeExtension extends ThemeExtension<AppThemeExtension> {
     required this.shadow,
     required this.overlay,
     required this.headerGradient,
+    required this.searchBar,
+    required this.searchBarBorder,
     required this.navBackground,
     required this.navActive,
     required this.navInactive,
