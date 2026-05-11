@@ -20,7 +20,7 @@ class AppColors {
   static const darkTextSecondary = Color(0xFF8A8F9D);
   static const darkTextTertiary = Color(0xFF5A6070);
   static const darkSurface = Color(0xFF1E1E24);
-  static const darkBackground = Color(0xFF5B6CFF);
+  static const darkBackground = Color(0xFF121218);
   static const darkCard = Color(0xFF25252D);
   
   // Universal
