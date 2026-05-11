@@ -1,43 +1,32 @@
 import 'package:flutter/material.dart';
+import '../../../core/theme/app_theme.dart';
 
 class HomeSearchBar extends StatelessWidget {
   const HomeSearchBar({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: Container(
-        height: 55,
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        decoration: BoxDecoration(
-  color: Colors.white.withOpacity(0.90),
-  borderRadius: BorderRadius.circular(30),
-  border: Border.all(
-    color: Colors.white.withOpacity(0.35),
-    width: 1,
-  ),
-  boxShadow: [
-    BoxShadow(
-      color: Colors.black.withOpacity(0.10),
-      blurRadius: 16,
-      offset: const Offset(0, 6),
-    ),
-  ],
-),
-        child: const Row(
-          children: [
-            Icon(Icons.search, color: Color(0xFF7A8194)),
-            SizedBox(width: 10),
-            Text(
-              "Search people, interests...",
-              style: TextStyle(
-  color: Color(0xFF8A90A2),
-  fontWeight: FontWeight.w500,
-),
-            ),
-          ],
+    final theme = AppThemeExtension.of(context);
+    
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
+      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md, vertical: 14),
+      decoration: BoxDecoration(
+        color: theme.card,
+        borderRadius: BorderRadius.circular(AppRadius.pill),
+        border: Border.all(
+          color: theme.divider.withOpacity(0.3),
         ),
+      ),
+      child: Row(
+        children: [
+          Icon(Icons.search, color: theme.textTertiary, size: 20),
+          const SizedBox(width: AppSpacing.sm),
+          Text(
+            "Search people, interests...",
+            style: AppTextStyles.caption(context),
+          ),
+        ],
       ),
     );
   }
