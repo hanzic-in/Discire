@@ -59,7 +59,6 @@ return MainLayout(
               children: [
                 const NearbySection(),
                 Container(
-                  color: theme.background,
                   child: Column(
                     children: [
                       if (currentTab == 0)
