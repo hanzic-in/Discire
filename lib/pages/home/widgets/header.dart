@@ -39,7 +39,7 @@ class HomeHeader extends StatelessWidget {
               ),
               const SizedBox(height: AppSpacing.sm),
               Padding(
-                padding: const EdgeInsets.only(left: 10),
+                padding: const EdgeInsets.only(left: 5),
                 child: AnimatedGreeting(
                   text: "Hi, Han",
                   style: AppTextStyles.display(context),
