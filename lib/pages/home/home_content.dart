@@ -5,7 +5,6 @@ import 'widgets/header.dart';
 import 'widgets/search_bar.dart';
 import 'widgets/nearby_section.dart';
 import 'widgets/post/post_section.dart';
-import 'widgets/voice_section.dart';
 
 class HomeContent extends StatefulWidget {
   const HomeContent({super.key});
@@ -23,45 +22,54 @@ class _HomeContentState extends State<HomeContent> {
     
     return MainLayout(
       usePadding: false,
-      child: Column(
-        children: [
-          Container(
-            width: double.infinity,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: theme.headerGradient,
-                stops: const [0.0, 0.38, 0.68],
-              ),
-            ),
-            child: SafeArea(
-              bottom: false,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const HomeHeader(),
-                  const HomeSearchBar(),
-                  const SizedBox(height: 18),
-                  _buildTabSwitch(),
-                  const SizedBox(height: 20),
-                ],
+      child: CustomScrollView(
+        slivers: [
+          // STICKY HEADER + SEARCH + TAB
+          SliverAppBar(
+            expandedHeight: 280,
+            floating: false,
+            pinned: true, // Sticky!
+            elevation: 0,
+            backgroundColor: Colors.transparent,
+            flexibleSpace: FlexibleSpaceBar(
+              background: Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: theme.headerGradient,
+                    stops: const [0.0, 0.38, 0.68],
+                  ),
+                ),
+                child: SafeArea(
+                  bottom: false,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const HomeHeader(),
+                      const HomeSearchBar(),
+                      const SizedBox(height: 18),
+                      _buildTabSwitch(),
+                      const SizedBox(height: 20),
+                    ],
+                  ),
+                ),
               ),
             ),
           ),
           
-          Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const NearbySection(),
-                  if (currentTab == 0) ...[
-                    const PostSection(),
-                  ],
-                  const SizedBox(height: 120),
+          // SCROLLABLE CONTENT
+          SliverToBoxAdapter(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const NearbySection(),
+                if (currentTab == 0) ...[
+                  const SizedBox(height: 16),
+                  const PostSection(),
                 ],
-              ),
+                const SizedBox(height: 120),
+              ],
             ),
           ),
         ],
