@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../core/theme/app_theme.dart';
 import 'animated_greeting.dart';
 
 class HomeHeader extends StatelessWidget {
@@ -6,71 +7,69 @@ class HomeHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = AppThemeExtension.of(context);
+    
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.fromLTRB(16, 60, 16, 24),
+      padding: const EdgeInsets.fromLTRB(
+        AppSpacing.md, 60, AppSpacing.md, AppSpacing.lg,
+      ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Row(
+              Row(
                 children: [
                   Icon(
                     Icons.location_on_rounded,
                     size: 14,
-                    color: Color(0xFF667085),
+                    color: theme.textSecondary,
                   ),
-
-                  SizedBox(width: 4),
+                  const SizedBox(width: AppSpacing.xs),
                   Text(
                     "Jakarta, Indonesia",
-                    style: TextStyle(
-                      color: Color(0xFF667085),
-                      fontSize: 12.5,
+                    style: AppTextStyles.caption(context).copyWith(
                       fontWeight: FontWeight.w600,
                       letterSpacing: 0.2,
                     ),
                   ),
                 ],
               ),
-
-              const SizedBox(height: 6),
+              const SizedBox(height: AppSpacing.sm),
               AnimatedGreeting(
                 text: "Hi, Han",
-                style: const TextStyle(
-                  color: Color(0xFF1B1B1F),
-                  fontSize: 28,
-                  fontWeight: FontWeight.w700,
-                  letterSpacing: -0.5,
-                ),
+                style: AppTextStyles.display(context),
               ),
             ],
           ),
+          _buildNotificationButton(theme),
+        ],
+      ),
+    );
+  }
 
-          Container(
-            height: 48,
-            width: 48,
-            decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.75),
-              shape: BoxShape.circle,
-              boxShadow: [
-                BoxShadow(
-                  color: Color(0xFF6C63FF).withOpacity(0.05),
-                  blurRadius: 30,
-                  spreadRadius: 1,
-                  offset: Offset(0, 10),
-                ),
-              ],
-            ),
-            child: const Icon(
-              Icons.notifications_none_rounded,
-              color: Color(0xFF444444),
-              size: 24,
-            ),
+  Widget _buildNotificationButton(AppThemeExtension theme) {
+    return Container(
+      height: 48,
+      width: 48,
+      decoration: BoxDecoration(
+        color: theme.card.withOpacity(0.75),
+        shape: BoxShape.circle,
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.primary.withOpacity(0.05),
+            blurRadius: 30,
+            spreadRadius: 1,
+            offset: const Offset(0, 10),
           ),
         ],
+      ),
+      child: Icon(
+        Icons.notifications_none_rounded,
+        color: theme.textPrimary,
+        size: 24,
       ),
     );
   }
