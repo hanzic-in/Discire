@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../core/theme/app_theme.dart';
 import 'post_model.dart';
 import 'text_post.dart';
 
@@ -7,55 +8,34 @@ class PostSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<Post> posts = [
+    final posts = [
+      Post(type: PostType.post, content: "Lagi belajar Flutter, pusing tapi seru 😭"),
+      Post(type: PostType.post, content: "Ada yang ngerti state management gak sih?"),
       Post(
         type: PostType.post,
-        content: "Lagi belajar Flutter, pusing tapi seru 😭",
+        content: "Ini hasil UI yang lagi gw buat, menurut lu gimana?",
+        images: ["https://images.unsplash.com/photo-1555066931-4365d14bab8c"],
       ),
-      Post(
-        type: PostType.post,
-        content: "Ada yang ngerti state management gak sih?",
-      ),
-        Post(
-          type: PostType.post,
-          content: "Ini hasil UI yang lagi gw buat, menurut lu gimana?",
-          images: ["https://images.unsplash.com/photo-1555066931-4365d14bab8c"],
-        ),
     ];
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Padding(
-          padding: EdgeInsets.fromLTRB(16, 25, 16, 15),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(
+            AppSpacing.md, AppSpacing.lg, AppSpacing.md, AppSpacing.md,
+          ),
           child: Text(
             "Latest",
-            style: TextStyle(
-              fontWeight: FontWeight.w700,
-              fontSize: 18,
-              letterSpacing: -0.2,
-              color: Color(0xFF1B1B1F),
-            ),
+            style: AppTextStyles.heading(context),
           ),
         ),
-
         ...posts.map((post) => Padding(
-          padding: const EdgeInsets.only(bottom: 10),
-          child: _buildPost(post),
-        )).toList(),
- 
+          padding: const EdgeInsets.only(bottom: AppSpacing.sm),
+          child: TextPost(post: post),
+        )),
         const SizedBox(height: 100),
       ],
     );
-  }
-
-  Widget _buildPost(Post post) {
-    switch (post.type) {
-      case PostType.post:
-        return TextPost(post: post);
-
-      default:
-        return const SizedBox();
-    }
   }
 }
