@@ -23,37 +23,48 @@ class _HomeContentState extends State<HomeContent> {
     
     return MainLayout(
       usePadding: false,
-      child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.only(bottom: AppSpacing.sm),
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: theme.headerGradient,
-                  stops: const [0.0, 0.38, 0.68],
-                ),
+      child: Column(
+        children: [
+          Container(
+            width: double.infinity,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: theme.headerGradient,
+                stops: const [0.0, 0.38, 0.68],
               ),
+            ),
+            child: SafeArea(
+              bottom: false,
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const HomeHeader(),
                   const HomeSearchBar(),
                   const SizedBox(height: 18),
                   _buildTabSwitch(),
                   const SizedBox(height: 20),
-                  const NearbySection(),
                 ],
               ),
             ),
-            if (currentTab == 0) const PostSection(),
-            const SizedBox(height: 16),
-            const SizedBox(height: 120),
-          ],
-        ),
+          ),
+          
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const NearbySection(),
+                  if (currentTab == 0) ...[
+                    const PostSection(),
+                  ],
+                  const SizedBox(height: 120),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
