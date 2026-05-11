@@ -37,7 +37,7 @@ class NearbySection extends StatelessWidget {
             AppSpacing.md, 0, AppSpacing.md, AppSpacing.sm,
           ),
           child: Text(
-            "Nearby Souls ✨",
+            "Discover",
             style: AppTextStyles.heading(context),
           ),
         ),
