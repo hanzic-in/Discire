@@ -23,54 +23,45 @@ class _HomeContentState extends State<HomeContent> {
     
     return MainLayout(
       usePadding: false,
-      child: Stack(
+      child: Column(
         children: [
-          Positioned(
-            top: 0,
-            left: 0,
-            right: 0,
-            child: Container(
-              height: 520,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: theme.headerGradient,
-                  stops: const [0.0, 0.38, 0.68],
-                ),
+          Container(
+            width: double.infinity,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: theme.headerGradient,
+                stops: const [0.0, 0.38, 0.68],
+              ),
+            ),
+            child: SafeArea(
+              bottom: false,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const HomeHeader(),
+                  const HomeSearchBar(),
+                  const SizedBox(height: 18),
+                  _buildTabSwitch(),
+                  const SizedBox(height: 20),
+                  const NearbySection(),
+                ],
               ),
             ),
           ),
           
-          SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SafeArea(
-                  bottom: false,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const HomeHeader(),
-                      const HomeSearchBar(),
-                      const SizedBox(height: 18),
-                      _buildTabSwitch(),
-                      const SizedBox(height: 20),
-                      const NearbySection(),
-                    ],
-                  ),
+          Expanded(
+            child: Container(
+              color: theme.background, // Background solid nutup gradient
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    if (currentTab == 0) const PostSection(),
+                    const SizedBox(height: 120),
+                  ],
                 ),
-                
-                Container(
-                  color: theme.background,
-                  child: Column(
-                    children: [
-                      if (currentTab == 0) const PostSection(),
-                      const SizedBox(height: 120),
-                    ],
-                  ),
-                ),
-              ],
+              ),
             ),
           ),
         ],
