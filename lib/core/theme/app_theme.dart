@@ -93,8 +93,8 @@ class AppThemeExtension extends ThemeExtension<AppThemeExtension> {
     shadow: Color(0x40000000),
     overlay: Color(0x80000000),
     headerGradient: [
-      Color(OxFF7B6CFF),
-      Color(OxFF5B8DFF),
+      Color(0xFF7B6CFF),
+      Color(0xFF5B8DFF),
       Color(0xFF121218),
     ],
     navBackground: Color(0xB31E1E24),
