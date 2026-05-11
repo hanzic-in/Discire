@@ -12,7 +12,7 @@ class AppColors {
   static const lightTextSecondary = Color(0xFF667085);
   static const lightTextTertiary = Color(0xFF98A2B3);
   static const lightSurface = Color(0xFFFDFDFE);
-  static const lightBackground = Color(0xFFF7C6CFF);
+  static const lightBackground = Color(0xFFF7F8FC);
   static const lightCard = Colors.white;
   
   // Dark mode
