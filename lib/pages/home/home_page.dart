@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'home_content.dart';
 import '../chat/chat_list_page.dart';
 import '../profile/profile_page.dart';
+import '../groups/groups_page.dart';
 import '../../widgets/custom_bottom_nav.dart';
 import '../../core/theme/app_theme.dart';
 
@@ -56,7 +57,7 @@ class _HomePageState extends State<HomePage>
   Widget _getPage() {
     switch (currentIndex) {
       case 0: return const HomeContent(key: ValueKey(0));
-      case 1: return const Center(key: ValueKey(1), child: Text("Search"));
+      case 1: return const GroupsPage(key: ValueKey(1));
       case 2: return const Center(key: ValueKey(2), child: Text("Add"));
       case 3: return const ChatListPage(key: ValueKey(3));
       case 4: return const ProfilePage(key: ValueKey(4));
