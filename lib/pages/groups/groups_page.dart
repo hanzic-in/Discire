@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../core/theme/app_theme.dart';
 import '../../widgets/main_layout.dart';
+import 'widgets/group_card.dart';
 
 class GroupsPage extends StatefulWidget {
   const GroupsPage({super.key});
@@ -64,29 +65,26 @@ class _GroupsPageState extends State<GroupsPage> {
     },
   ];
 
+  List<Map<String, dynamic>> get filteredGroups {
+    if (currentTab == 0) return groups;
+    return groups.where((e) => e['category'] == tabs[currentTab]).toList();
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = AppThemeExtension.of(context);
-
-    final filteredGroups = currentTab == 0
-        ? groups
-        : groups
-            .where(
-              (e) => e['category'] == tabs[currentTab],
-            )
-            .toList();
+    final screenHeight = MediaQuery.of(context).size.height;
 
     return MainLayout(
       usePadding: false,
-
       child: Stack(
         children: [
-          /// TOP GRADIENT
+          // GRADIENT BACKGROUND — Responsive height
           Positioned(
             top: 0,
             left: 0,
             right: 0,
-            height: 320,
+            height: screenHeight * 0.42, // ← Responsive, bukan hardcoded
             child: Container(
               decoration: BoxDecoration(
                 gradient: LinearGradient(
@@ -101,10 +99,9 @@ class _GroupsPageState extends State<GroupsPage> {
 
           SafeArea(
             child: Column(
-              crossAxisAlignment:
-                  CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                /// HEADER
+                // HEADER
                 Padding(
                   padding: const EdgeInsets.fromLTRB(
                     AppSpacing.md,
@@ -113,85 +110,56 @@ class _GroupsPageState extends State<GroupsPage> {
                     0,
                   ),
                   child: Column(
-                    crossAxisAlignment:
-                        CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         'Groups',
-                        style:
-                            AppTextStyles.display(
-                          context,
-                        ),
+                        style: AppTextStyles.display(context),
                       ),
-
                       const SizedBox(height: 6),
-
                       Text(
                         'Find your people',
-                        style:
-                            AppTextStyles
-                                .bodySecondary(
-                          context,
-                        ),
+                        style: AppTextStyles.caption(context),
                       ),
                     ],
                   ),
                 ),
 
-                const SizedBox(
-                  height: AppSpacing.sectionGap,
-                ),
+                const SizedBox(height: AppSpacing.lg),
 
-                /// SEARCH
+                // SEARCH
                 Padding(
-                  padding:
-                      const EdgeInsets.symmetric(
+                  padding: const EdgeInsets.symmetric(
                     horizontal: AppSpacing.md,
                   ),
                   child: Container(
-                    height: 56,
-                    padding:
-                        const EdgeInsets.symmetric(
-                      horizontal: 16,
-                    ),
+                    height: 52, // ← Konsisten, gak terlalu besar
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
                     decoration: BoxDecoration(
-                      color: theme.searchBar
-                          .withOpacity(0.72),
-                      borderRadius:
-                          BorderRadius.circular(
-                        AppRadius.pill,
-                      ),
+                      color: theme.searchBar.withOpacity(0.72),
+                      borderRadius: BorderRadius.circular(AppRadius.pill),
                       border: Border.all(
-                        color:
-                            theme.searchBarBorder,
+                        color: theme.searchBarBorder,
                       ),
                     ),
                     child: Row(
                       children: [
                         Icon(
                           Icons.search_rounded,
-                          color:
-                              theme.textSecondary,
+                          color: theme.textSecondary,
                         ),
-
                         const SizedBox(width: 12),
-
                         Expanded(
                           child: TextField(
                             style: TextStyle(
-                              color:
-                                  theme.textPrimary,
+                              color: theme.textPrimary,
                             ),
-                            decoration:
-                                InputDecoration(
-                              hintText:
-                                  'Search groups...',
+                            decoration: InputDecoration(
+                              hintText: 'Search groups...',
                               hintStyle: TextStyle(
-                                color: theme
-                                    .textTertiary,
+                                color: theme.textTertiary,
                               ),
-                              border:
-                                  InputBorder.none,
+                              border: InputBorder.none,
                               filled: false,
                             ),
                           ),
@@ -203,85 +171,41 @@ class _GroupsPageState extends State<GroupsPage> {
 
                 const SizedBox(height: 22),
 
-                /// TABS
+                // TABS
                 SizedBox(
                   height: 42,
                   child: ListView.separated(
-                    padding:
-                        const EdgeInsets.symmetric(
+                    padding: const EdgeInsets.symmetric(
                       horizontal: AppSpacing.md,
                     ),
-                    scrollDirection:
-                        Axis.horizontal,
-                    physics:
-                        const BouncingScrollPhysics(),
+                    scrollDirection: Axis.horizontal,
+                    physics: const BouncingScrollPhysics(),
                     itemCount: tabs.length,
-                    separatorBuilder:
-                        (_, __) =>
-                            const SizedBox(
-                              width: 10,
-                            ),
-                    itemBuilder: (
-                      context,
-                      index,
-                    ) {
-                      final isActive =
-                          currentTab == index;
+                    separatorBuilder: (_, __) => const SizedBox(width: 10),
+                    itemBuilder: (context, index) {
+                      final isActive = currentTab == index;
 
                       return GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            currentTab = index;
-                          });
-                        },
-
-                        child:
-                            AnimatedContainer(
-                          duration:
-                              const Duration(
-                                milliseconds:
-                                    220,
-                              ),
-
-                          padding:
-                              const EdgeInsets.symmetric(
-                                horizontal: 18,
-                                vertical: 10,
-                              ),
-
-                          decoration:
-                              BoxDecoration(
-                                color: isActive
-                                    ? theme
-                                        .textPrimary
-                                    : theme.card
-                                        .withOpacity(
-                                          0.45,
-                                        ),
-
-                                borderRadius:
-                                    BorderRadius.circular(
-                                      AppRadius
-                                          .pill,
-                                    ),
-                              ),
-
+                        onTap: () => setState(() => currentTab = index),
+                        child: AnimatedContainer(
+                          duration: const Duration(milliseconds: 220),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 18,
+                            vertical: 10,
+                          ),
+                          decoration: BoxDecoration(
+                            color: isActive
+                                ? theme.textPrimary
+                                : theme.card.withOpacity(0.45),
+                            borderRadius: BorderRadius.circular(AppRadius.pill),
+                          ),
                           child: Text(
                             tabs[index],
-
-                            style:
-                                AppTextStyles
-                                    .caption(
-                                      context,
-                                    )
-                                    .copyWith(
-                                      color:
-                                          isActive
-                                              ? theme
-                                                  .background
-                                              : theme
-                                                  .textSecondary,
-                                    ),
+                            style: AppTextStyles.caption(context).copyWith(
+                              color: isActive
+                                  ? theme.background
+                                  : theme.textSecondary,
+                            ),
                           ),
                         ),
                       );
@@ -291,255 +215,37 @@ class _GroupsPageState extends State<GroupsPage> {
 
                 const SizedBox(height: 26),
 
-                /// GROUPS
+                // GROUPS GRID
                 Expanded(
                   child: GridView.builder(
-                    padding:
-                        const EdgeInsets.fromLTRB(
-                          AppSpacing.md,
-                          0,
-                          AppSpacing.md,
-                          140,
-                        ),
+                    padding: const EdgeInsets.fromLTRB(
+                      AppSpacing.md,
+                      0,
+                      AppSpacing.md,
+                      140,
+                    ),
+                    physics: const BouncingScrollPhysics(),
+                    itemCount: filteredGroups.length,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: MediaQuery.of(context).size.width > 600 ? 3 : 2, // ← Responsive tablet
+                      crossAxisSpacing: 16,
+                      mainAxisSpacing: 16,
+                      childAspectRatio: MediaQuery.of(context).size.width > 600 ? 0.8 : 0.72, // ← Responsive
+                    ),
+                    itemBuilder: (context, index) {
+                      final group = filteredGroups[index];
 
-                    physics:
-                        const BouncingScrollPhysics(),
-
-                    itemCount:
-                        filteredGroups.length,
-
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          crossAxisSpacing: 16,
-                          mainAxisSpacing: 16,
-                          childAspectRatio: 0.72,
-                        ),
-
-                    itemBuilder: (
-                      context,
-                      index,
-                    ) {
-                      final group =
-                          filteredGroups[index];
-
-                      return Container(
-                        decoration: BoxDecoration(
-                          color: theme.card,
-
-                          borderRadius:
-                              BorderRadius.circular(
-                                AppRadius.lg,
-                              ),
-
-                          boxShadow: [
-                            BoxShadow(
-                              color:
-                                  theme.shadow,
-                              blurRadius: 18,
-                              offset:
-                                  const Offset(
-                                    0,
-                                    8,
-                                  ),
-                            ),
-                          ],
-                        ),
-
-                        child: ClipRRect(
-                          borderRadius:
-                              BorderRadius.circular(
-                                AppRadius.lg,
-                              ),
-
-                          child: Column(
-                            crossAxisAlignment:
-                                CrossAxisAlignment
-                                    .start,
-
-                            children: [
-                              /// IMAGE
-                              Expanded(
-                                child: Stack(
-                                  children: [
-                                    Positioned.fill(
-                                      child:
-                                          Image.asset(
-                                            group['image'],
-                                            fit:
-                                                BoxFit.cover,
-                                          ),
-                                    ),
-
-                                    /// CATEGORY
-                                    Positioned(
-                                      top: 12,
-                                      left: 12,
-
-                                      child:
-                                          Container(
-                                            padding:
-                                                const EdgeInsets.symmetric(
-                                                  horizontal:
-                                                      10,
-                                                  vertical:
-                                                      6,
-                                                ),
-
-                                            decoration:
-                                                BoxDecoration(
-                                                  color: Colors
-                                                      .black
-                                                      .withOpacity(
-                                                        0.35,
-                                                      ),
-
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                        AppRadius.pill,
-                                                      ),
-                                                ),
-
-                                            child: Text(
-                                              group['category'],
-
-                                              style:
-                                                  AppTextStyles.captionInverse,
-                                            ),
-                                          ),
-                                    ),
-
-                                    /// IMAGE OVERLAY
-                                    Positioned.fill(
-                                      child:
-                                          Container(
-                                            decoration:
-                                                BoxDecoration(
-                                                  gradient: LinearGradient(
-                                                    begin:
-                                                        Alignment.topCenter,
-
-                                                    end:
-                                                        Alignment.bottomCenter,
-
-                                                    colors: [
-                                                      Colors.transparent,
-
-                                                      Colors.black.withOpacity(
-                                                        0.08,
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                          ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-
-                              /// INFO
-                              Padding(
-                                padding:
-                                    const EdgeInsets.all(
-                                      16,
-                                    ),
-
-                                child: Column(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment
-                                          .start,
-
-                                  children: [
-                                    Text(
-                                      group['name'],
-
-                                      maxLines: 1,
-
-                                      overflow:
-                                          TextOverflow
-                                              .ellipsis,
-
-                                      style:
-                                          AppTextStyles.title(
-                                            context,
-                                          ),
-                                    ),
-
-                                    const SizedBox(
-                                      height: 8,
-                                    ),
-
-                                    Text(
-                                      '${group['members']} • ${group['online']}',
-
-                                      style:
-                                          AppTextStyles.bodySecondary(
-                                            context,
-                                          ),
-                                    ),
-
-                                    const SizedBox(
-                                      height: 14,
-                                    ),
-
-                                    Container(
-                                      padding:
-                                          const EdgeInsets.symmetric(
-                                            horizontal:
-                                                12,
-                                            vertical:
-                                                8,
-                                          ),
-
-                                      decoration:
-                                          BoxDecoration(
-                                            color:
-                                                theme.surface,
-
-                                            borderRadius:
-                                                BorderRadius.circular(
-                                                  AppRadius
-                                                      .pill,
-                                                ),
-                                          ),
-
-                                      child: Row(
-                                        mainAxisSize:
-                                            MainAxisSize
-                                                .min,
-
-                                        children: [
-                                          Icon(
-                                            Icons
-                                                .graphic_eq_rounded,
-
-                                            size: 16,
-
-                                            color: theme
-                                                .textSecondary,
-                                          ),
-
-                                          const SizedBox(
-                                            width: 6,
-                                          ),
-
-                                          Text(
-                                            group['voice'],
-
-                                            style:
-                                                AppTextStyles.caption(
-                                                  context,
-                                                ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
+                      return GroupCard(
+                        group: group,
+                        onTap: () {
+                          // TODO: Navigate to GroupDetailPage
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //     builder: (_) => GroupDetailPage(group: group),
+                          //   ),
+                          // );
+                        },
                       );
                     },
                   ),
