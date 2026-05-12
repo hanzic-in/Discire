@@ -108,11 +108,21 @@ class CustomBottomNav extends StatelessWidget {
                   duration: const Duration(milliseconds: 250),
                   curve: Curves.easeInOut,
                   child: isActive
-                    ? Row(
-                        children: [
-                          const SizedBox(width: 6),
-                          Text(
+                  ? ConstrainedBox(
+                    constraints: const BoxConstraints(
+                      maxWidth: 70,
+                    ),
+                    child: Row(  
+                      mainAxisSize: MainAxisSize.min,                           
+                      children: [
+                        const SizedBox(width: 6),
+
+                        Flexible(
+                          child: Text(
                             label,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            softWrap: false,
                             style: const TextStyle(
                               fontSize: 13,
                               letterSpacing: -0.1,
@@ -120,10 +130,12 @@ class CustomBottomNav extends StatelessWidget {
                               color: Colors.white,
                             ),
                           ),
-                        ],
-                      )
-                    : const SizedBox(),
-                ),
+                        ),
+                      ],
+                    ),
+                  )
+                  : const SizedBox(),
+                )
               ],
             ),
           ),
