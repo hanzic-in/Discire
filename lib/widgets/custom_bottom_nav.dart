@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart'; 
 import 'dart:ui';  
 import '../core/theme/app_theme.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
   
 class CustomBottomNav extends StatelessWidget {  
   final int currentIndex; 
@@ -43,13 +44,13 @@ class CustomBottomNav extends StatelessWidget {
                 ],  
               ),  
               child: Row(  
-                children: [  
-                  _navItem(Icons.home_rounded, "Home", 0, theme, isDark),  
-                  _navItem(Icons.groups_rounded, "Group", 1, theme, isDark),  
-                  _navItem(Icons.edit_rounded, "Add", 2, theme, isDark),  
-                  _navItem(Icons.chat_rounded, "Chat", 3, theme, isDark),  
-                  _navItem(Icons.person_outline_rounded, "Profile", 4, theme, isDark),  
-                ],  
+                children: [
+                  _navItem(FontAwesomeIcons.house, "Home", 0, theme, isDark),
+                  _navItem(FontAwesomeIcons.userGroup, "Group", 1, theme, isDark),
+                  _navItem(FontAwesomeIcons.plus, "Add", 2, theme, isDark),
+                  _navItem(FontAwesomeIcons.solidComment, "Chat", 3, theme, isDark),
+                  _navItem(FontAwesomeIcons.user, "Profile", 4, theme, isDark),
+                ],
               ),  
             ),  
           ),  
