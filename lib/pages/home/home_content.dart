@@ -57,7 +57,8 @@ return MainLayout(
               padding: EdgeInsets.zero,
               physics: const BouncingScrollPhysics(),
               children: [
-                const NearbySection(),
+                if (currentTab == 0)
+                  const NearbySection(),
                 Container(
                   child: Column(
                     children: [
