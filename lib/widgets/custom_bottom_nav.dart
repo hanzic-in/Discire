@@ -43,6 +43,7 @@ class CustomBottomNav extends StatelessWidget {
                 ],
               ),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   _navItem(Icons.home_rounded, "Home", 0, theme, isDark),
                   _navItem(Icons.groups_rounded, "Community", 1, theme, isDark),
@@ -61,7 +62,8 @@ class CustomBottomNav extends StatelessWidget {
   Widget _navItem(IconData icon, String label, int index, AppThemeExtension theme, bool isDark) {
     bool isActive = currentIndex == index;
 
-    return Expanded(
+    return Flexible(
+      fit: FlexFit.loose,
       child: InkWell(
         borderRadius: BorderRadius.circular(25),
         splashColor: Colors.transparent,
@@ -74,6 +76,9 @@ class CustomBottomNav extends StatelessWidget {
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 250),
             curve: Curves.easeInOut,
+            constraints: BoxConstraints(
+              maxWidth: isActive ? 120 : 48,
+            ),
             padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
             decoration: BoxDecoration(
               gradient: isActive ? const LinearGradient(
