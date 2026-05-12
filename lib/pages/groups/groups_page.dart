@@ -79,12 +79,11 @@ class _GroupsPageState extends State<GroupsPage> {
       usePadding: false,
       child: Stack(
         children: [
-          // GRADIENT BACKGROUND — Responsive height
           Positioned(
             top: 0,
             left: 0,
             right: 0,
-            height: screenHeight * 0.42, // ← Responsive, bukan hardcoded
+            height: screenHeight * 0.42,
             child: Container(
               decoration: BoxDecoration(
                 gradient: LinearGradient(
@@ -133,7 +132,7 @@ class _GroupsPageState extends State<GroupsPage> {
                     horizontal: AppSpacing.md,
                   ),
                   child: Container(
-                    height: 52, // ← Konsisten, gak terlalu besar
+                    height: 52,
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     decoration: BoxDecoration(
                       color: theme.searchBar.withOpacity(0.72),
@@ -219,32 +218,24 @@ class _GroupsPageState extends State<GroupsPage> {
                 Expanded(
                   child: GridView.builder(
                     padding: const EdgeInsets.fromLTRB(
-                      AppSpacing.md,
-                      0,
-                      AppSpacing.md,
-                      140,
+                      AppSpacing.md, 0,
+                      AppSpacing.md, 140,
                     ),
                     physics: const BouncingScrollPhysics(),
                     itemCount: filteredGroups.length,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: MediaQuery.of(context).size.width > 600 ? 3 : 2, // ← Responsive tablet
-                      crossAxisSpacing: 16,
-                      mainAxisSpacing: 16,
-                      childAspectRatio: MediaQuery.of(context).size.width > 600 ? 0.8 : 0.72, // ← Responsive
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 14,
+                      mainAxisSpacing: 14,
+                      childAspectRatio: 0.82,
                     ),
+
                     itemBuilder: (context, index) {
                       final group = filteredGroups[index];
-
                       return GroupCard(
                         group: group,
                         onTap: () {
-                          // TODO: Navigate to GroupDetailPage
-                          // Navigator.push(
-                          //   context,
-                          //   MaterialPageRoute(
-                          //     builder: (_) => GroupDetailPage(group: group),
-                          //   ),
-                          // );
+                         // Navigate to detail
                         },
                       );
                     },
