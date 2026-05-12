@@ -24,50 +24,42 @@ class _GroupsPageState extends State<GroupsPage> {
   final List<Map<String, dynamic>> groups = [
     {
       'name': 'Late Night Coders',
+      'image': 'assets/groups/coding.jpg',
       'members': '2.1k members',
       'online': '12 online',
-      'voice': '3 talking now',
-      'emoji': '💻',
+      'voice': '4 talking now',
       'category': 'Coding',
     },
     {
       'name': 'Pixel Society',
+      'image': 'assets/groups/design.jpg',
       'members': '980 members',
       'online': '18 online',
-      'voice': '1 live room',
-      'emoji': '🎨',
+      'voice': '2 live circles',
       'category': 'Design',
     },
     {
       'name': 'AI Underground',
+      'image': 'assets/groups/ai.jpg',
       'members': '4.7k members',
       'online': '34 online',
       'voice': '5 talking now',
-      'emoji': '🤖',
       'category': 'AI',
     },
     {
       'name': 'Night Drive',
+      'image': 'assets/groups/music.jpg',
       'members': '540 members',
       'online': '8 online',
       'voice': 'Listening session',
-      'emoji': '🎵',
       'category': 'Music',
     },
     {
-      'name': 'Indie Builders',
-      'members': '1.3k members',
-      'online': '21 online',
-      'voice': '2 live circles',
-      'emoji': '🚀',
-      'category': 'Coding',
-    },
-    {
       'name': 'Chill Lobby',
+      'image': 'assets/groups/gaming.jpg',
       'members': '870 members',
       'online': '16 online',
-      'voice': '4 talking now',
-      'emoji': '🎮',
+      'voice': '3 talking now',
       'category': 'Gaming',
     },
   ];
@@ -86,6 +78,7 @@ class _GroupsPageState extends State<GroupsPage> {
       usePadding: false,
       child: Stack(
         children: [
+          /// BACKGROUND GRADIENT
           Positioned(
             top: 0,
             left: 0,
@@ -107,42 +100,48 @@ class _GroupsPageState extends State<GroupsPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                /// HEADER
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 8, 20, 0),
+                  padding: const EdgeInsets.fromLTRB(
+                    AppSpacing.md,
+                    8,
+                    AppSpacing.md,
+                    0,
+                  ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         'Groups',
-                        style: AppTextStyles.heading(context).copyWith(
-                          fontWeight: FontWeight.w700,
-                        ),
+                        style: AppTextStyles.display(context),
                       ),
 
                       const SizedBox(height: 6),
 
                       Text(
                         'Find your people',
-                        style: AppTextStyles.body(context).copyWith(
-                          color: theme.textSecondary,
-                        ),
+                        style: AppTextStyles.bodySecondary(context),
                       ),
                     ],
                   ),
                 ),
 
-                const SizedBox(height: 22),
+                const SizedBox(height: AppSpacing.sectionGap),
 
+                /// SEARCH
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: AppSpacing.md,
+                  ),
                   child: Container(
-                    height: 54,
+                    height: 56,
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     decoration: BoxDecoration(
-                      color: theme.surface.withOpacity(0.65),
-                      borderRadius: BorderRadius.circular(22),
+                      color: theme.searchBar.withOpacity(0.72),
+                      borderRadius:
+                          BorderRadius.circular(AppRadius.pill),
                       border: Border.all(
-                        color: Colors.white.withOpacity(0.08),
+                        color: theme.searchBarBorder,
                       ),
                     ),
                     child: Row(
@@ -156,15 +155,16 @@ class _GroupsPageState extends State<GroupsPage> {
 
                         Expanded(
                           child: TextField(
+                            style: TextStyle(
+                              color: theme.textPrimary,
+                            ),
                             decoration: InputDecoration(
                               hintText: 'Search groups...',
                               hintStyle: TextStyle(
                                 color: theme.textTertiary,
                               ),
                               border: InputBorder.none,
-                            ),
-                            style: TextStyle(
-                              color: theme.textPrimary,
+                              filled: false,
                             ),
                           ),
                         ),
@@ -175,13 +175,18 @@ class _GroupsPageState extends State<GroupsPage> {
 
                 const SizedBox(height: 22),
 
+                /// TABS
                 SizedBox(
                   height: 42,
                   child: ListView.separated(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: AppSpacing.md,
+                    ),
                     scrollDirection: Axis.horizontal,
+                    physics: const BouncingScrollPhysics(),
                     itemCount: tabs.length,
-                    separatorBuilder: (_, __) => const SizedBox(width: 10),
+                    separatorBuilder: (_, __) =>
+                        const SizedBox(width: 10),
                     itemBuilder: (context, index) {
                       final isActive = currentTab == index;
 
@@ -192,7 +197,8 @@ class _GroupsPageState extends State<GroupsPage> {
                           });
                         },
                         child: AnimatedContainer(
-                          duration: const Duration(milliseconds: 220),
+                          duration:
+                              const Duration(milliseconds: 220),
                           padding: const EdgeInsets.symmetric(
                             horizontal: 18,
                             vertical: 10,
@@ -200,19 +206,17 @@ class _GroupsPageState extends State<GroupsPage> {
                           decoration: BoxDecoration(
                             color: isActive
                                 ? theme.textPrimary
-                                : Colors.white.withOpacity(0.08),
-                            borderRadius: BorderRadius.circular(999),
-                            border: Border.all(
-                              color: Colors.white.withOpacity(0.06),
-                            ),
+                                : theme.card.withOpacity(0.45),
+                            borderRadius:
+                                BorderRadius.circular(AppRadius.pill),
                           ),
                           child: Text(
                             tabs[index],
-                            style: TextStyle(
+                            style: AppTextStyles.caption(context)
+                                .copyWith(
                               color: isActive
                                   ? theme.background
                                   : theme.textSecondary,
-                              fontWeight: FontWeight.w600,
                             ),
                           ),
                         ),
@@ -221,99 +225,152 @@ class _GroupsPageState extends State<GroupsPage> {
                   ),
                 ),
 
-                const SizedBox(height: 24),
+                const SizedBox(height: 26),
 
+                /// GROUPS
                 Expanded(
                   child: GridView.builder(
-                    padding: const EdgeInsets.fromLTRB(20, 0, 20, 140),
+                    padding: const EdgeInsets.fromLTRB(
+                      AppSpacing.md,
+                      0,
+                      AppSpacing.md,
+                      140,
+                    ),
                     physics: const BouncingScrollPhysics(),
+                    itemCount: filteredGroups.length,
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
-                      mainAxisSpacing: 16,
                       crossAxisSpacing: 16,
-                      childAspectRatio: 0.82,
+                      mainAxisSpacing: 16,
+                      childAspectRatio: 0.72,
                     ),
-                    itemCount: filteredGroups.length,
                     itemBuilder: (context, index) {
                       final group = filteredGroups[index];
 
                       return Container(
-                        padding: const EdgeInsets.all(18),
                         decoration: BoxDecoration(
-                          color: theme.surface.withOpacity(0.72),
-                          borderRadius: BorderRadius.circular(28),
-                          border: Border.all(
-                            color: Colors.white.withOpacity(0.06),
-                          ),
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              width: 54,
-                              height: 54,
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                color: Colors.white.withOpacity(0.08),
-                                borderRadius: BorderRadius.circular(18),
-                              ),
-                              child: Text(
-                                group['emoji'],
-                                style: const TextStyle(fontSize: 26),
-                              ),
-                            ),
-
-                            const Spacer(),
-
-                            Text(
-                              group['name'],
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                              style:
-                                  AppTextStyles.title(context).copyWith(
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
-
-                            const SizedBox(height: 8),
-
-                            Text(
-                              group['members'],
-                              style: AppTextStyles.caption(context).copyWith(
-                                color: theme.textSecondary,
-                              ),
-                            ),
-
-                            const SizedBox(height: 4),
-
-                            Text(
-                              group['online'],
-                              style: AppTextStyles.caption(context).copyWith(
-                                color: theme.textSecondary,
-                              ),
-                            ),
-
-                            const SizedBox(height: 12),
-
-                            Container(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 12,
-                                vertical: 8,
-                              ),
-                              decoration: BoxDecoration(
-                                color: Colors.white.withOpacity(0.06),
-                                borderRadius: BorderRadius.circular(999),
-                              ),
-                              child: Text(
-                                group['voice'],
-                                style: AppTextStyles.caption(context)
-                                    .copyWith(
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
+                          color: theme.card.withOpacity(0.72),
+                          borderRadius:
+                              BorderRadius.circular(AppRadius.lg),
+                          boxShadow: [
+                            BoxShadow(
+                              color: theme.shadow,
+                              blurRadius: 24,
+                              offset: const Offset(0, 10),
                             ),
                           ],
+                        ),
+                        child: ClipRRect(
+                          borderRadius:
+                              BorderRadius.circular(AppRadius.lg),
+                          child: Stack(
+                            children: [
+                              Positioned.fill(
+                                child: Image.asset(
+                                  group['image'],
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+
+                              /// OVERLAY
+                              Positioned.fill(
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    gradient: LinearGradient(
+                                      begin: Alignment.topCenter,
+                                      end: Alignment.bottomCenter,
+                                      colors: [
+                                        Colors.transparent,
+                                        Colors.black.withOpacity(0.12),
+                                        Colors.black.withOpacity(0.88),
+                                      ],
+                                      stops: const [0.2, 0.55, 1],
+                                    ),
+                                  ),
+                                ),
+                              ),
+
+                              /// CONTENT
+                              Positioned.fill(
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.all(16),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                        padding:
+                                            const EdgeInsets.symmetric(
+                                          horizontal: 10,
+                                          vertical: 6,
+                                        ),
+                                        decoration: BoxDecoration(
+                                          color: Colors.black
+                                              .withOpacity(0.32),
+                                          borderRadius:
+                                              BorderRadius.circular(
+                                            AppRadius.pill,
+                                          ),
+                                        ),
+                                        child: Text(
+                                          group['category'],
+                                          style:
+                                              AppTextStyles.captionInverse,
+                                        ),
+                                      ),
+
+                                      const Spacer(),
+                                      Text(
+                                        group['name'],
+                                        maxLines: 2,
+                                        overflow:
+                                            TextOverflow.ellipsis,
+                                        style:
+                                            AppTextStyles.titleInverse,
+                                      ),
+                                      
+                                      const SizedBox(height: 8),
+                                      Text(
+                                        group['members'],
+                                        style:
+                                            AppTextStyles.captionInverse,
+                                      ),
+                                      
+                                      const SizedBox(height: 4),
+                                      Text(
+                                        group['online'],
+                                        style:
+                                            AppTextStyles.captionInverse,
+                                      ),
+
+                                      const SizedBox(height: 14),
+                                      Container(
+                                        padding:
+                                            const EdgeInsets.symmetric(
+                                          horizontal: 12,
+                                          vertical: 8,
+                                        ),
+                                        decoration: BoxDecoration(
+                                          color: Colors.white
+                                              .withOpacity(0.12),
+                                          borderRadius:
+                                              BorderRadius.circular(
+                                            AppRadius.pill,
+                                          ),
+                                        ),
+                                        child: Text(
+                                          group['voice'],
+                                          style: AppTextStyles.captionInverse,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       );
                     },
