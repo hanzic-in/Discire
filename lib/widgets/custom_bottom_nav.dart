@@ -59,7 +59,7 @@ class CustomBottomNav extends StatelessWidget {
     );  
   }
   
-  Widget _navItem(IconData icon, String label, int index, AppThemeExtension theme, bool isDark) {  
+  Widget _navItem(FalconData icon, String label, int index, AppThemeExtension theme, bool isDark) {  
     bool isActive = currentIndex == index;  
   
     return Expanded(  
@@ -95,7 +95,7 @@ class CustomBottomNav extends StatelessWidget {
             child: Row(  
               mainAxisSize: MainAxisSize.min,  
               children: [  
-                Icon(  
+                Falcon(  
                   icon,  
                   size: isActive ? 23 : 22,  
                   color: isActive ? Colors.white : theme.navInactive,  
