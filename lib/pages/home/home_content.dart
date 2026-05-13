@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import '../../core/theme/app_theme.dart';
 import '../../widgets/main_layout.dart';
-import 'widgets/header.dart';
 import '../../widgets/app_search_bar.dart';
+import 'widgets/header.dart';
 import 'widgets/nearby_section.dart';
 import 'widgets/post/post_section.dart';
 import 'widgets/voice_section.dart';
@@ -11,73 +11,77 @@ class HomeContent extends StatefulWidget {
   const HomeContent({super.key});
 
   @override
-  State<HomeContent> createState() => _HomeContentState();
+  State<<HomeContent> createState() => _HomeContentState();
 }
 
-class _HomeContentState extends State<HomeContent> {
+class _HomeContentState extends State<<HomeContent> {
   int currentTab = 0;
 
   @override
   Widget build(BuildContext context) {
     final theme = AppThemeExtension.of(context);
 
-return MainLayout(
-  usePadding: false,
-
-  child: Stack(
-    children: [
-      Positioned(
-        top: 0,
-        left: 0,
-        right: 0,
-        height: 520,
-        child: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: theme.headerGradient,
-              stops: const [0.0, 0.38, 0.68],
+    return MainLayout(
+      usePadding: false,
+      child: Stack(
+        children: [
+          Positioned(
+            top: 0,
+            left: 0,
+            right: 0,
+            height: 520,
+            child: Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: theme.headerGradient,
+                  stops: const [0.0, 0.38, 0.68],
+                ),
+              ),
             ),
           ),
-        ),
-      ),
-      Column(
-        children: [
-          const HomeHeader(),
-          const SizedBox(height: 18),
+          Column(
+            children: [
+              const HomeHeader(),
+              const SizedBox(height: AppSpacing.lg),
 
-          _buildTabSwitch(),
+              // REUSABLE SEARCH
+              AppSearchBar(
+                hint: 'Search people, interests...',
+              ),
 
-          const SizedBox(height: 12),
+              const SizedBox(height: 18),
 
-          Expanded(
-            child: ListView(
-              padding: EdgeInsets.zero,
-              physics: const BouncingScrollPhysics(),
-              children: [
-                if (currentTab == 0)
-                  const NearbySection(),
-                Container(
-                  child: Column(
-                    children: [
-                      if (currentTab == 0)
-                        const PostSection()
-                      else
-                        const VoiceSection(),
+              _buildTabSwitch(),
 
-                      const SizedBox(height: 120),
-                    ],
-                  ),
+              const SizedBox(height: 12),
+
+              Expanded(
+                child: ListView(
+                  padding: EdgeInsets.zero,
+                  physics: const BouncingScrollPhysics(),
+                  children: [
+                    if (currentTab == 0) const NearbySection(),
+                    Container(
+                      child: Column(
+                        children: [
+                          if (currentTab == 0)
+                            const PostSection()
+                          else
+                            const VoiceSection(),
+                          const SizedBox(height: 120),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ],
       ),
-    ],
-  ),
-);
+    );
   }
 
   Widget _buildTabSwitch() {
