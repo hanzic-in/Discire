@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import '../../core/theme/app_theme.dart';
 import '../../widgets/main_layout.dart';
-import 'widgets/group_card.dart';
+import '../../widgets/app_header.dart';
 import '../../widgets/app_search_bar.dart';
+import '../../widgets/filter_chips.dart';
+import 'widgets/group_card.dart';
 
 class GroupsPage extends StatefulWidget {
   const GroupsPage({super.key});
@@ -22,6 +24,7 @@ class _GroupsPageState extends State<GroupsPage> {
   ];
 
   int currentTab = 0;
+  String searchQuery = '';
 
 final List<Map<String, dynamic>> groups = [
   {
@@ -66,10 +69,12 @@ final List<Map<String, dynamic>> groups = [
   },
 ];
 
-
   List<Map<String, dynamic>> get filteredGroups {
-    if (currentTab == 0) return groups;
-    return groups.where((e) => e['category'] == tabs[currentTab]).toList();
+    var result = currentTab == 0 ? groups : groups.where((e) => e['category'] == tabs[currentTab]).toList();
+    if (searchQuery.isNotEmpty) {
+      result = result.where((e) => e['name'].toLowerCase().contains(searchQuery.toLowerCase())).toList();
+    }
+    return result;
   }
 
   @override
@@ -81,6 +86,7 @@ final List<Map<String, dynamic>> groups = [
       usePadding: false,
       child: Stack(
         children: [
+          // Gradient
           Positioned(
             top: 0,
             left: 0,
@@ -102,142 +108,49 @@ final List<Map<String, dynamic>> groups = [
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // HEADER
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(
-                    AppSpacing.md,
-                    8,
-                    AppSpacing.md,
-                    0,
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Groups',
-                        style: AppTextStyles.display(context),
-                      ),
-                      const SizedBox(height: 6),
-                      Text(
-                        'Find your people',
-                        style: AppTextStyles.caption(context),
-                      ),
-                    ],
-                  ),
+                // REUSABLE HEADER
+                const AppHeader(
+                  title: 'Groups',
+                  subtitle: 'Find your people',
                 ),
 
                 const SizedBox(height: AppSpacing.lg),
 
-                // SEARCH
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: AppSpacing.md,
-                  ),
-                  child: Container(
-                    height: 52,
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    decoration: BoxDecoration(
-                      color: theme.searchBar.withOpacity(0.72),
-                      borderRadius: BorderRadius.circular(AppRadius.pill),
-                      border: Border.all(
-                        color: theme.searchBarBorder,
-                      ),
-                    ),
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.search_rounded,
-                          color: theme.textSecondary,
-                        ),
-                        const SizedBox(width: 12),
-                        Expanded(
-                          child: TextField(
-                            style: TextStyle(
-                              color: theme.textPrimary,
-                            ),
-                            decoration: InputDecoration(
-                              hintText: 'Search groups...',
-                              hintStyle: TextStyle(
-                                color: theme.textTertiary,
-                              ),
-                              border: InputBorder.none,
-                              filled: false,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                // REUSABLE SEARCH
+                AppSearchBar(
+                  hint: 'Search groups...',
+                  onChanged: (value) => setState(() => searchQuery = value),
                 ),
 
                 const SizedBox(height: 22),
 
-                // TABS
-                SizedBox(
-                  height: 42,
-                  child: ListView.separated(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: AppSpacing.md,
-                    ),
-                    scrollDirection: Axis.horizontal,
-                    physics: const BouncingScrollPhysics(),
-                    itemCount: tabs.length,
-                    separatorBuilder: (_, __) => const SizedBox(width: 10),
-                    itemBuilder: (context, index) {
-                      final isActive = currentTab == index;
-
-                      return GestureDetector(
-                        onTap: () => setState(() => currentTab = index),
-                        child: AnimatedContainer(
-                          duration: const Duration(milliseconds: 220),
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 18,
-                            vertical: 10,
-                          ),
-                          decoration: BoxDecoration(
-                            color: isActive
-                                ? theme.textPrimary
-                                : theme.card.withOpacity(0.45),
-                            borderRadius: BorderRadius.circular(AppRadius.pill),
-                          ),
-                          child: Text(
-                            tabs[index],
-                            style: AppTextStyles.caption(context).copyWith(
-                              color: isActive
-                                  ? theme.background
-                                  : theme.textSecondary,
-                            ),
-                          ),
-                        ),
-                      );
-                    },
-                  ),
+                // REUSABLE TABS
+                FilterChips(
+                  items: tabs,
+                  selectedIndex: currentTab,
+                  onSelected: (index) => setState(() => currentTab = index),
                 ),
 
                 const SizedBox(height: 26),
 
-                // GROUPS GRID
+                // GRID
                 Expanded(
                   child: GridView.builder(
-                    padding: const EdgeInsets.fromLTRB(
-                      AppSpacing.md, 0,
-                      AppSpacing.md, 140,
-                    ),
+                    padding: const EdgeInsets.fromLTRB(AppSpacing.md, 0, AppSpacing.md, 140),
                     physics: const BouncingScrollPhysics(),
                     itemCount: filteredGroups.length,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
                       crossAxisSpacing: 14,
                       mainAxisSpacing: 14,
                       childAspectRatio: 0.82,
                     ),
-
                     itemBuilder: (context, index) {
                       final group = filteredGroups[index];
                       return GroupCard(
                         group: group,
                         onTap: () {
-                         // Navigate to detail
+                          // Navigate to detail
                         },
                       );
                     },
