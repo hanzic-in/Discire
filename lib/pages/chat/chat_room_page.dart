@@ -74,7 +74,7 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
       backgroundColor: theme.background,
       resizeToAvoidBottomInset: true,
 
-      body: ChatBackground(
+      body: ChatWallpaper(
         child: SafeArea(
           bottom: false,
           child: Column(
