@@ -26,7 +26,7 @@ class FilterChips extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         physics: const BouncingScrollPhysics(),
         itemCount: items.length,
-        separatorBuilder: (_, __) => const SizedBox(width: 10),
+        separatorBuilder: (_, __) => SizedBox(width: AppSpacing.sm),
         itemBuilder: (context, index) {
           final isActive = selectedIndex == index;
 
@@ -66,7 +66,10 @@ class FilterChips extends StatelessWidget {
   Widget _buildPill(AppThemeExtension theme, bool isActive, String text) {
     return AnimatedContainer(
       duration: const Duration(milliseconds: 220),
-      padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
+      padding: EdgeInsets.symmetric(
+        horizontal: AppSpacing.lg,
+        vertical: AppSpacing.sm,
+      ),
       decoration: BoxDecoration(
         color: isActive ? theme.textPrimary : theme.card.withOpacity(0.45),
         borderRadius: BorderRadius.circular(AppRadius.pill),
