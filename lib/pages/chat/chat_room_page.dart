@@ -69,7 +69,6 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
   @override
   Widget build(BuildContext context) {
     final theme = AppThemeExtension.of(context);
-    final screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
       backgroundColor: theme.background,
@@ -114,7 +113,7 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
             ],
           ),
         ),
-      ),      
+      ),
     );
   }
 }
