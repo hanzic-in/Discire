@@ -42,34 +42,24 @@ class ChatWallpaper extends StatelessWidget {
         ),
 
         // SVG WALLPAPER
-        Positioned.fill(
-          child: Opacity(
-            opacity: 0.12,
-            child: ShaderMask(
-              shaderCallback: (bounds) {
-                return const LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: [
-                    Color(0xFF6C63FF),
-                    Color(0xFF8B7FFF),
-                    Color(0xFF4DA2FF),
-                  ],
-                ).createShader(bounds);
-              },
-              blendMode: BlendMode.srcIn,
-              child: SvgPicture.asset(
-                'assets/chat/wallpapers/tech_pattern.svg',
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-        ),
+Positioned.fill(
+  child: Opacity(
+    opacity: 0.38,
+    child: SvgPicture.asset(
+      'assets/chat/wallpapers/tech_pattern.svg',
+      fit: BoxFit.cover,
+      colorFilter: ColorFilter.mode(
+        AppColors.primaryLight.withOpacity(0.75),
+        BlendMode.srcIn,
+      ),
+    ),
+  ),
+),
 
         // OVERLAY
         Positioned.fill(
           child: Container(
-            color: Colors.black.withOpacity(0.18),
+            color: Colors.black.withOpacity(0.06),
           ),
         ),
 
