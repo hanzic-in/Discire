@@ -20,7 +20,7 @@ class TextPost extends StatelessWidget {
         boxShadow: [
           BoxShadow(
             color: theme.shadow.withOpacity(0.035),
-            blurRadius: 18,
+            blurRadius: 16,
             offset: const Offset(0, 8),
           ),
         ],
@@ -58,7 +58,7 @@ class TextPost extends StatelessWidget {
           ),
           child: const Icon(Icons.person_rounded, color: Colors.white, size: 20),
         ),
-        const SizedBox(width: 10),
+        const SizedBox(width: AppSpacing.sm),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
