@@ -74,65 +74,46 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
       backgroundColor: theme.background,
       resizeToAvoidBottomInset: true,
 
-      body: Stack(
-        children: [
-          Positioned(
-            top: 0,
-            left: 0,
-            right: 0,
-            height: screenHeight * 0.26,
-            child: Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: theme.headerGradient,
-                  stops: const [0.0, 0.45, 1],
+      body: ChatBackground(
+        child: SafeArea(
+          bottom: false,
+          child: Column(
+            children: [
+              ChatRoomHeader(
+                name: widget.name,
+              ),
+
+              Expanded(
+                child: ListView.builder(
+                  controller: scrollController,
+                  physics: const BouncingScrollPhysics(),
+                  padding: const EdgeInsets.fromLTRB(
+                    AppSpacing.screenPadding,
+                    AppSpacing.lg,
+                    AppSpacing.screenPadding,
+                    120,
+                  ),
+                  itemCount: messages.length,
+                  itemBuilder: (context, index) {
+                    final msg = messages[index];
+
+                    return ChatBubble(
+                      message: msg['text'],
+                      isMe: msg['isMe'],
+                      time: msg['time'],
+                    );
+                  },
                 ),
               ),
-            ),
+
+              ChatInput(
+                controller: controller,
+                onSend: sendMessage,
+              ),
+            ],
           ),
-
-          SafeArea(
-            bottom: false,
-            child: Column(
-              children: [
-                ChatRoomHeader(
-                  name: widget.name,
-                ),
-
-                Expanded(
-                  child: ListView.builder(
-                    controller: scrollController,
-                    physics: const BouncingScrollPhysics(),
-                    padding: const EdgeInsets.fromLTRB(
-                      AppSpacing.screenPadding,
-                      AppSpacing.lg,
-                      AppSpacing.screenPadding,
-                      120,
-                    ),
-                    itemCount: messages.length,
-                    itemBuilder: (context, index) {
-                      final msg = messages[index];
-
-                      return ChatBubble(
-                        message: msg['text'],
-                        isMe: msg['isMe'],
-                        time: msg['time'],
-                      );
-                    },
-                  ),
-                ),
-
-                ChatInput(
-                  controller: controller,
-                  onSend: sendMessage,
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
+        ),
+      ),      
     );
   }
 }
