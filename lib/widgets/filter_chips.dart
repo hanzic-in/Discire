@@ -22,7 +22,9 @@ class FilterChips extends StatelessWidget {
     return SizedBox(
       height: 42,
       child: ListView.separated(
-        padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
+        padding: EdgeInsets.symmetric(
+          horizontal: AppSpacing.screenPadding,
+        ),
         scrollDirection: Axis.horizontal,
         physics: const BouncingScrollPhysics(),
         itemCount: items.length,
