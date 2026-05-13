@@ -11,7 +11,9 @@ class TextPost extends StatelessWidget {
     final theme = AppThemeExtension.of(context);
     
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
+      margin: EdgeInsets.symmetric(
+        horizontal: AppSpacing.screenPadding,
+      ),
       padding: const EdgeInsets.all(AppSpacing.md),
       decoration: BoxDecoration(
         color: theme.card,
