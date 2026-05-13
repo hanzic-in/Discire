@@ -43,16 +43,9 @@ class ChatWallpaper extends StatelessWidget {
 
         // SVG WALLPAPER
 Positioned.fill(
-  child: Opacity(
-    opacity: 0.38,
-    child: SvgPicture.asset(
-      'assets/chat/wallpapers/tech_pattern.svg',
-      fit: BoxFit.cover,
-      colorFilter: ColorFilter.mode(
-        AppColors.primaryLight.withOpacity(0.75),
-        BlendMode.srcIn,
-      ),
-    ),
+  child: SvgPicture.asset(
+    'assets/chat/wallpapers/tech_pattern.svg',
+    fit: BoxFit.cover,
   ),
 ),
 
