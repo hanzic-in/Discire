@@ -1,137 +1,150 @@
 import 'package:flutter/material.dart';
-import '../../core/theme/app_theme.dart';
-import 'widgets/chat_bubble.dart';
-import 'widgets/chat_input.dart';
-import 'widgets/chat_room_header.dart';
+import '../../../core/theme/app_theme.dart';
 
-class ChatRoomPage extends StatefulWidget {
+class ChatRoomHeader extends StatelessWidget {
   final String name;
 
-  const ChatRoomPage({
+  const ChatRoomHeader({
     super.key,
     required this.name,
   });
 
   @override
-  State<ChatRoomPage> createState() => _ChatRoomPageState();
-}
-
-class _ChatRoomPageState extends State<ChatRoomPage> {
-  final TextEditingController controller = TextEditingController();
-  final ScrollController scrollController = ScrollController();
-
-  final List<Map<String, dynamic>> messages = [
-    {
-      "text": "Halo 👋",
-      "isMe": false,
-      "time": "09:12",
-    },
-    {
-      "text": "Hai!",
-      "isMe": true,
-      "time": "09:13",
-    },
-    {
-      "text": "Lagi ngapain?",
-      "isMe": false,
-      "time": "09:14",
-    },
-  ];
-
-  void sendMessage() {
-    final text = controller.text.trim();
-
-    if (text.isEmpty) return;
-
-    setState(() {
-      messages.add({
-        "text": text,
-        "isMe": true,
-        "time": "Now",
-      });
-    });
-
-    controller.clear();
-
-    Future.delayed(
-      const Duration(milliseconds: 100),
-      () {
-        scrollController.animateTo(
-          scrollController.position.maxScrollExtent,
-          duration: const Duration(milliseconds: 250),
-          curve: Curves.easeOut,
-        );
-      },
-    );
-  }
-
-  @override
   Widget build(BuildContext context) {
     final theme = AppThemeExtension.of(context);
-    final screenHeight = MediaQuery.of(context).size.height;
 
-    return Scaffold(
-      backgroundColor: theme.background,
-      resizeToAvoidBottomInset: true,
-
-      body: Stack(
-        children: [
-          Positioned(
-            top: 0,
-            left: 0,
-            right: 0,
-            height: screenHeight * 0.26,
-            child: Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: theme.headerGradient,
-                  stops: const [0.0, 0.45, 1],
+    return Padding(
+      padding: const EdgeInsets.only(
+        top: AppSpacing.xl,
+        bottom: AppSpacing.lg,
+      ),
+      child: Container(
+        margin: const EdgeInsets.symmetric(
+          horizontal: AppSpacing.screenPadding,
+        ),
+        padding: const EdgeInsets.symmetric(
+          horizontal: AppSpacing.md,
+          vertical: AppSpacing.md,
+        ),
+        decoration: BoxDecoration(
+          color: theme.card.withOpacity(0.72),
+          borderRadius: BorderRadius.circular(
+            AppRadius.lg,
+          ),
+          border: Border.all(
+            color: theme.divider.withOpacity(0.18),
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: theme.shadow.withOpacity(0.08),
+              blurRadius: 24,
+              offset: const Offset(0, 10),
+            ),
+          ],
+        ),
+        child: Row(
+          children: [
+            GestureDetector(
+              onTap: () => Navigator.pop(context),
+              child: Container(
+                height: 42,
+                width: 42,
+                decoration: BoxDecoration(
+                  color: theme.background.withOpacity(0.55),
+                  shape: BoxShape.circle,
+                ),
+                child: Icon(
+                  Icons.arrow_back_ios_new_rounded,
+                  size: 18,
+                  color: theme.textPrimary,
                 ),
               ),
             ),
-          ),
 
-          SafeArea(
-            bottom: false,
-            child: Column(
-              children: [
-                ChatRoomHeader(
-                  name: widget.name,
+            const SizedBox(width: AppSpacing.md),
+
+            Container(
+              height: 52,
+              width: 52,
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    AppColors.primaryLight,
+                    AppColors.primary,
+                  ],
                 ),
-
-                Expanded(
-                  child: ListView.builder(
-                    controller: scrollController,
-                    physics: const BouncingScrollPhysics(),
-                    padding: const EdgeInsets.fromLTRB(
-                      AppSpacing.screenPadding,
-                      AppSpacing.lg,
-                      AppSpacing.screenPadding,
-                      120,
-                    ),
-                    itemCount: messages.length,
-                    itemBuilder: (context, index) {
-                      final msg = messages[index];
-
-                      return ChatBubble(
-                        message: msg['text'],
-                        isMe: msg['isMe'],
-                        time: msg['time'],
-                      );
-                    },
+                shape: BoxShape.circle,
+              ),
+              child: Center(
+                child: Text(
+                  name[0].toUpperCase(),
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 18,
                   ),
                 ),
-
-                ChatInput(
-                  controller: controller,
-                  onSend: sendMessage,
-                ),
-              ],
+              ),
             ),
-          ),
-        ],
+
+            const SizedBox(width: AppSpacing.md),
+
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    name,
+                    style: AppTextStyles.title(context),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+
+                  const SizedBox(height: 2),
+
+                  Row(
+                    children: [
+                      Container(
+                        width: 8,
+                        height: 8,
+                        decoration: const BoxDecoration(
+                          color: Colors.greenAccent,
+                          shape: BoxShape.circle,
+                        ),
+                      ),
+
+                      const SizedBox(width: 6),
+
+                      Text(
+                        "Active now",
+                        style:
+                            AppTextStyles.caption(context).copyWith(
+                          color: Colors.greenAccent,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+
+            GestureDetector(
+              onTap: () {},
+              child: Container(
+                height: 42,
+                width: 42,
+                decoration: BoxDecoration(
+                  color: theme.background.withOpacity(0.55),
+                  shape: BoxShape.circle,
+                ),
+                child: Icon(
+                  Icons.more_vert_rounded,
+                  color: theme.textSecondary,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
