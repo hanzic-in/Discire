@@ -11,7 +11,7 @@ class HomeContent extends StatefulWidget {
   const HomeContent({super.key});
 
   @override
-  State<<HomeContent> createState() => _HomeContentState();
+  State<HomeContent> createState() => _HomeContentState();
 }
 
 class _HomeContentState extends State<<HomeContent> {
