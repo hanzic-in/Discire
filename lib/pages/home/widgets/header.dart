@@ -11,8 +11,11 @@ class HomeHeader extends StatelessWidget {
     
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.fromLTRB(
-        AppSpacing.md, 60, AppSpacing.md, AppSpacing.lg,
+      padding: EdgeInsets.fromLTRB(
+        AppSpacing.screenPadding,
+        AppSpacing.xxxl,
+        AppSpacing.screenPadding,
+        AppSpacing.xl,
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
