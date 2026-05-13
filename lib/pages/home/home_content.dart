@@ -44,7 +44,6 @@ class _HomeContentState extends State<HomeContent> {
           Column(
             children: [
               const HomeHeader(),
-              const SizedBox(height: AppSpacing.lg),
 
               // REUSABLE SEARCH
               AppSearchBar(
