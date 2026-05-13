@@ -261,7 +261,7 @@ class AppSpacing {
   static const lg = 16.0;
   static const xl = 24.0;
   static const xxl = 32.0;
-  static const xxxl = 40.0;
+  static const xxxl = 48.0;
 
   static const screenPadding = 16.0;
   static const sectionSpacing = 24.0;
