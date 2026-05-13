@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../../core/theme/app_theme.dart';
 
 class ChatInput extends StatelessWidget {
@@ -31,13 +32,28 @@ class ChatInput extends StatelessWidget {
         ),
       ),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.end,
         children: [
+
+          // EMOJI
+          _circleButton(
+            context,
+            icon: FontAwesomeIcons.faceSmile,
+            onTap: () {},
+          ),
+
+          const SizedBox(width: AppSpacing.sm),
+
+          // INPUT
           Expanded(
             child: Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: AppSpacing.lg,
+              constraints: const BoxConstraints(
+                minHeight: 56,
+                maxHeight: 140,
               ),
-              height: 56,
+              padding: const EdgeInsets.symmetric(
+                horizontal: AppSpacing.md,
+              ),
               decoration: BoxDecoration(
                 color: theme.searchBar,
                 borderRadius: BorderRadius.circular(
@@ -47,23 +63,75 @@ class ChatInput extends StatelessWidget {
                   color: theme.searchBarBorder,
                 ),
               ),
-              child: TextField(
-                controller: controller,
-                textAlignVertical: TextAlignVertical.center,
-                style: AppTextStyles.body(context),
-                decoration: const InputDecoration(
-                  border: InputBorder.none,
-                  filled: false,
-                  contentPadding: EdgeInsets.zero,
-                  hintText: "Type a message...",
-                  hintStyle: AppTextStyles.bodySecondary(context),
-                )
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+
+                  // TEXT FIELD
+                  Expanded(
+                    child: TextField(
+                      controller: controller,
+                      minLines: 1,
+                      maxLines: 5,
+                      textAlignVertical:
+                          TextAlignVertical.center,
+                      style: AppTextStyles.body(context),
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        filled: false,
+                        isCollapsed: true,
+                        hintText: "Type a message...",
+                        hintStyle:
+                            AppTextStyles.bodySecondary(context),
+                        contentPadding:
+                            const EdgeInsets.symmetric(
+                          vertical: 18,
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(width: AppSpacing.sm),
+
+                  // ATTACH
+                  GestureDetector(
+                    onTap: () {},
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                        bottom: 16,
+                      ),
+                      child: FaIcon(
+                        FontAwesomeIcons.paperclip,
+                        size: 17,
+                        color: theme.textSecondary,
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(width: AppSpacing.md),
+
+                  // CAMERA
+                  GestureDetector(
+                    onTap: () {},
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                        bottom: 16,
+                      ),
+                      child: FaIcon(
+                        FontAwesomeIcons.camera,
+                        size: 17,
+                        color: theme.textSecondary,
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
 
-          const SizedBox(width: AppSpacing.md),
+          const SizedBox(width: AppSpacing.sm),
 
+          // SEND
           GestureDetector(
             onTap: onSend,
             child: Container(
@@ -85,6 +153,36 @@ class ChatInput extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _circleButton(
+    BuildContext context, {
+    required IconData icon,
+    required VoidCallback onTap,
+  }) {
+    final theme = AppThemeExtension.of(context);
+
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        height: 52,
+        width: 52,
+        decoration: BoxDecoration(
+          color: theme.card.withOpacity(0.7),
+          shape: BoxShape.circle,
+          border: Border.all(
+            color: theme.divider.withOpacity(0.12),
+          ),
+        ),
+        child: Center(
+          child: FaIcon(
+            icon,
+            size: 18,
+            color: theme.textSecondary,
+          ),
+        ),
       ),
     );
   }
