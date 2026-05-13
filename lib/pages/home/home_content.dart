@@ -68,7 +68,9 @@ class _HomeContentState extends State<<HomeContent> {
                             const PostSection()
                           else
                             const VoiceSection(),
-                          const SizedBox(height: 120),
+                          ListView(
+                            padding: EdgeInsets.only(bottom: 120),
+                          )
                         ],
                       ),
                     ),
