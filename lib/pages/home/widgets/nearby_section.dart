@@ -34,7 +34,9 @@ class NearbySection extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.fromLTRB(
-            AppSpacing.md, 0, AppSpacing.md, AppSpacing.xl,
+            AppSpacing.screenPadding, 0,
+            AppSpacing.screenPadding,
+            AppSpacing.xl,
           ),
           child: Text(
             "Discover",
@@ -47,7 +49,9 @@ class NearbySection extends StatelessWidget {
             clipBehavior: Clip.none,
             scrollDirection: Axis.horizontal,
             itemCount: users.length,
-            padding: const EdgeInsets.only(right: AppSpacing.md),
+            padding: const EdgeInsets.only(
+              right: AppSpacing.screenPadding,
+            ),
             itemBuilder: (context, index) => _buildUserCard(context, users[index]),
           ),
         ),
