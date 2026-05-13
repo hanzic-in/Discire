@@ -120,7 +120,7 @@ class _HomeContentState extends State<<HomeContent> {
             ),
           ),
 
-          const SizedBox(height: 4),
+          SizedBox(height: AppSpacing.xs),
 
           AnimatedContainer(
             duration: const Duration(milliseconds: 220),
