@@ -35,8 +35,8 @@ class FilterChips extends StatelessWidget {
           return GestureDetector(
             onTap: () => onSelected(index),
             child: isUnderlined
-              ? _buildUnderlined(theme, isActive, items[index])
-              : _buildPill(theme, isActive, items[index]),
+              ? _buildUnderlined(context, theme, isActive, items[index])
+              : _buildPill(context, theme, isActive, items[index]),
           );
         },
       ),
