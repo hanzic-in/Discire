@@ -122,7 +122,7 @@ final List<Map<String, dynamic>> groups = [
                   onChanged: (value) => setState(() => searchQuery = value),
                 ),
 
-                const SizedBox(height: 22),
+                const SizedBox(height: AppSpacing.xl),
 
                 // REUSABLE TABS
                 FilterChips(
@@ -131,7 +131,7 @@ final List<Map<String, dynamic>> groups = [
                   onSelected: (index) => setState(() => currentTab = index),
                 ),
 
-                const SizedBox(height: 26),
+                const SizedBox(height: AppSpacing.xl),
 
                 // GRID
                 Expanded(
@@ -141,8 +141,8 @@ final List<Map<String, dynamic>> groups = [
                     itemCount: filteredGroups.length,
                     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
-                      crossAxisSpacing: 14,
-                      mainAxisSpacing: 14,
+                      crossAxisSpacing: AppSpacing.lg,
+                      mainAxisSpacing: AppSpacing.lg,
                       childAspectRatio: 0.82,
                     ),
                     itemBuilder: (context, index) {
