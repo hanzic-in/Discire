@@ -136,7 +136,10 @@ final List<Map<String, dynamic>> groups = [
                 // GRID
                 Expanded(
                   child: GridView.builder(
-                    padding: const EdgeInsets.fromLTRB(AppSpacing.md, 0, AppSpacing.md, 140),
+                    padding: EdgeInsets.fromLTRB(
+                      AppSpacing.screenPadding, 0,
+                      AppSpacing.screenPadding, 140,
+                    ),
                     physics: const BouncingScrollPhysics(),
                     itemCount: filteredGroups.length,
                     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
