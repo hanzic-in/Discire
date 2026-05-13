@@ -19,6 +19,7 @@ class MainLayout extends StatelessWidget {
     return Scaffold(
       backgroundColor: theme.background,
       body: SafeArea(
+        top: false,
         child: Padding(
           padding: EdgeInsets.symmetric(
             horizontal: usePadding ? screenWidth * 0.045 : 0,
