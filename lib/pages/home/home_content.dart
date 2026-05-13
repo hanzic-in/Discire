@@ -45,7 +45,6 @@ return MainLayout(
       Column(
         children: [
           const HomeHeader(),
-          const HomeSearchBar(),
           const SizedBox(height: 18),
 
           _buildTabSwitch(),
