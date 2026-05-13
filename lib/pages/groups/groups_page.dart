@@ -114,7 +114,7 @@ final List<Map<String, dynamic>> groups = [
                   subtitle: 'Find your people',
                 ),
 
-                const SizedBox(height: AppSpacing.lg),
+                const SizedBox(height: AppSpacing.md),
 
                 // REUSABLE SEARCH
                 AppSearchBar(
