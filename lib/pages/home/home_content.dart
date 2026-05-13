@@ -84,16 +84,15 @@ class _HomeContentState extends State<<HomeContent> {
 
   Widget _buildTabSwitch() {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(
-        AppSpacing.md,
-        0,
-        AppSpacing.md,
-        6,
+      padding: EdgeInsets.fromLTRB(
+        AppSpacing.screenPadding, 0,
+        AppSpacing.screenPadding,
+        AppSpacing.xs,
       ),
       child: Row(
         children: [
           _tabItem("For You", 0),
-          const SizedBox(width: 20),
+          SizedBox(width: AppSpacing.lg),
           _tabItem("Voice", 1),
         ],
       ),
