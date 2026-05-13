@@ -18,7 +18,9 @@ class AppSearchBar extends StatelessWidget {
     final theme = AppThemeExtension.of(context);
 
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
+      padding: EdgeInsets.symmetric(
+        horizontal: AppSpacing.screenPadding,
+      ),
       child: Container(
         height: height,
         padding: EdgeInsets.symmetric(
