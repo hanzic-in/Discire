@@ -23,7 +23,10 @@ class PostSection extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.fromLTRB(
-            AppSpacing.md, AppSpacing.xl, AppSpacing.md, AppSpacing.xl,
+            AppSpacing.screenPadding,
+            AppSpacing.xl,
+            AppSpacing.screenPadding,
+            AppSpacing.xl,
           ),
           child: Text(
             "Latest",
