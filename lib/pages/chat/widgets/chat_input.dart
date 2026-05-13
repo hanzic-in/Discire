@@ -159,7 +159,7 @@ class ChatInput extends StatelessWidget {
 
   Widget _circleButton(
     BuildContext context, {
-    required IconData icon,
+    required FaIconData icon,
     required VoidCallback onTap,
   }) {
     final theme = AppThemeExtension.of(context);
