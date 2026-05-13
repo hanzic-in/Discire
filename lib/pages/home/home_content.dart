@@ -14,7 +14,7 @@ class HomeContent extends StatefulWidget {
   State<HomeContent> createState() => _HomeContentState();
 }
 
-class _HomeContentState extends State<<HomeContent> {
+class _HomeContentState extends State<HomeContent> {
   int currentTab = 0;
 
   @override
