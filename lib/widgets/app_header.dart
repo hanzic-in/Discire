@@ -38,7 +38,7 @@ class AppHeader extends StatelessWidget {
                 if (subtitle != null) ...[
                   const SizedBox(height: 6),
                   Text(
-                    subtitle,
+                    subtitle!,
                     style: AppTextStyles.caption(context),
                   ),
                 ],
