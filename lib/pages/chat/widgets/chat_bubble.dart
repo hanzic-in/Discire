@@ -4,11 +4,13 @@ import '../../../core/theme/app_theme.dart';
 class ChatBubble extends StatelessWidget {
   final String message;
   final bool isMe;
+  final String time;
 
   const ChatBubble({
     super.key,
     required this.message,
     required this.isMe,
+    required this.time,
   });
 
   @override
@@ -19,47 +21,64 @@ class ChatBubble extends StatelessWidget {
       alignment:
           isMe ? Alignment.centerRight : Alignment.centerLeft,
       child: Container(
-        margin: const EdgeInsets.symmetric(
-          vertical: AppSpacing.xs,
-        ),
-        constraints: const BoxConstraints(
-          maxWidth: 280,
+        margin: const EdgeInsets.only(
+          bottom: AppSpacing.md,
         ),
         padding: const EdgeInsets.symmetric(
           horizontal: AppSpacing.lg,
           vertical: AppSpacing.md,
         ),
+        constraints: const BoxConstraints(
+          maxWidth: 290,
+        ),
         decoration: BoxDecoration(
-          color: isMe
-              ? AppColors.primary
-              : theme.card,
+          gradient: isMe
+              ? const LinearGradient(
+                  colors: [
+                    AppColors.primaryLight,
+                    AppColors.primary,
+                  ],
+                )
+              : null,
+          color: isMe ? null : theme.card,
           borderRadius: BorderRadius.only(
-            topLeft: const Radius.circular(
-              AppRadius.lg,
-            ),
-            topRight: const Radius.circular(
-              AppRadius.lg,
-            ),
+            topLeft: const Radius.circular(AppRadius.md),
+            topRight: const Radius.circular(AppRadius.md),
             bottomLeft: Radius.circular(
-              isMe ? AppRadius.lg : AppSpacing.sm,
+              isMe ? AppRadius.md : 6,
             ),
             bottomRight: Radius.circular(
-              isMe ? AppSpacing.sm : AppRadius.lg,
+              isMe ? 6 : AppRadius.md,
             ),
           ),
-          border: isMe
-              ? null
-              : Border.all(
-                  color: theme.divider.withOpacity(0.45),
-                ),
-        ),
-        child: Text(
-          message,
-          style: AppTextStyles.body(context).copyWith(
-            color: isMe
-                ? Colors.white
-                : theme.textPrimary,
+          border: Border.all(
+            color: theme.divider.withOpacity(0.15),
           ),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Text(
+              message,
+              style: AppTextStyles.body(context).copyWith(
+                color: isMe
+                    ? Colors.white
+                    : theme.textPrimary,
+              ),
+            ),
+
+            const SizedBox(height: 4),
+
+            Text(
+              time,
+              style: AppTextStyles.caption(context).copyWith(
+                fontSize: 11,
+                color: isMe
+                    ? Colors.white70
+                    : theme.textTertiary,
+              ),
+            ),
+          ],
         ),
       ),
     );
