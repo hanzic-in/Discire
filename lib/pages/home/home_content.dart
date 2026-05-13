@@ -56,27 +56,23 @@ class _HomeContentState extends State<HomeContent> {
               const SizedBox(height: AppSpacing.md),
 
               Expanded(
-                child: ListView(
-                  padding: EdgeInsets.zero,
+                child: SingleChildScrollView(
                   physics: const BouncingScrollPhysics(),
-                  children: [
-                    if (currentTab == 0) const NearbySection(),
-                    Container(
-                      child: Column(
-                        children: [
-                          if (currentTab == 0)
-                            const PostSection()
-                          else
-                            const VoiceSection(),
-                          ListView(
-                            padding: EdgeInsets.only(bottom: 120),
-                          )
-                        ],
-                      ),
-                    ),
-                  ],
+                  padding: const EdgeInsets.only(bottom: 120),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      if (currentTab == 0) ...[
+                        const NearbySection(),
+                        const SizedBox(height: AppSpacing.xl),
+                        const PostSection(),
+                      ] else ...[
+                        const VoiceSection(),
+                      ],
+                    ],
+                  ),
                 ),
-              ),
+              ),            
             ],
           ),
         ],
