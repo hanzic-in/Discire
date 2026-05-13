@@ -43,7 +43,7 @@ class FilterChips extends StatelessWidget {
     );
   }
 
-  Widget _buildUnderlined(AppThemeExtension theme, bool isActive, String text) {
+  Widget _buildUnderlined(BuildContext context, AppThemeExtension theme, bool isActive, String text) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -65,7 +65,7 @@ class FilterChips extends StatelessWidget {
     );
   }
 
-  Widget _buildPill(AppThemeExtension theme, bool isActive, String text) {
+  Widget _buildPill(BuildContext context, AppThemeExtension theme, bool isActive, String text) {
     return AnimatedContainer(
       duration: const Duration(milliseconds: 220),
       padding: EdgeInsets.symmetric(
