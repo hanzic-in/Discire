@@ -77,7 +77,10 @@ class CustomBottomNav extends StatelessWidget {
           child: AnimatedContainer(  
             duration: const Duration(milliseconds: 250),  
             curve: Curves.easeInOut,  
-            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),  
+            padding: EdgeInsets.symmetric(
+              horizontal: AppSpacing.md,
+              vertical: AppSpacing.sm,
+            ),
             decoration: BoxDecoration(  
               gradient: isActive ? const LinearGradient(  
                 begin: Alignment.topLeft,  
