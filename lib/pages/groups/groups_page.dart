@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../core/theme/app_theme.dart';
 import '../../widgets/main_layout.dart';
 import 'widgets/group_card.dart';
+import '../../widgets/app_search_bar.dart';
 
 class GroupsPage extends StatefulWidget {
   const GroupsPage({super.key});
