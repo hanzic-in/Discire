@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../core/theme/app_theme.dart';
 
 class ChatItem extends StatelessWidget {
   final String name;
@@ -18,84 +19,139 @@ class ChatItem extends StatelessWidget {
     this.onTap,
   });
 
-@override
-Widget build(BuildContext context) {
-  return GestureDetector(
-    onTap: onTap,
-    child: Container(
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: unread > 0
-            ? Colors.black.withOpacity(0.03)
-            : Colors.transparent,
-        borderRadius: BorderRadius.circular(16),
+  @override
+  Widget build(BuildContext context) {
+    final theme = AppThemeExtension.of(context);
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        horizontal: AppSpacing.screenPadding,
       ),
-      child: Row(
-        children: [
-          Stack(
-            children: [
-              CircleAvatar(
-                radius: 28,
-                backgroundImage: NetworkImage(image),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: onTap,
+          borderRadius: BorderRadius.circular(AppRadius.lg),
+          child: Ink(
+            padding: const EdgeInsets.all(AppSpacing.lg),
+            decoration: BoxDecoration(
+              color: unread > 0
+                  ? theme.card
+                  : theme.card.withOpacity(0.72),
+              borderRadius: BorderRadius.circular(AppRadius.lg),
+              border: Border.all(
+                color: unread > 0
+                    ? theme.divider.withOpacity(0.4)
+                    : Colors.transparent,
               ),
-              Positioned(
-                bottom: 0,
-                right: 0,
-                child: Container(
-                  height: 12,
-                  width: 12,
-                  decoration: BoxDecoration(
-                    color: Colors.green,
-                    shape: BoxShape.circle,
-                    border: Border.all(color: Colors.white, width: 2),
+            ),
+            child: Row(
+              children: [
+                Stack(
+                  children: [
+                    Container(
+                      height: 56,
+                      width: 56,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        image: DecorationImage(
+                          image: NetworkImage(image),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+
+                    Positioned(
+                      bottom: 2,
+                      right: 2,
+                      child: Container(
+                        height: 12,
+                        width: 12,
+                        decoration: BoxDecoration(
+                          color: AppColors.success,
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            color: theme.card,
+                            width: 2,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+
+                const SizedBox(width: AppSpacing.md),
+
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment:
+                        CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              name,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: AppTextStyles.title(
+                                context,
+                              ),
+                            ),
+                          ),
+
+                          const SizedBox(width: AppSpacing.sm),
+
+                          Text(
+                            time,
+                            style: AppTextStyles.caption(
+                              context,
+                            ),
+                          ),
+                        ],
+                      ),
+
+                      const SizedBox(height: AppSpacing.xs),
+
+                      Text(
+                        message,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: AppTextStyles.bodySecondary(
+                          context,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-              )
-            ],
-          ),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  name,
-                  style: const TextStyle(fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  message,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(color: Colors.grey, fontSize: 13),
-                ),
+
+                if (unread > 0) ...[
+                  const SizedBox(width: AppSpacing.md),
+
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 5,
+                    ),
+                    decoration: BoxDecoration(
+                      color: AppColors.primary,
+                      borderRadius: BorderRadius.circular(
+                        AppRadius.pill,
+                      ),
+                    ),
+                    child: Text(
+                      unread.toString(),
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 11,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ),
+                ],
               ],
             ),
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Text(
-                time,
-                style: const TextStyle(fontSize: 11, color: Colors.grey),
-              ),
-              const SizedBox(height: 6),
-              if (unread > 0)
-                Container(
-                  padding: const EdgeInsets.all(6),
-                  decoration: const BoxDecoration(
-                    color: Colors.black,
-                    shape: BoxShape.circle,
-                  ),
-                  child: Text(
-                    unread.toString(),
-                    style: const TextStyle(color: Colors.white, fontSize: 10),
-                  ),
-                )
-              ],
-            )
-          ],
         ),
       ),
     );
