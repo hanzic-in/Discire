@@ -28,7 +28,9 @@ class FilterChips extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         physics: const BouncingScrollPhysics(),
         itemCount: items.length,
-        separatorBuilder: (_, __) => SizedBox(width: AppSpacing.sm),
+        separatorBuilder: (_, __) => SizedBox(
+          width: isUnderlined ? AppSpacing.lg : AppSpacing.sm,
+        ),
         itemBuilder: (context, index) {
           final isActive = selectedIndex == index;
 
