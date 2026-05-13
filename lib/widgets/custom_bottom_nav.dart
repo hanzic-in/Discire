@@ -20,7 +20,9 @@ class CustomBottomNav extends StatelessWidget {
     return SafeArea(  
       minimum: const EdgeInsets.only(bottom: 5),  
       child: Padding(  
-        padding: const EdgeInsets.symmetric(horizontal: 20),  
+        padding: EdgeInsets.symmetric(
+          horizontal: AppSpacing.lg,
+        ),
         child: ClipRRect(  
           borderRadius: BorderRadius.circular(AppRadius.pill),  
           child: BackdropFilter(  
