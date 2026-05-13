@@ -261,7 +261,14 @@ class AppSpacing {
   static const xl = 32.0;
   static const sectionGap = 20.0;
   static const sectionTop = 28.0;
+  
+  // Half steps
+  static const xs2 = 6.0;
+  static const sm2 = 12.0;
+  static const md2 = 18.0;
+  static const lg2 = 26.0;
 }
+
 
 class AppRadius {
   static const sm = 12.0;
