@@ -52,7 +52,7 @@ class _ChatListPageState extends State<ChatListPage> {
 
   List<Map<String, dynamic>> get filteredChats {
     if (currentTab == 1) {
-      return chats.where((e) => e['unread'] > 0).toList();
+      return chats.where((e) => (e['unread'] as int) > 0).toList();
     }
 
     if (currentTab == 2) {
