@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
+import '../../core/theme/app_theme.dart';
 import 'widgets/chat_bubble.dart';
+import 'widgets/chat_input.dart';
+import 'widgets/chat_room_header.dart';
 
 class ChatRoomPage extends StatefulWidget {
   final String name;
 
-  const ChatRoomPage({super.key, required this.name});
+  const ChatRoomPage({
+    super.key,
+    required this.name,
+  });
 
   @override
   State<ChatRoomPage> createState() => _ChatRoomPageState();
@@ -12,95 +18,119 @@ class ChatRoomPage extends StatefulWidget {
 
 class _ChatRoomPageState extends State<ChatRoomPage> {
   final TextEditingController controller = TextEditingController();
+  final ScrollController scrollController = ScrollController();
 
-  List<Map<String, dynamic>> messages = [
-    {"text": "Halo 👋", "isMe": false},
-    {"text": "Hai!", "isMe": true},
-    {"text": "Lagi ngapain?", "isMe": false},
+  final List<Map<String, dynamic>> messages = [
+    {
+      "text": "Halo 👋",
+      "isMe": false,
+      "time": "09:12",
+    },
+    {
+      "text": "Hai!",
+      "isMe": true,
+      "time": "09:13",
+    },
+    {
+      "text": "Lagi ngapain?",
+      "isMe": false,
+      "time": "09:14",
+    },
   ];
 
   void sendMessage() {
-    if (controller.text.trim().isEmpty) return;
+    final text = controller.text.trim();
+
+    if (text.isEmpty) return;
 
     setState(() {
       messages.add({
-        "text": controller.text.trim(),
+        "text": text,
         "isMe": true,
+        "time": "Now",
       });
     });
 
     controller.clear();
+
+    Future.delayed(
+      const Duration(milliseconds: 100),
+      () {
+        scrollController.animateTo(
+          scrollController.position.maxScrollExtent,
+          duration: const Duration(milliseconds: 250),
+          curve: Curves.easeOut,
+        );
+      },
+    );
   }
 
   @override
   Widget build(BuildContext context) {
+    final theme = AppThemeExtension.of(context);
+    final screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
-      backgroundColor: const Color(0xFFF3F4F8),
+      backgroundColor: theme.background,
+      resizeToAvoidBottomInset: true,
 
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        title: Text(
-          widget.name,
-          style: const TextStyle(color: Colors.black),
-        ),
-        iconTheme: const IconThemeData(color: Colors.black),
-      ),
-
-      body: Column(
+      body: Stack(
         children: [
-          Expanded(
-            child: ListView.builder(
-              padding: const EdgeInsets.all(16),
-              itemCount: messages.length,
-              itemBuilder: (context, index) {
-                final msg = messages[index];
-
-                return ChatBubble(
-                  message: msg["text"],
-                  isMe: msg["isMe"],
-                );
-              },
+          Positioned(
+            top: 0,
+            left: 0,
+            right: 0,
+            height: screenHeight * 0.26,
+            child: Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: theme.headerGradient,
+                  stops: const [0.0, 0.45, 1],
+                ),
+              ),
             ),
           ),
 
-          Container(
-            padding: const EdgeInsets.fromLTRB(16, 10, 16, 20),
-            decoration: const BoxDecoration(
-              color: Colors.white,
-            ),
-            child: Row(
+          SafeArea(
+            bottom: false,
+            child: Column(
               children: [
+                ChatRoomHeader(
+                  name: widget.name,
+                ),
+
                 Expanded(
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 14),
-                    decoration: BoxDecoration(
-                      color: const Color(0xFFF0F1F5),
-                      borderRadius: BorderRadius.circular(25),
+                  child: ListView.builder(
+                    controller: scrollController,
+                    physics: const BouncingScrollPhysics(),
+                    padding: const EdgeInsets.fromLTRB(
+                      AppSpacing.screenPadding,
+                      AppSpacing.lg,
+                      AppSpacing.screenPadding,
+                      120,
                     ),
-                    child: TextField(
-                      controller: controller,
-                      decoration: const InputDecoration(
-                        hintText: "Type a message...",
-                        border: InputBorder.none,
-                      ),
-                    ),
+                    itemCount: messages.length,
+                    itemBuilder: (context, index) {
+                      final msg = messages[index];
+
+                      return ChatBubble(
+                        message: msg['text'],
+                        isMe: msg['isMe'],
+                        time: msg['time'],
+                      );
+                    },
                   ),
                 ),
-                const SizedBox(width: 10),
-                Container(
-                  decoration: const BoxDecoration(
-                    color: Colors.black,
-                    shape: BoxShape.circle,
-                  ),
-                  child: IconButton(
-                    onPressed: sendMessage,
-                    icon: const Icon(Icons.send, color: Colors.white),
-                  ),
-                )
+
+                ChatInput(
+                  controller: controller,
+                  onSend: sendMessage,
+                ),
               ],
             ),
-          )
+          ),
         ],
       ),
     );
