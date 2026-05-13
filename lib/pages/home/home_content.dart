@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../../core/theme/app_theme.dart';
 import '../../widgets/main_layout.dart';
 import 'widgets/header.dart';
-import 'widgets/search_bar.dart';
+import '../../widgets/app_search_bar.dart';
 import 'widgets/nearby_section.dart';
 import 'widgets/post/post_section.dart';
 import 'widgets/voice_section.dart';
