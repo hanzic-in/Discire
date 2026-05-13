@@ -18,11 +18,11 @@ class AppHeader extends StatelessWidget {
     final theme = AppThemeExtension.of(context);
 
     return Padding(
-      padding: const EdgeInsets.fromLTRB(
-        AppSpacing.md,
-        16,
-        AppSpacing.md,
-        0,
+      padding: EdgeInsets.fromLTRB(
+        AppSpacing.screenPadding,
+        AppSpacing.xxxl,
+        AppSpacing.screenPadding,
+        AppSpacing.xl,
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
