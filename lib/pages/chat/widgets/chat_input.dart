@@ -50,11 +50,10 @@ class ChatInput extends StatelessWidget {
               child: TextField(
                 controller: controller,
                 style: AppTextStyles.body(context),
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   border: InputBorder.none,
-                  hintText: "Type a message...",
-                  hintStyle: AppTextStyles.bodySecondary(context),
-                ),
+                  filled: false,
+                )
               ),
             ),
           ),
