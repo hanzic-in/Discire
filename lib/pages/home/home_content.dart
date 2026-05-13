@@ -51,11 +51,9 @@ class _HomeContentState extends State<<HomeContent> {
                 hint: 'Search people, interests...',
               ),
 
-              const SizedBox(height: 18),
-
+              const SizedBox(height: AppSpacing.lg),
               _buildTabSwitch(),
-
-              const SizedBox(height: 12),
+              const SizedBox(height: AppSpacing.md),
 
               Expanded(
                 child: ListView(
