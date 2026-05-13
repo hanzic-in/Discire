@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import '../../core/theme/app_theme.dart';
-import 'widgets/chat_background.dart';
 import 'widgets/chat_bubble.dart';
 import 'widgets/chat_input.dart';
+import 'widgets/chat_wallpaper.dart';
 import 'widgets/chat_room_header.dart';
 
 class ChatRoomPage extends StatefulWidget {
