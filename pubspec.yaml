@@ -53,6 +53,9 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
+  shaders:
+    - assets/shaders/tile_pattern.frag
+
   assets:
     - assets/chat/wallpapers/
   # The following line ensures that the Material Icons font is
