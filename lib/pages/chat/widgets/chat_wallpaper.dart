@@ -22,11 +22,18 @@ class ChatWallpaper extends StatelessWidget {
     ),
 
     Positioned.fill(
+  child: Opacity(
+    opacity: 0.10,
+    child: Transform.scale(
+      scale: 0.42,
       child: SvgPicture.asset(
         'assets/chat/wallpapers/seamless_pattern_1.svg',
-        fit: BoxFit.cover,
+        fit: BoxFit.contain,
+        alignment: Alignment.topLeft,
       ),
     ),
+  ),
+),
 
     child,
   ],
