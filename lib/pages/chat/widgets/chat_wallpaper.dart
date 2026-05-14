@@ -1,5 +1,3 @@
-// lib/pages/chat/widgets/chat_wallpaper.dart
-
 import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -26,19 +24,27 @@ class _ChatWallpaperState extends State<ChatWallpaper> {
   }
 
   Future<void> _loadPattern() async {
-    // Render SVG ke image kecil (1 tile)
     final pictureInfo = await vg.loadPicture(
       const SvgAssetLoader('assets/chat/wallpapers/seamless_pattern_1.svg'),
       null,
     );
 
-    const tileSize = Size(160, 120); // 4:3 sesuai SVG Anda
+    const tileSize = Size(160, 120);
 
     final recorder = ui.PictureRecorder();
     final canvas = Canvas(recorder);
 
-    // Gambar SVG ke canvas dengan ukuran tile
-    canvas.drawPicture(pictureInfo.picture); // ← PERBAIKAN: drawPicture, bukan picture.paint
+    
+    final svgSize = pictureInfo.size;
+    
+    canvas.save();
+    
+    final scaleX = tileSize.width / svgSize.width;
+    final scaleY = tileSize.height / svgSize.height;
+    canvas.scale(scaleX, scaleY);
+    
+    canvas.drawPicture(pictureInfo.picture);
+    canvas.restore();
 
     final image = await recorder.endRecording().toImage(
       tileSize.width.toInt(),
@@ -66,10 +72,7 @@ class _ChatWallpaperState extends State<ChatWallpaper> {
 
     return Stack(
       children: [
-        // Background hitam
         Container(color: Colors.black),
-
-        // Pattern berulang via GPU
         Positioned.fill(
           child: Opacity(
             opacity: 0.10,
@@ -79,8 +82,6 @@ class _ChatWallpaperState extends State<ChatWallpaper> {
             ),
           ),
         ),
-
-        // Content
         widget.child,
       ],
     );
@@ -97,7 +98,7 @@ class _TiledPatternPainter extends CustomPainter {
     final paint = Paint()
       ..shader = ImageShader(
         image,
-        TileMode.repeated, // ← Native GPU repeat!
+        TileMode.repeated,
         TileMode.repeated,
         Matrix4.identity().storage,
       );
