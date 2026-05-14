@@ -17,18 +17,27 @@ class ChatWallpaper extends StatelessWidget {
     return Stack(
       children: [
 
-        // BASE
+        // BASE BACKGROUND
         Container(
-          color: theme.background,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                const Color(0xFF0B0B12),
+                theme.background,
+              ],
+            ),
+          ),
         ),
 
-        // GLOW
+        // TOP GLOW
         Positioned(
-          top: -120,
-          right: -80,
+          top: -180,
+          right: -120,
           child: Container(
-            width: 260,
-            height: 260,
+            width: 360,
+            height: 360,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               gradient: RadialGradient(
@@ -41,18 +50,45 @@ class ChatWallpaper extends StatelessWidget {
           ),
         ),
 
-        // SVG WALLPAPER
-Positioned.fill(
-  child: SvgPicture.asset(
-    'assets/chat/wallpapers/tech_pattern.svg',
-    fit: BoxFit.cover,
-  ),
-),
+        // SECOND GLOW
+        Positioned(
+          bottom: -220,
+          left: -120,
+          child: Container(
+            width: 340,
+            height: 340,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              gradient: RadialGradient(
+                colors: [
+                  const Color(0xFF4DA2FF).withOpacity(0.16),
+                  Colors.transparent,
+                ],
+              ),
+            ),
+          ),
+        ),
 
-        // OVERLAY
+        // SVG PATTERN
+        Positioned.fill(
+          child: Opacity(
+            opacity: 0.08,
+            child: SvgPicture.asset(
+              'assets/chat/wallpapers/seamless_pattern_1.svg',
+              fit: BoxFit.cover,
+
+              colorFilter: ColorFilter.mode(
+                Colors.white.withOpacity(0.9),
+                BlendMode.srcIn,
+              ),
+            ),
+          ),
+        ),
+
+        // DARK OVERLAY
         Positioned.fill(
           child: Container(
-            color: Colors.black.withOpacity(0.06),
+            color: Colors.black.withOpacity(0.12),
           ),
         ),
 
