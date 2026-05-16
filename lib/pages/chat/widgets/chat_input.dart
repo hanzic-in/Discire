@@ -254,13 +254,16 @@ class _Content extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 _IconButton(
-                  icon: FaIcon(FontAwesomeIcons.faceSmile),
+                  icon: FaIcon(
+                    FontAwesomeIcons.faceSmile,
+                    size: 26,
+                    color: theme.textSecondary.withOpacity(0.92),
+                  ), 
                   padding: const EdgeInsets.only(
                     left: 22,
                     right: 16,
                     bottom: 18,
                   ),
-                  color: theme.textSecondary.withOpacity(0.92),
                 ),
                 Expanded(
                   child: Padding(
@@ -349,7 +352,7 @@ class _ChatTextField extends StatelessWidget {
 }
 
 class _IconButton extends StatelessWidget {
-  final IconData icon;
+  final Widget icon;
   final EdgeInsets padding;
   final Color color;
 
@@ -363,7 +366,7 @@ class _IconButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: padding,
-      child: FaIcon(icon, size: 26, color: color),
+      child: icon,
     );
   }
 }
