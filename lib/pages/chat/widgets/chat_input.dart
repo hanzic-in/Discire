@@ -566,19 +566,12 @@ class _ChatInputState extends State<ChatInput>
 // =========================
 // MAIN SHAPE
 // =========================
-
-class RelioComposerPainter
-    extends CustomPainter {
+class RelioComposerPainter extends CustomPainter {
   final double progress;
-
   final double rightGap;
-
   final Color backgroundColor;
-
   final bool hasText;
-
   final Color activeColor;
-
   final Color activeColorLight;
 
   RelioComposerPainter({
@@ -591,33 +584,28 @@ class RelioComposerPainter
   });
 
   @override
-  void paint(
-    Canvas canvas,
-    Size size,
-  ) {
-    final radius =
-        size.height / 2;
+  void paint(Canvas canvas, Size size) {
+    // KUNCI PERBAIKAN: Gunakan radius tetap (dari composerHeight / 2 -> 64 / 2 = 32)
+    // Jangan pakai size.height / 2 karena size.height berubah saat textfield melar!
+    const double baseHeight = 64;
+    const double baseRadius = baseHeight / 2;
 
     final paint = Paint()
-      ..style =
-          PaintingStyle.fill
-
+      ..style = PaintingStyle.fill
       ..isAntiAlias = true;
 
-    final mainRight =
-        size.width - rightGap;
+    final mainRight = size.width - rightGap;
 
     // MAIN PILL
-    paint.color =
-        backgroundColor;
+    paint.color = backgroundColor;
 
-    final mainRRect =
-        RRect.fromLTRBR(
+    // Pakai Radius.circular(baseRadius) agar corner tidak berubah saat meninggi
+    final mainRRect = RRect.fromLTRBR(
       0,
       0,
       mainRight,
       size.height,
-      Radius.circular(radius),
+      const Radius.circular(baseRadius),
     );
 
     canvas.drawRRect(
@@ -626,135 +614,68 @@ class RelioComposerPainter
     );
 
     // GOOEY BRIDGE
-    if (progress > 0.01 &&
-        progress < 0.98) {
+    if (progress > 0.01 && progress < 0.98) {
       final path = Path();
+      final gooeyFactor = (1 - (progress / 0.98)).clamp(0.0, 1.0);
+      final bridgeHeight = baseRadius * 0.7 * gooeyFactor;
+      final startX = mainRight - baseRadius;
+      final endX = size.width - baseRadius;
+      
+      // Ambil posisi vertical center dari baseHeight (64) bagian bawah
+      final centerY = size.height - baseRadius;
 
-      final gooeyFactor =
-          (1 -
-                  (progress /
-                      0.98))
-              .clamp(
-        0.0,
-        1.0,
-      );
-
-      final bridgeHeight =
-          radius *
-              0.7 *
-              gooeyFactor;
-
-      final startX =
-          mainRight - radius;
-
-      final endX =
-          size.width - radius;
-
-      final centerY =
-          size.height / 2;
-
-      path.moveTo(
-        startX,
-        centerY - radius,
-      );
-
+      path.moveTo(startX, size.height - baseHeight);
       path.cubicTo(
-        startX +
-            (rightGap * 0.24),
-
-        centerY -
-            bridgeHeight,
-
-        endX -
-            (rightGap * 0.28),
-
-        centerY -
-            bridgeHeight,
-
+        startX + (rightGap * 0.24),
+        centerY - bridgeHeight,
+        endX - (rightGap * 0.28),
+        centerY - bridgeHeight,
         endX,
-        centerY - radius,
+        size.height - baseHeight,
       );
-
-      path.lineTo(
-        endX,
-        centerY + radius,
-      );
-
+      path.lineTo(endX, size.height);
       path.cubicTo(
-        endX -
-            (rightGap * 0.28),
-
-        centerY +
-            bridgeHeight,
-
-        startX +
-            (rightGap * 0.24),
-
-        centerY +
-            bridgeHeight,
-
+        endX - (rightGap * 0.28),
+        centerY + bridgeHeight,
+        startX + (rightGap * 0.24),
+        centerY + bridgeHeight,
         startX,
-        centerY + radius,
+        size.height,
       );
-
       path.close();
 
-      canvas.drawPath(
-        path,
-        paint,
-      );
+      canvas.drawPath(path, paint);
     }
 
     // BUTTON
     final buttonPaint = Paint()
-      ..style =
-          PaintingStyle.fill
-
+      ..style = PaintingStyle.fill
       ..isAntiAlias = true;
 
     if (hasText) {
-      buttonPaint.shader =
-          LinearGradient(
-        colors: [
-          activeColorLight,
-          activeColor,
-        ],
+      buttonPaint.shader = LinearGradient(
+        colors: [activeColorLight, activeColor],
       ).createShader(
         Rect.fromLTWH(
           size.width - 64,
-          0,
+          size.height - baseHeight,
           64,
-          64,
+          baseHeight,
         ),
       );
     } else {
-      buttonPaint.color =
-          backgroundColor;
+      buttonPaint.color = backgroundColor;
     }
 
-    final pullOut =
-        Curves.easeOutBack
-            .transform(progress);
-
-    final buttonRadius =
-        radius *
-            (0.74 +
-                (progress *
-                    0.26));
-
-    final buttonLeft =
-        size.width -
-            (64 * pullOut);
-
-    final buttonRRect =
-        RRect.fromLTRBR(
+    final pullOut = Curves.easeOutBack.transform(progress);
+    final buttonRadius = baseRadius * (0.74 + (progress * 0.26));
+    final buttonLeft = size.width - (64 * pullOut);
+    final buttonRRect = RRect.fromLTRBR(
       buttonLeft,
-      0,
+      size.height - baseHeight, 
       size.width,
       size.height,
-      Radius.circular(
-        buttonRadius,
-      ),
+      Radius.circular(buttonRadius),
     );
 
     canvas.drawRRect(
@@ -764,14 +685,11 @@ class RelioComposerPainter
   }
 
   @override
-  bool shouldRepaint(
-    covariant RelioComposerPainter old,
-  ) {
-    return old.progress !=
-            progress ||
-        old.hasText != hasText;
+  bool shouldRepaint(covariant RelioComposerPainter old) {
+    return old.progress != progress || old.hasText != hasText;
   }
 }
+
 
 // =========================
 // BORDER
