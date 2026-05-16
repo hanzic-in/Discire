@@ -12,65 +12,31 @@ class ChatInput extends StatefulWidget {
     required this.onSend,
   });
 
-  @override
-  State<ChatInput> createState() => _ChatInputState();
-}
-
-class _ChatInputState extends State<ChatInput> {
-  final FocusNode focusNode = FocusNode();
-  bool hasText = false;
-  bool isFocused = false;
-
-  @override
-  void initState() {
-    super.initState();
-    widget.controller.addListener(_onTextChanged);
-    focusNode.addListener(_onFocusChanged);
-  }
-
-  void _onTextChanged() {
-    final typing = widget.controller.text.trim().isNotEmpty;
-    if (typing != hasText) {
-      setState(() => hasText = typing);
-    }
-  }
-
-  void _onFocusChanged() {
-    if (focusNode.hasFocus != isFocused) {
-      setState(() => isFocused = focusNode.hasFocus);
-    }
-  }
-
-  @override
-  void dispose() {
-    widget.controller.removeListener(_onTextChanged);
-    focusNode.dispose();
-    super.dispose();
-  }
-
-  @override
+    @override
   Widget build(BuildContext context) {
     final theme = AppThemeExtension.of(context);
     const double minBarHeight = 64.0; 
+    
     final double rightGap = isFocused ? 76.0 : 0.0; 
+    final double horizontalMargin = isFocused ? 0.0 : 32.0;
 
     return SafeArea(
       top: false,
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(14, 0, 14, 12),
-        // Menggunakan IntrinsicHeight agar tinggi Stack mengikuti tinggi Row di depannya secara dinamis
+      child: AnimatedPadding(
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeOutCubic,
+        padding: EdgeInsets.fromLTRB(14 + horizontalMargin, 0, 14 + horizontalMargin, 12),
         child: IntrinsicHeight(
           child: Stack(
             children: [
               
               // ==========================================
-              // LAYER 1: BACKGROUND SYSTEM (DYNAMIC HEIGHT)
+              // LAYER 1: BACKGROUND SYSTEM (DYNAMIC HEIGHT & WIDTH)
               // ==========================================
               
-              // 1a. Lingkaran Background Tombol Kanan (Voice / Send)
               Positioned(
                 right: 0,
-                bottom: 0, // Kunci di bawah agar sejajar saat composer meninggi
+                bottom: 0,
                 width: minBarHeight,
                 height: minBarHeight,
                 child: Container(
@@ -86,7 +52,6 @@ class _ChatInputState extends State<ChatInput> {
                 ),
               ),
 
-              // 1b. Pill Background Utama (Main Composer)
               AnimatedPositioned(
                 duration: const Duration(milliseconds: 280),
                 curve: Curves.easeInOutCubic,
@@ -125,6 +90,7 @@ class _ChatInputState extends State<ChatInput> {
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
+                            // EMOJI ICON
                             Padding(
                               padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
                               child: FaIcon(
@@ -134,6 +100,7 @@ class _ChatInputState extends State<ChatInput> {
                               ),
                             ),
 
+                            // TEXT FIELD
                             Expanded(
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(vertical: 18),
