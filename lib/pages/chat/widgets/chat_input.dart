@@ -506,7 +506,7 @@ class RelioComposerPainter
     }
 
     final buttonRadius =
-      radius * (0.92 + (progress * 0.08));
+    radius * (0.96 + (eased * 0.04));
 
     final eased =
     Curves.easeOutExpo.transform(progress);
