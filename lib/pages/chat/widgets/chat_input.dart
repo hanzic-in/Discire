@@ -401,7 +401,7 @@ class RelioComposerPainter
 
   @override
   void paint(Canvas canvas, Size size) {
-    const double radius = 32;
+    final radius = size.height / 2;
 
     final paint = Paint()
       ..style = PaintingStyle.fill
