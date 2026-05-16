@@ -13,8 +13,7 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage>
-    with TickerProviderStateMixin {
+class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   int currentIndex = 0;
 
   @override
@@ -23,33 +22,28 @@ class _HomePageState extends State<HomePage>
     
     return Scaffold(
       backgroundColor: theme.background,
-      body: Stack(
-        children: [
-          AnimatedSwitcher(
-            duration: const Duration(milliseconds: 300),
-            switchInCurve: Curves.easeOut,
-            switchOutCurve: Curves.easeIn,
-            transitionBuilder: (child, animation) {
-              return FadeTransition(
-                opacity: animation,
-                child: ScaleTransition(
-                  scale: Tween(begin: 0.98, end: 1.0).animate(animation),
-                  child: child,
-                ),
-              );
-            },
-            child: _getPage(),
-          ),
-          Positioned(
-            bottom: 20,
-            left: 20,
-            right: 20,
-            child: CustomBottomNav(
-              currentIndex: currentIndex,
-              onTap: (index) => setState(() => currentIndex = index),
+      
+      resizeToAvoidBottomInset: false,
+      extendBody: true,
+      body: AnimatedSwitcher(
+        duration: const Duration(milliseconds: 300),
+        switchInCurve: Curves.easeOut,
+        switchOutCurve: Curves.easeIn,
+        transitionBuilder: (child, animation) {
+          return FadeTransition(
+            opacity: animation,
+            child: ScaleTransition(
+              scale: Tween(begin: 0.98, end: 1.0).animate(animation),
+              child: child,
             ),
-          ),
-        ],
+          );
+        },
+        child: _getPage(),
+      ),
+
+      bottomNavigationBar: CustomBottomNav(
+        currentIndex: currentIndex,
+        onTap: (index) => setState(() => currentIndex = index),
       ),
     );
   }
