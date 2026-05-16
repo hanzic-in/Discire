@@ -180,6 +180,7 @@ class _ChatInputState extends State<ChatInput> {
                                             color: Colors.white,
                                             size: 18,
                                           ),
+                                    ),
                                 ),
                               ),
                             ),
