@@ -31,19 +31,18 @@ class _ChatInputState extends State<ChatInput>
     super.initState();
 
     widget.controller.addListener(_onTextChanged);
-
     focusNode.addListener(_onFocusChanged);
 
     animationController = AnimationController(
       vsync: this,
       duration: const Duration(
-        milliseconds: 420,
+        milliseconds: 520,
       ),
     );
 
     splitAnimation = CurvedAnimation(
       parent: animationController,
-      curve: Curves.easeOutExpo,
+      curve: Curves.easeInOutCubicEmphasized,
     );
   }
 
@@ -81,7 +80,6 @@ class _ChatInputState extends State<ChatInput>
     );
 
     focusNode.dispose();
-
     animationController.dispose();
 
     super.dispose();
@@ -89,28 +87,26 @@ class _ChatInputState extends State<ChatInput>
 
   @override
   Widget build(BuildContext context) {
-    final theme =
-        AppThemeExtension.of(context);
+    final theme = AppThemeExtension.of(context);
 
-    const minComposerHeight = 64.0;
+    const double composerHeight = 64;
 
     return SafeArea(
       top: false,
-
       child: AnimatedBuilder(
         animation: splitAnimation,
 
         builder: (context, child) {
-          final value =
-              splitAnimation.value;
-
           final eased =
               Curves.easeOutExpo.transform(
-            value,
+            splitAnimation.value,
           );
 
           final rightGap =
-              eased * 78;
+              Curves.easeOutBack.transform(
+                    eased,
+                  ) *
+                  78;
 
           final sidePadding =
               (1 - eased) * 28;
@@ -123,413 +119,359 @@ class _ChatInputState extends State<ChatInput>
               12,
             ),
 
-            child: AnimatedSize(
+            child: AnimatedContainer(
               duration: const Duration(
-                milliseconds: 180,
+                milliseconds: 200,
               ),
 
-              curve: Curves.easeOut,
+              constraints: const BoxConstraints(
+                minHeight: composerHeight,
+              ),
 
-              child: ConstrainedBox(
-                constraints:
-                    const BoxConstraints(
-                  minHeight:
-                      minComposerHeight,
+              child: Stack(
+                children: [
 
-                  maxHeight: 160,
-                ),
+                  // BACKGROUND
+                  Positioned.fill(
+                    child: CustomPaint(
+                      painter:
+                          RelioComposerPainter(
+                        progress: eased,
+                        rightGap: rightGap,
 
-                child: Stack(
-                  children: [
+                        backgroundColor:
+                            theme.card
+                                .withOpacity(
+                          0.95,
+                        ),
 
-                    // BACKGROUND
-                    Positioned.fill(
+                        hasText: hasText,
+
+                        activeColor:
+                            AppColors.primary,
+
+                        activeColorLight:
+                            AppColors
+                                .primaryLight,
+                      ),
+                    ),
+                  ),
+
+                  // BORDER
+                  Positioned.fill(
+                    child: IgnorePointer(
                       child: CustomPaint(
                         painter:
-                            RelioComposerPainter(
+                            RelioComposerBorderPainter(
                           progress: eased,
                           rightGap: rightGap,
-
-                          backgroundColor:
-                              theme.card
-                                  .withOpacity(
-                            0.95,
-                          ),
-
-                          hasText:
-                              hasText,
-
-                          activeColor:
-                              AppColors
-                                  .primary,
-
-                          activeColorLight:
-                              AppColors
-                                  .primaryLight,
                         ),
                       ),
                     ),
+                  ),
 
-                    // BORDER
-                    Positioned.fill(
-                      child: IgnorePointer(
-                        child: CustomPaint(
-                          painter:
-                              RelioComposerBorderPainter(
-                            progress:
-                                eased,
+                  // CONTENT
+                  Row(
+                    crossAxisAlignment:
+                        CrossAxisAlignment.center,
 
-                            rightGap:
-                                rightGap,
+                    children: [
+
+                      // MAIN
+                      Expanded(
+                        child: Padding(
+                          padding:
+                              EdgeInsets.only(
+                            right:
+                                eased * 10,
                           ),
-                        ),
-                      ),
-                    ),
 
-                    // CONTENT
-                    Row(
-                      crossAxisAlignment:
-                          CrossAxisAlignment
-                              .end,
+                          child: Row(
+                            children: [
 
-                      children: [
+                              // EMOJI
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(
+                                  left: 22,
+                                  right: 18,
+                                ),
 
-                        // MAIN INPUT
-                        Expanded(
-                          child:
-                              AnimatedPadding(
-                            duration:
-                                const Duration(
-                              milliseconds:
-                                  220,
-                            ),
+                                child: FaIcon(
+                                  FontAwesomeIcons
+                                      .faceSmile,
 
-                            curve: Curves
-                                .easeOutExpo,
+                                  size: 25,
 
-                            padding:
-                                EdgeInsets.only(
-                              right:
-                                  eased *
-                                      10,
-                            ),
-
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.only(
-                                left: 22,
-                                right: 20,
-                                top: 14,
-                                bottom: 14,
+                                  color: theme
+                                      .textSecondary
+                                      .withOpacity(
+                                        0.92,
+                                      ),
+                                ),
                               ),
 
-                              child: Row(
-                                crossAxisAlignment:
-                                    CrossAxisAlignment
-                                        .end,
+                              // TEXTFIELD
+                              Expanded(
+                                child: TextField(
+                                  controller:
+                                      widget
+                                          .controller,
 
-                                children: [
+                                  focusNode:
+                                      focusNode,
 
-                                  // EMOJI
-                                  Padding(
-                                    padding:
-                                        const EdgeInsets.only(
-                                      bottom:
-                                          4,
-                                      right:
-                                          18,
-                                    ),
+                                  keyboardType:
+                                      TextInputType
+                                          .multiline,
 
-                                    child:
-                                        FaIcon(
-                                      FontAwesomeIcons
-                                          .faceSmile,
+                                  textInputAction:
+                                      TextInputAction
+                                          .newline,
 
-                                      size:
-                                          24,
+                                  minLines: 1,
+                                  maxLines: 6,
 
+                                  cursorColor:
+                                      AppColors
+                                          .primary,
+
+                                  style:
+                                      AppTextStyles
+                                          .body(
+                                    context,
+                                  ),
+
+                                  decoration:
+                                      InputDecoration(
+                                    border:
+                                        InputBorder
+                                            .none,
+
+                                    enabledBorder:
+                                        InputBorder
+                                            .none,
+
+                                    focusedBorder:
+                                        InputBorder
+                                            .none,
+
+                                    disabledBorder:
+                                        InputBorder
+                                            .none,
+
+                                    errorBorder:
+                                        InputBorder
+                                            .none,
+
+                                    focusedErrorBorder:
+                                        InputBorder
+                                            .none,
+
+                                    filled:
+                                        false,
+
+                                    fillColor:
+                                        Colors
+                                            .transparent,
+
+                                    isCollapsed:
+                                        true,
+
+                                    hintText:
+                                        'Message on Relio...',
+
+                                    hintStyle:
+                                        AppTextStyles
+                                            .body(
+                                      context,
+                                    ).copyWith(
                                       color: theme
                                           .textSecondary
                                           .withOpacity(
-                                            0.92,
-                                          ),
-                                    ),
-                                  ),
-
-                                  // TEXTFIELD
-                                  Expanded(
-                                    child:
-                                        AnimatedSize(
-                                      duration:
-                                          const Duration(
-                                        milliseconds:
-                                            180,
-                                      ),
-
-                                      curve: Curves
-                                          .easeOut,
-
-                                      child:
-                                          TextField(
-                                        controller:
-                                            widget
-                                                .controller,
-
-                                        focusNode:
-                                            focusNode,
-
-                                        keyboardType:
-                                            TextInputType
-                                                .multiline,
-
-                                        textInputAction:
-                                            TextInputAction
-                                                .newline,
-
-                                        minLines:
-                                            1,
-
-                                        maxLines:
-                                            5,
-
-                                        cursorColor:
-                                            AppColors
-                                                .primary,
-
-                                        textAlignVertical:
-                                            TextAlignVertical
-                                                .center,
-
-                                        style:
-                                            AppTextStyles
-                                                .body(
-                                          context,
-                                        ),
-
-                                        decoration:
-                                            InputDecoration(
-                                          border:
-                                              InputBorder
-                                                  .none,
-
-                                          enabledBorder:
-                                              InputBorder
-                                                  .none,
-
-                                          focusedBorder:
-                                              InputBorder
-                                                  .none,
-
-                                          disabledBorder:
-                                              InputBorder
-                                                  .none,
-
-                                          errorBorder:
-                                              InputBorder
-                                                  .none,
-
-                                          focusedErrorBorder:
-                                              InputBorder
-                                                  .none,
-
-                                          filled:
-                                              false,
-
-                                          fillColor:
-                                              Colors
-                                                  .transparent,
-
-                                          isDense:
-                                              true,
-
-                                          contentPadding:
-                                              const EdgeInsets.symmetric(
-                                            vertical:
-                                                4,
-                                          ),
-
-                                          hintText:
-                                              'Message on Relio...',
-
-                                          hintStyle:
-                                              AppTextStyles
-                                                  .body(
-                                            context,
-                                          ).copyWith(
-                                            color: theme
-                                                .textSecondary
-                                                .withOpacity(
-                                                  0.72,
-                                                ),
-                                          ),
-                                        ),
+                                        0.72,
                                       ),
                                     ),
                                   ),
-
-                                  // ATTACH
-                                  AnimatedContainer(
-                                    duration:
-                                        const Duration(
-                                      milliseconds:
-                                          180,
-                                    ),
-
-                                    curve: Curves
-                                        .easeOutExpo,
-
-                                    width:
-                                        hasText
-                                            ? 0
-                                            : 42,
-
-                                    child:
-                                        AnimatedOpacity(
-                                      duration:
-                                          const Duration(
-                                        milliseconds:
-                                            120,
-                                      ),
-
-                                      opacity:
-                                          hasText
-                                              ? 0
-                                              : 1,
-
-                                      child:
-                                          Padding(
-                                        padding:
-                                            const EdgeInsets.only(
-                                          left:
-                                              18,
-                                          bottom:
-                                              4,
-                                        ),
-
-                                        child:
-                                            FaIcon(
-                                          FontAwesomeIcons
-                                              .paperclip,
-
-                                          size:
-                                              24,
-
-                                          color: theme
-                                              .textSecondary
-                                              .withOpacity(
-                                                0.9,
-                                              ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-
-                        // BUTTON
-                        SizedBox(
-                          width: 64,
-                          height: 64,
-
-                          child: Center(
-                            child:
-                                Transform.translate(
-                              offset: Offset(
-                                (1 -
-                                        eased) *
-                                    -5,
-
-                                0,
+                                ),
                               ),
 
-                              child:
-                                  AnimatedSwitcher(
+                              // ATTACH
+                              AnimatedOpacity(
                                 duration:
                                     const Duration(
                                   milliseconds:
                                       180,
                                 ),
 
-                                transitionBuilder:
-                                    (
-                                      child,
-                                      animation,
-                                    ) {
-                                  return FadeTransition(
-                                    opacity:
+                                opacity:
+                                    hasText
+                                        ? 0
+                                        : 1,
+
+                                child: Padding(
+                                  padding:
+                                      EdgeInsets.only(
+                                    left:
+                                        18 +
+                                            (eased *
+                                                6),
+
+                                    right: 20,
+                                  ),
+
+                                  child: FaIcon(
+                                    FontAwesomeIcons
+                                        .paperclip,
+
+                                    size: 25,
+
+                                    color: theme
+                                        .textSecondary
+                                        .withOpacity(
+                                          0.9,
+                                        ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+
+                      // RIGHT BUTTON
+                      SizedBox(
+                        width: composerHeight,
+                        height: composerHeight,
+
+                        child: Center(
+                          child:
+                              Transform.translate(
+                            offset: Offset(
+                              (1 - eased) *
+                                  -8,
+                              0,
+                            ),
+
+                            child:
+                                AnimatedSwitcher(
+                              duration:
+                                  const Duration(
+                                milliseconds:
+                                    240,
+                              ),
+
+                              transitionBuilder:
+                                  (
+                                    child,
+                                    animation,
+                                  ) {
+                                final offsetAnimation =
+                                    Tween<
+                                        Offset>(
+                                  begin:
+                                      const Offset(
+                                    0.0,
+                                    0.18,
+                                  ),
+
+                                  end:
+                                      Offset.zero,
+                                ).animate(
+                                  CurvedAnimation(
+                                    parent:
                                         animation,
+
+                                    curve: Curves
+                                        .easeOutCubic,
+                                  ),
+                                );
+
+                                return FadeTransition(
+                                  opacity:
+                                      animation,
+
+                                  child:
+                                      SlideTransition(
+                                    position:
+                                        offsetAnimation,
 
                                     child:
                                         ScaleTransition(
                                       scale:
-                                          animation,
+                                          Tween<
+                                              double>(
+                                        begin:
+                                            0.82,
+
+                                        end:
+                                            1,
+                                      ).animate(
+                                        CurvedAnimation(
+                                          parent:
+                                              animation,
+
+                                          curve: Curves
+                                              .easeOutExpo,
+                                        ),
+                                      ),
 
                                       child:
                                           child,
                                     ),
-                                  );
-                                },
+                                  ),
+                                );
+                              },
 
-                                child:
-                                    hasText
-                                        ? GestureDetector(
-                                          key:
-                                              const ValueKey(
-                                            'send',
-                                          ),
+                              child:
+                                  hasText
+                                      ? const Icon(
+                                        Icons
+                                            .send_rounded,
 
-                                          onTap:
-                                              widget
-                                                  .onSend,
-
-                                          child:
-                                              const Icon(
-                                            Icons
-                                                .send_rounded,
-
-                                            size:
-                                                28,
-
-                                            color:
-                                                Colors
-                                                    .white,
-                                          ),
-                                        )
-
-                                        : FaIcon(
-                                          FontAwesomeIcons
-                                              .microphone,
-
-                                          key:
-                                              const ValueKey(
-                                            'mic',
-                                          ),
-
-                                          size:
-                                              26,
-
-                                          color:
-                                              isFocused
-                                                  ? theme
-                                                      .textPrimary
-
-                                                  : theme
-                                                      .textSecondary
-                                                      .withOpacity(
-                                                        0.9,
-                                                      ),
+                                        key:
+                                            ValueKey(
+                                          'send',
                                         ),
-                              ),
+
+                                        color:
+                                            Colors
+                                                .white,
+
+                                        size:
+                                            28,
+                                      )
+
+                                      : FaIcon(
+                                        FontAwesomeIcons
+                                            .microphone,
+
+                                        key:
+                                            const ValueKey(
+                                          'mic',
+                                        ),
+
+                                        size:
+                                            27,
+
+                                        color:
+                                            isFocused
+                                                ? theme
+                                                    .textPrimary
+
+                                                : theme
+                                                    .textSecondary
+                                                    .withOpacity(
+                                                      0.9,
+                                                    ),
+                                      ),
                             ),
                           ),
                         ),
-                      ],
-                    ),
-                  ],
-                ),
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ),
           );
@@ -539,14 +481,13 @@ class _ChatInputState extends State<ChatInput>
   }
 }
 
-// ======================
-// MAIN PAINTER
-// ======================
+// =========================
+// MAIN SHAPE
+// =========================
 
 class RelioComposerPainter
     extends CustomPainter {
   final double progress;
-
   final double rightGap;
 
   final Color backgroundColor;
@@ -554,7 +495,6 @@ class RelioComposerPainter
   final bool hasText;
 
   final Color activeColor;
-
   final Color activeColorLight;
 
   RelioComposerPainter({
@@ -587,7 +527,9 @@ class RelioComposerPainter
       0,
       mainRight,
       size.height,
-      Radius.circular(radius),
+      Radius.circular(
+        radius,
+      ),
     );
 
     canvas.drawRRect(
@@ -595,19 +537,19 @@ class RelioComposerPainter
       paint,
     );
 
-    // GOOEY BRIDGE
-    if (progress > 0.03 &&
-        progress < 0.90) {
+    // GOOEY
+    if (progress > 0.01 &&
+        progress < 0.97) {
       final path = Path();
 
       final gooeyFactor =
-          (1 - (progress / 0.90))
+          (1 - (progress / 0.97))
               .clamp(0.0, 1.0);
 
       final bridgeHeight =
           radius *
-          0.58 *
-          gooeyFactor;
+              0.62 *
+              gooeyFactor;
 
       final startX =
           mainRight - radius;
@@ -625,13 +567,13 @@ class RelioComposerPainter
 
       path.cubicTo(
         startX +
-            (rightGap * 0.26),
+            (rightGap * 0.28),
 
         centerY -
             bridgeHeight,
 
         endX -
-            (rightGap * 0.30),
+            (rightGap * 0.32),
 
         centerY -
             bridgeHeight,
@@ -647,13 +589,13 @@ class RelioComposerPainter
 
       path.cubicTo(
         endX -
-            (rightGap * 0.30),
+            (rightGap * 0.32),
 
         centerY +
             bridgeHeight,
 
         startX +
-            (rightGap * 0.26),
+            (rightGap * 0.28),
 
         centerY +
             bridgeHeight,
@@ -670,41 +612,43 @@ class RelioComposerPainter
       );
     }
 
-    // RIGHT BUTTON
-    final buttonPaint =
-        Paint()
-          ..style =
-              PaintingStyle.fill
-          ..isAntiAlias = true;
+    // BUTTON
+    final buttonPaint = Paint()
+      ..style = PaintingStyle.fill
+      ..isAntiAlias = true;
 
     if (hasText) {
       buttonPaint.shader =
           LinearGradient(
-            colors: [
-              activeColorLight,
-              activeColor,
-            ],
-          ).createShader(
-            Rect.fromLTWH(
-              size.width - 64,
-              0,
-              64,
-              64,
-            ),
-          );
+        colors: [
+          activeColorLight,
+          activeColor,
+        ],
+      ).createShader(
+        Rect.fromLTWH(
+          size.width - 64,
+          0,
+          64,
+          64,
+        ),
+      );
     } else {
       buttonPaint.color =
           backgroundColor;
     }
 
+    final pullOut =
+        Curves.easeOutBack
+            .transform(progress);
+
     final buttonRadius =
         radius *
-        (0.97 +
-            (progress * 0.03));
+            (0.72 +
+                (progress * 0.28));
 
     final buttonLeft =
         size.width -
-        (64 * progress);
+            (64 * pullOut);
 
     final buttonRRect =
         RRect.fromLTRBR(
@@ -727,20 +671,18 @@ class RelioComposerPainter
   bool shouldRepaint(
     covariant RelioComposerPainter old,
   ) {
-    return old.progress !=
-            progress ||
+    return old.progress != progress ||
         old.hasText != hasText;
   }
 }
 
-// ======================
+// =========================
 // BORDER
-// ======================
+// =========================
 
 class RelioComposerBorderPainter
     extends CustomPainter {
   final double progress;
-
   final double rightGap;
 
   RelioComposerBorderPainter({
@@ -749,11 +691,13 @@ class RelioComposerBorderPainter
   });
 
   @override
-  void paint(Canvas canvas, Size size) {
+  void paint(
+    Canvas canvas,
+    Size size,
+  ) {
     final paint = Paint()
       ..color =
-          Colors.white
-              .withOpacity(
+          Colors.white.withOpacity(
         0.045,
       )
 
@@ -764,14 +708,12 @@ class RelioComposerBorderPainter
 
       ..isAntiAlias = true;
 
-    final radius =
-        size.height / 2;
+    final radius = 32.0;
 
     final mainRight =
         size.width - rightGap;
 
-    final rect =
-        RRect.fromLTRBR(
+    final rect = RRect.fromLTRBR(
       0,
       0,
       mainRight,
@@ -791,8 +733,6 @@ class RelioComposerBorderPainter
         oldDelegate,
   ) {
     return oldDelegate.progress !=
-            progress ||
-        oldDelegate.rightGap !=
-            rightGap;
+        progress;
   }
 }
