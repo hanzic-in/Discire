@@ -29,60 +29,61 @@ class _ChatInputState extends State<ChatInput> {
   @override
   Widget build(BuildContext context) {
     final theme = AppThemeExtension.of(context);
-    final double buttonSize = 64.0;
+    const double buttonSize = 64.0;
+    const double composerHeight = 64.0;
 
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.fromLTRB(14, 0, 14, 12),
         child: SizedBox(
-          height: 150,
+          height: composerHeight, 
           child: Stack(
-            alignment: Alignment.bottomRight,
+            clipBehavior: Clip.none,
             children: [
+              
               ColorFiltered(
                 colorFilter: const ColorFilter.matrix([
                   1, 0, 0, 0, 0,
                   0, 1, 0, 0, 0,
                   0, 0, 1, 0, 0,
-                  0, 0, 0, 25, -12, 
+                  0, 0, 0, 30, -15, 
                 ]),
                 child: ImageFiltered(
-                  imageFilter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
-                  child: Row(
+                  imageFilter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                  child: Stack(
                     children: [
-                      Expanded(
-                        child: Container(
-                          height: 64,
-                          decoration: BoxDecoration(
-                            color: theme.card,
-                            borderRadius: BorderRadius.circular(32),
-                          ),
-                        ),
-                      ),
-                      AnimatedContainer(
-                        duration: const Duration(milliseconds: 400),
-                        curve: Curves.easeInOutBack,
-                        width: hasText ? 10 : -50,
-                      ),
                       Container(
-                        width: buttonSize,
-                        height: buttonSize,
+                        margin: const EdgeInsets.only(right: 0),
+                        height: composerHeight,
                         decoration: BoxDecoration(
                           color: theme.card,
-                          shape: BoxShape.circle,
+                          borderRadius: BorderRadius.circular(32),
+                        ),
+                      ),
+                      
+                      AnimatedPositioned(
+                        duration: const Duration(milliseconds: 400),
+                        curve: Curves.easeOutQuart,
+                        right: hasText ? -74 : 0,
+                        child: Container(
+                          width: buttonSize,
+                          height: buttonSize,
+                          decoration: BoxDecoration(
+                            color: theme.card,
+                            shape: BoxShape.circle,
+                          ),
                         ),
                       ),
                     ],
                   ),
                 ),
               ),
-              
+
               Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Expanded(
                     child: Container(
-                      height: 64,
+                      height: composerHeight,
                       padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: Row(
                         children: [
@@ -105,22 +106,32 @@ class _ChatInputState extends State<ChatInput> {
                       ),
                     ),
                   ),
+                  
                   AnimatedContainer(
                     duration: const Duration(milliseconds: 400),
-                    curve: Curves.easeInOutBack,
-                    width: hasText ? 10 : -50,
+                    curve: Curves.easeOutQuart,
+                    width: hasText ? 10 : 0,
                   ),
-                  GestureDetector(
-                    onTap: hasText ? widget.onSend : null,
-                    child: SizedBox(
-                      width: buttonSize,
-                      height: buttonSize,
-                      child: Center(
-                        child: AnimatedSwitcher(
-                          duration: const Duration(milliseconds: 200),
-                          child: hasText
-                              ? Icon(Icons.send_rounded, key: ValueKey('s'), color: AppColors.primary, size: 28)
-                              : FaIcon(FontAwesomeIcons.microphone, key: ValueKey('m'), size: 22, color: theme.textSecondary),
+
+                  AnimatedContainer(
+                    duration: const Duration(milliseconds: 400),
+                    curve: Curves.easeOutQuart,
+                    width: hasText ? buttonSize : 0,
+                    child: AnimatedOpacity(
+                      duration: const Duration(milliseconds: 200),
+                      opacity: hasText ? 1 : 0,
+                      child: GestureDetector(
+                        onTap: widget.onSend,
+                        child: Container(
+                          width: buttonSize,
+                          height: buttonSize,
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Colors.transparent,
+                          ),
+                          child: Center(
+                            child: Icon(Icons.send_rounded, color: AppColors.primary, size: 28),
+                          ),
                         ),
                       ),
                     ),
