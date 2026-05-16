@@ -96,93 +96,99 @@ class _ChatInputState extends State<ChatInput> {
             // ==========================================
             // MAIN INPUT COMPOSER
             // ==========================================
-            Expanded(
-              child: AnimatedContainer(
-                duration: const Duration(milliseconds: 260),
-                curve: Curves.easeInOutCubic,
-                minHeight: inputHeight,
-                maxHeight: 150,
-                padding: EdgeInsets.only(
-                  // Triknya di sini: Pas IDLE (tidak fokus), padding kiri disengajakan 0 
-                  // karena tombol plus masuk menumpang di dalam pill ini.
-                  left: isFocused ? 16 : 0, 
-                  right: 6,
-                ),
-                decoration: BoxDecoration(
-                  color: theme.card.withOpacity(0.94),
-                  // Kalau idle, melengkung penuh membungkus tombol plus juga
-                  borderRadius: BorderRadius.circular(28),
-                ),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    
-                    // TEXT FIELD
-                    Expanded(
-                      child: TextField(
-                        controller: widget.controller,
-                        focusNode: focusNode,
-                        minLines: 1,
-                        maxLines: 5,
-                        cursorColor: AppColors.primary,
-                        style: AppTextStyles.body(context),
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          isCollapsed: true,
-                          hintText: 'Balasan untuk ChatGPT...',
-                          hintStyle: AppTextStyles.body(context).copyWith(
-                            color: theme.textSecondary.withOpacity(0.6),
-                          ),
-                          contentPadding: const EdgeInsets.symmetric(vertical: 16),
-                        ),
-                      ),
-                    ),
+            // ==========================================
+// MAIN INPUT COMPOSER
+// ==========================================
+Expanded(
+  child: AnimatedContainer(
+    duration: const Duration(milliseconds: 260),
+    curve: Curves.easeInOutCubic,
+    // Perbaikan: Bungkus minHeight & maxHeight di dalam BoxConstraints
+    constraints: BoxConstraints(
+      minHeight: inputHeight,
+      maxHeight: 150,
+    ),
+    padding: EdgeInsets.only(
+      // Pas IDLE (tidak fokus), padding kiri 0 agar tombol plus menempel masuk
+      left: isFocused ? 16 : 0, 
+      right: 6,
+    ),
+    decoration: BoxDecoration(
+      color: theme.card.withOpacity(0.94),
+      borderRadius: BorderRadius.circular(28),
+    ),
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        
+        // TEXT FIELD
+        Expanded(
+          child: TextField(
+            controller: widget.controller,
+            focusNode: focusNode,
+            minLines: 1,
+            maxLines: 5,
+            cursorColor: AppColors.primary,
+            style: AppTextStyles.body(context),
+            decoration: InputDecoration(
+              border: InputBorder.none,
+              isCollapsed: true,
+              hintText: 'Balasan untuk ChatGPT...',
+              hintStyle: AppTextStyles.body(context).copyWith(
+                color: theme.textSecondary.withOpacity(0.6),
+              ),
+              contentPadding: const EdgeInsets.symmetric(vertical: 16),
+            ),
+          ),
+        ),
 
-                    // ICON MIC KECIL DI DALAM
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: FaIcon(
-                        FontAwesomeIcons.microphone,
+        // ICON MIC KECIL DI DALAM
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          child: FaIcon(
+            FontAwesomeIcons.microphone,
+            size: 20,
+            color: theme.textSecondary.withOpacity(0.8),
+          ),
+        ),
+
+        // TOMBOL AKSI KANAN (AUDIO WAVE / SEND)
+        GestureDetector(
+          onTap: hasText ? widget.onSend : null,
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 200),
+            height: 42,
+            width: 42,
+            decoration: BoxDecoration(
+              color: hasText ? AppColors.primary : Colors.blue[700],
+              shape: BoxShape.circle,
+            ),
+            child: Center(
+              child: AnimatedSwitcher(
+                duration: const Duration(milliseconds: 150),
+                child: hasText
+                    ? const Icon(
+                        Icons.arrow_upward_rounded,
+                        key: ValueKey('send'),
+                        color: Colors.white,
+                        size: 24,
+                      )
+                    : const Icon(
+                        Icons.graphic_eq_rounded,
+                        key: ValueKey('wave'),
+                        color: Colors.white,
                         size: 20,
-                        color: theme.textSecondary.withOpacity(0.8),
                       ),
-                    ),
-
-                    // TOMBOL AKSI KANAN (AUDIO WAVE / SEND)
-                    GestureDetector(
-                      onTap: hasText ? widget.onSend : null,
-                      child: AnimatedContainer(
-                        duration: const Duration(milliseconds: 200),
-                        height: 42,
-                        width: 42,
-                        decoration: BoxDecoration(
-                          color: hasText ? AppColors.primary : Colors.blue[700], // Sesuaikan warna brandmu
-                          shape: BoxShape.circle,
-                        ),
-                        child: Center(
-                          child: AnimatedSwitcher(
-                            duration: const Duration(milliseconds: 150),
-                            child: hasText
-                                ? const Icon(
-                                    Icons.arrow_upward_rounded,
-                                    key: ValueKey('send'),
-                                    color: Colors.white,
-                                    size: 24,
-                                  )
-                                : const Icon(
-                                    Icons.graphic_eq_rounded, // Icon wave audio
-                                    key: ValueKey('wave'),
-                                    color: Colors.white,
-                                    size: 20,
-                                  ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
               ),
             ),
+          ),
+        ),
+      ],
+    ),
+  ),
+),
+
+          
           ],
         ),
       ),
