@@ -508,8 +508,11 @@ class RelioComposerPainter
     final buttonRadius =
       radius * (0.92 + (progress * 0.08));
 
+    final eased =
+    Curves.easeOutExpo.transform(progress);
+
     final buttonLeft =
-      size.width - (64 * (progress * 0.96));
+    size.width - (64 * eased);
 
     final buttonRRect =
         RRect.fromLTRBR(
