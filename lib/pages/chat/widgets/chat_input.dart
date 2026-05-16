@@ -183,7 +183,7 @@ class _ChatInputState extends State<ChatInput>
                                   FontAwesomeIcons
                                       .faceSmile,
 
-                                  size: 23,
+                                  size: 24,
 
                                   color: theme
                                       .textSecondary
@@ -258,7 +258,7 @@ class _ChatInputState extends State<ChatInput>
                                     FontAwesomeIcons
                                         .paperclip,
 
-                                    size: 23,
+                                    size: 24,
 
                                     color: theme
                                         .textSecondary
@@ -330,7 +330,7 @@ class _ChatInputState extends State<ChatInput>
                                                 .white,
 
                                         size:
-                                            28,
+                                            27,
                                       )
 
                                       : FaIcon(
@@ -343,7 +343,7 @@ class _ChatInputState extends State<ChatInput>
                                             ),
 
                                         size:
-                                            22,
+                                            26,
 
                                         color:
                                             isFocused
