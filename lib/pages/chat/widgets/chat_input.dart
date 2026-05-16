@@ -112,8 +112,11 @@ class _ChatInputState extends State<ChatInput>
               12,
             ),
 
-            child: SizedBox(
-              height: composerHeight,
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 180),
+              constraints: const BoxConstraints(
+                minHeight: composerHeight,
+              ),
 
               child: Stack(
                 children: [
