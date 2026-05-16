@@ -54,18 +54,23 @@ class ChatWallpaper extends StatelessWidget {
         Positioned.fill(
           child: Opacity(
             opacity: 0.08,
-            child: Transform.scale(
-              scale: 0.45,
-              child: SvgPicture.asset(
-                'assets/chat/wallpapers/relio_pattern.svg',
-                fit: BoxFit.contain,
-                alignment: Alignment.topLeft,
-
-                colorFilter: ColorFilter.mode(
-                  AppColors.primaryLight.withOpacity(0.9),
-                  BlendMode.srcIn,
-                ),
+            child: GridView.builder(
+              physics: const NeverScrollableScrollPhysics(),
+              padding: EdgeInsets.zero,
+              gridDelegate:
+              const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 3,
               ),
+              itemCount: 30,
+              itemBuilder: (context, index) {
+                return SvgPicture.asset(
+                  'assets/chat/wallpapers/relio_pattern.svg',
+                  colorFilter: ColorFilter.mode(
+                    AppColors.primaryLight.withOpacity(0.9),
+                    BlendMode.srcIn,
+                  ),
+                );
+              },
             ),
           ),
         ),
