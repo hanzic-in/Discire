@@ -52,8 +52,6 @@ class _ChatInputState extends State<ChatInput> {
   Widget build(BuildContext context) {
     final theme = AppThemeExtension.of(context);
     const double barHeight = 64.0; 
-    
-    // Gap pemisah saat membelah ke kanan
     final double rightGap = isFocused ? 76.0 : 0.0; 
 
     return SafeArea(
@@ -68,8 +66,6 @@ class _ChatInputState extends State<ChatInput> {
               // ==========================================
               // LAYER 1: BACKGROUND SYSTEM
               // ==========================================
-              
-              // 1a. Lingkaran Background Tombol Kanan (Voice / Send)
               Positioned(
                 right: 0,
                 top: 0,
@@ -88,7 +84,6 @@ class _ChatInputState extends State<ChatInput> {
                 ),
               ),
 
-              // 1b. Pill Background Utama (Main Composer)
               AnimatedPositioned(
                 duration: const Duration(milliseconds: 280),
                 curve: Curves.easeInOutCubic,
@@ -112,8 +107,6 @@ class _ChatInputState extends State<ChatInput> {
               // ==========================================
               Row(
                 children: [
-                  
-                  // Bagian dalam Composer (Emoji, Input, Clip)
                   Expanded(
                     child: AnimatedPadding(
                       duration: const Duration(milliseconds: 280),
@@ -131,19 +124,24 @@ class _ChatInputState extends State<ChatInput> {
                             ),
                           ),
 
-                          // TEXT FIELD (Sudah dibersihkan dari dekorasi ganda)
+                          // TEXT FIELD
                           Expanded(
                             child: TextField(
                               controller: widget.controller,
                               focusNode: focusNode,
-                              keyboardType: TextInputType.multiline, // KUNCI 1: Pakai multiline
-                              textInputAction: TextInputAction.newline, // KUNCI 2: Maksa tombol jadi Enter/Newline
+                              keyboardType: TextInputType.multiline,
+                              textInputAction: TextInputAction.newline,
                               minLines: 1,
-                              maxLines: 1, // Batasi 1 baris jika ingin tingginya statis seperti di gambar
+                              maxLines: null,
+                              scrollPhysics: const BouncingScrollPhysics(),
                               style: AppTextStyles.body(context),
                               cursorColor: AppColors.primary,
                               decoration: InputDecoration(
                                 border: InputBorder.none,
+                                focusedBorder: InputBorder.none,
+                                enabledBorder: InputBorder.none,
+                                errorBorder: InputBorder.none,
+                                disabledBorder: InputBorder.none,
                                 isCollapsed: true,
                                 hintText: 'Message on Relio...',
                                 hintStyle: AppTextStyles.body(context).copyWith(
