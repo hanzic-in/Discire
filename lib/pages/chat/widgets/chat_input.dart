@@ -207,12 +207,24 @@ class _ChatInputState extends State<ChatInput>
 
                                   decoration: InputDecoration(
                                     border: InputBorder.none,
+
+                                    enabledBorder: InputBorder.none,
+                                    focusedBorder: InputBorder.none,
+                                    disabledBorder: InputBorder.none,
+                                    errorBorder: InputBorder.none,
+                                    focusedErrorBorder: InputBorder.none,
+
+                                    filled: false,
+                                    fillColor: Colors.transparent,
+
                                     isCollapsed: true,
-                                    hintText:'Message on Relio...',
+                                    hintText: 'Message on Relio...',
                                     hintStyle: AppTextStyles.body(
                                       context,
                                     ).copyWith(
-                                      color: theme.textSecondary.withOpacity(0.72,),
+                                      color: theme.textSecondary.withOpacity(
+                                        0.72,
+                                      ),
                                     ),
                                   ),
                                 ),
