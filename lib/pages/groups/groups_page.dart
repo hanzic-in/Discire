@@ -81,17 +81,14 @@ class _GroupsPageState extends State<GroupsPage> {
   Widget build(BuildContext context) {
     final theme = AppThemeExtension.of(context);
     
-    // Membaca tinggi layar awal secara aman tanpa terpengaruh penyusutan viewport keyboard
     final double staticGradientHeight = MediaQuery.sizeOf(context).height * 0.42;
     
-    // Mendeteksi tinggi keyboard secara real-time saat muncul
     final double keyboardHeight = MediaQuery.viewInsetsOf(context).bottom;
 
     return MainLayout(
       usePadding: false,
       child: Stack(
         children: [
-          // Gradient Background (Tinggi dikunci agar tidak mengkerut saat mengetik)
           Positioned(
             top: 0,
             left: 0,
@@ -110,26 +107,20 @@ class _GroupsPageState extends State<GroupsPage> {
           ),
 
           SafeArea(
-            // Di-set false pada bagian bottom agar padding manual GridView kita bekerja maksimal sampai ujung layar
             bottom: false,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // REUSABLE HEADER
                 const AppHeader(
                   title: 'Groups',
                   subtitle: 'Find your people',
                 ),
-
-                // REUSABLE SEARCH
                 AppSearchBar(
                   hint: 'Search groups...',
                   onChanged: (value) => setState(() => searchQuery = value),
                 ),
 
                 const SizedBox(height: AppSpacing.xl),
-
-                // REUSABLE TABS
                 FilterChips(
                   items: tabs,
                   selectedIndex: currentTab,
@@ -141,7 +132,6 @@ class _GroupsPageState extends State<GroupsPage> {
                 // GRID
                 Expanded(
                   child: GridView.builder(
-                    // Padding bottom otomatis bertambah setinggi keyboard + space floating bottom nav (140)
                     padding: EdgeInsets.fromLTRB(
                       AppSpacing.screenPadding, 
                       0,
