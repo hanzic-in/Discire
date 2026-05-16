@@ -695,10 +695,8 @@ class RelioComposerPainter extends CustomPainter {
 // BORDER
 // =========================
 
-class RelioComposerBorderPainter
-    extends CustomPainter {
+class RelioComposerBorderPainter extends CustomPainter {
   final double progress;
-
   final double rightGap;
 
   RelioComposerBorderPainter({
@@ -707,37 +705,22 @@ class RelioComposerBorderPainter
   });
 
   @override
-  void paint(
-    Canvas canvas,
-    Size size,
-  ) {
+  void paint(Canvas canvas, Size size) {
     final paint = Paint()
-      ..color =
-          Colors.white
-              .withOpacity(
-        0.045,
-      )
-
-      ..style =
-          PaintingStyle.stroke
-
+      ..color = Colors.white.withOpacity(0.045)
+      ..style = PaintingStyle.stroke
       ..strokeWidth = 1
-
       ..isAntiAlias = true;
 
-    final radius =
-        size.height / 2;
+    const double baseRadius = 32;
+    final mainRight = size.width - rightGap;
 
-    final mainRight =
-        size.width - rightGap;
-
-    final rect =
-        RRect.fromLTRBR(
+    final rect = RRect.fromLTRBR(
       0,
       0,
       mainRight,
       size.height,
-      Radius.circular(radius),
+      const Radius.circular(baseRadius),
     );
 
     canvas.drawRRect(
@@ -747,12 +730,8 @@ class RelioComposerBorderPainter
   }
 
   @override
-  bool shouldRepaint(
-    covariant RelioComposerBorderPainter
-        oldDelegate,
-  ) {
-    return oldDelegate
-            .progress !=
-        progress;
+  bool shouldRepaint(covariant RelioComposerBorderPainter oldDelegate) {
+    return oldDelegate.progress != progress;
   }
 }
+
