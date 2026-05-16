@@ -106,9 +106,23 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
                 ),
               ),
 
-              ChatInput(
-                controller: controller,
-                onSend: sendMessage,
+              AnimatedContainer(
+                duration: const Duration(
+                  milliseconds: 120,
+                ),
+
+                curve: Curves.easeOut,
+                margin: EdgeInsets.only(
+                  bottom:
+                  MediaQuery.of(context)
+                  .viewInsets
+                  .bottom,
+                ),
+
+                child: ChatInput(
+                  controller: controller,
+                  onSend: sendMessage,
+                ),
               ),
             ],
           ),
