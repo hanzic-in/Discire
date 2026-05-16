@@ -1,3 +1,4 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../../core/theme/app_theme.dart';
@@ -21,13 +22,8 @@ class _ChatInputState extends State<ChatInput> {
   bool hasText = false;
   bool isFocused = false;
 
-  // Durasi utama untuk pergerakan layout (lebar, tinggi, posisi)
-  static const Duration _layoutDuration = Duration(milliseconds: 380);
-  // Durasi untuk transisi pergantian icon (fade & scale)
-  static const Duration _iconDuration = Duration(milliseconds: 240);
-  
-  // Kurva animasi utama agar tarikan melar dan membelahnya terasa organik
-  static const Curve _layoutCurve = Curves.easeInOutCubic;
+  static const Duration _animationDuration = Duration(milliseconds: 400);
+  static const Curve _animationCurve = Curves.easeInOutCubic;
 
   @override
   void initState() {
@@ -59,65 +55,90 @@ class _ChatInputState extends State<ChatInput> {
   @override
   Widget build(BuildContext context) {
     final theme = AppThemeExtension.of(context);
-    const double minBarHeight = 64.0; 
+    const double barHeight = 64.0;
     
-    // Jarak potong mundur pill utama pas membelah
-    final double rightGap = isFocused ? 76.0 : 0.0; 
-
-    // Jarak ciut lebar saat idle ke fokus
+    // Pergeseran tombol interaksi (Voice / Send) ke kanan
+    final double buttonTargetRight = isFocused ? 0.0 : 0.0; 
+    final double mainPillRightGap = isFocused ? 76.0 : 0.0;
     final double horizontalMargin = isFocused ? 0.0 : 32.0;
 
     return SafeArea(
       top: false,
       child: AnimatedPadding(
-        duration: _layoutDuration,
-        curve: _layoutCurve,
-        padding: EdgeInsets.fromLTRB(
-          14 + horizontalMargin, 
-          0, 
-          14 + horizontalMargin, 
-          12,
-        ),
+        duration: _animationDuration,
+        curve: _animationCurve,
+        padding: EdgeInsets.fromLTRB(14 + horizontalMargin, 0, 14 + horizontalMargin, 12),
         child: IntrinsicHeight(
           child: Stack(
             children: [
               
               // ==========================================
-              // LAYER 1: BACKGROUND SYSTEM (SMOOTH TRANSITION)
+              // LAYER 1: THE METABALL GOOEY EFFECT (BACKGROUND ONLY)
+              // Layer khusus efek visual melar lengket seperti cairan/virus pembelahan
               // ==========================================
-              
-              // 1a. Bulatan tombol kanan (Voice / Send)
-              Positioned(
-                right: 0,
-                bottom: 0,
-                width: minBarHeight,
-                height: minBarHeight,
-                child: AnimatedContainer(
-                  duration: _iconDuration,
-                  curve: Curves.easeOut,
-                  decoration: BoxDecoration(
-                    gradient: hasText
-                        ? const LinearGradient(
-                            colors: [AppColors.primaryLight, AppColors.primary],
-                          )
-                        : null,
-                    color: hasText ? null : theme.card.withOpacity(0.94),
-                    shape: BoxShape.circle,
+              ColorFiltered(
+                colorFilter: const ColorFilter.matrix([
+                  1, 0, 0, 0, 0,
+                  0, 1, 0, 0, 0,
+                  0, 0, 1, 0, 0,
+                  0, 0, 0, 38, -18, // Mengasah pinggiran blur menjadi padat dan tajam kembali
+                ]),
+                child: ImageFiltered(
+                  imageFilter: ImageFilter.blur(sigmaX: 12, sigmaY: 12), // Melelehkan objek agar lengket
+                  child: Stack(
+                    children: [
+                      // 1a. Background Utama (Main Composer Pill)
+                      AnimatedPositioned(
+                        duration: _animationDuration,
+                        curve: _animationCurve,
+                        left: 0,
+                        right: mainPillRightGap,
+                        top: 0,
+                        bottom: 0,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: theme.card.withOpacity(0.96),
+                            borderRadius: BorderRadius.circular(32),
+                          ),
+                        ),
+                      ),
+
+                      // 1b. Background Bulatan Kanan (Anakan Sel yang Ketarik Melar)
+                      AnimatedPositioned(
+                        duration: _animationDuration,
+                        curve: _animationCurve,
+                        right: buttonTargetRight,
+                        bottom: 0,
+                        width: barHeight,
+                        height: barHeight,
+                        child: AnimatedContainer(
+                          duration: const Duration(milliseconds: 240),
+                          decoration: BoxDecoration(
+                            gradient: hasText
+                                ? const LinearGradient(
+                                    colors: [AppColors.primaryLight, AppColors.primary],
+                                  )
+                                : null,
+                            color: hasText ? null : theme.card.withOpacity(0.96),
+                            shape: BoxShape.circle,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
 
-              // 1b. Badan utama (Main Composer)
+              // Border halus pembungkus luar (Opsional, ditaruh di luar filter biar tajam)
               AnimatedPositioned(
-                duration: _layoutDuration,
-                curve: _layoutCurve,
+                duration: _animationDuration,
+                curve: _animationCurve,
                 left: 0,
-                right: rightGap,
+                right: mainPillRightGap,
                 top: 0,
                 bottom: 0,
                 child: Container(
                   decoration: BoxDecoration(
-                    color: theme.card.withOpacity(0.94),
                     borderRadius: BorderRadius.circular(34),
                     border: Border.all(
                       color: Colors.white.withOpacity(0.045),
@@ -128,18 +149,19 @@ class _ChatInputState extends State<ChatInput> {
 
               // ==========================================
               // LAYER 2: INTERFACES & ICONS (FOREGROUND)
+              // Layer murni interaksi, bersih dari filter jadi anti-error dan responsif
               // ==========================================
               Row(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Expanded(
                     child: AnimatedPadding(
-                      duration: _layoutDuration,
-                      curve: _layoutCurve,
+                      duration: _animationDuration,
+                      curve: _animationCurve,
                       padding: EdgeInsets.only(right: isFocused ? 12 : 0),
                       child: Container(
                         constraints: const BoxConstraints(
-                          minHeight: minBarHeight,
+                          minHeight: barHeight,
                           maxHeight: 160.0,
                         ),
                         alignment: Alignment.center,
@@ -173,8 +195,6 @@ class _ChatInputState extends State<ChatInput> {
                                     border: InputBorder.none,
                                     focusedBorder: InputBorder.none,
                                     enabledBorder: InputBorder.none,
-                                    errorBorder: InputBorder.none,
-                                    disabledBorder: InputBorder.none,
                                     isDense: true,
                                     contentPadding: EdgeInsets.zero,
                                     hintText: 'Message on Relio...',
@@ -201,15 +221,13 @@ class _ChatInputState extends State<ChatInput> {
                     ),
                   ),
 
-                  // TOMBOL INTERAKSI KANAN (VOICE / SEND WITH SOFT SWITCHER)
+                  // INTERACTION BUTTON (VOICE / SEND)
                   SizedBox(
-                    width: minBarHeight,
-                    height: minBarHeight,
+                    width: barHeight,
+                    height: barHeight,
                     child: Center(
                       child: AnimatedSwitcher(
-                        duration: _iconDuration,
-                        switchInCurve: Curves.easeOutBack, // Beri sedikit efek pop-up mental halus pas icon masuk
-                        switchOutCurve: Curves.easeIn,
+                        duration: const Duration(milliseconds: 200),
                         transitionBuilder: (child, animation) {
                           return FadeTransition(
                             opacity: animation,
