@@ -133,9 +133,6 @@ class _ChatInputState extends State<ChatInput> {
                                 border: InputBorder.none,
                                 isCollapsed: true,
                                 hintText: 'Balasan untuk ChatGPT...',
-                                hintStyle: AppTextStyles.body(context).copyWith(
-                                  color: theme.textSecondary.withOpacity(0.6),
-                                ),
                                 contentPadding: const EdgeInsets.symmetric(vertical: 16),
                               ),
                             ),
