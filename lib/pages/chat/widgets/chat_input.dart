@@ -51,10 +51,10 @@ class _ChatInputState extends State<ChatInput> {
   @override
   Widget build(BuildContext context) {
     final theme = AppThemeExtension.of(context);
-    const double barHeight = 64.0; // Tinggi 64px sesuai desain awal Relio
+    const double barHeight = 64.0; 
     
-    // Trigger pemisahan dipicu saat text field fokus/diketuk
-    final double rightGap = isFocused ? 72.0 : 0.0; 
+    // Gap pemisah saat membelah ke kanan
+    final double rightGap = isFocused ? 76.0 : 0.0; 
 
     return SafeArea(
       top: false,
@@ -66,11 +66,10 @@ class _ChatInputState extends State<ChatInput> {
             children: [
               
               // ==========================================
-              // LAYER 1: BACKGROUND YANG MEMBELAH KE KANAN
+              // LAYER 1: BACKGROUND SYSTEM
               // ==========================================
               
               // 1a. Lingkaran Background Tombol Kanan (Voice / Send)
-              // Standby di paling kanan, tertutup pill utama saat idle
               Positioned(
                 right: 0,
                 top: 0,
@@ -78,7 +77,6 @@ class _ChatInputState extends State<ChatInput> {
                 width: barHeight,
                 child: Container(
                   decoration: BoxDecoration(
-                    // Menggunakan warna gradasi jika ada teks, atau warna card Relio biasa saat mic
                     gradient: hasText
                         ? const LinearGradient(
                             colors: [AppColors.primaryLight, AppColors.primary],
@@ -86,21 +84,11 @@ class _ChatInputState extends State<ChatInput> {
                         : null,
                     color: hasText ? null : theme.card.withOpacity(0.94),
                     shape: BoxShape.circle,
-                    boxShadow: isFocused 
-                        ? [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.2),
-                              blurRadius: 16,
-                              offset: const Offset(0, 6),
-                            )
-                          ]
-                        : null,
                   ),
                 ),
               ),
 
               // 1b. Pill Background Utama (Main Composer)
-              // Sisi kanannya akan memendek ke kiri (rightGap) saat fokus
               AnimatedPositioned(
                 duration: const Duration(milliseconds: 280),
                 curve: Curves.easeInOutCubic,
@@ -111,7 +99,7 @@ class _ChatInputState extends State<ChatInput> {
                 child: Container(
                   decoration: BoxDecoration(
                     color: theme.card.withOpacity(0.94),
-                    borderRadius: BorderRadius.circular(34), // Melengkung khas Relio
+                    borderRadius: BorderRadius.circular(34),
                     border: Border.all(
                       color: Colors.white.withOpacity(0.045),
                     ),
@@ -125,7 +113,7 @@ class _ChatInputState extends State<ChatInput> {
               Row(
                 children: [
                   
-                  // Konten utama input yang ikut menyesuaikan lebar bar
+                  // Bagian dalam Composer (Emoji, Input, Clip)
                   Expanded(
                     child: AnimatedPadding(
                       duration: const Duration(milliseconds: 280),
@@ -133,7 +121,7 @@ class _ChatInputState extends State<ChatInput> {
                       padding: EdgeInsets.only(right: isFocused ? 12 : 0),
                       child: Row(
                         children: [
-                          // EMOJI (Paling Kiri)
+                          // EMOJI ICON
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 20),
                             child: FaIcon(
@@ -143,12 +131,17 @@ class _ChatInputState extends State<ChatInput> {
                             ),
                           ),
 
-                          // TEXT FIELD
+                          // TEXT FIELD (Sudah dibersihkan dari dekorasi ganda)
                           Expanded(
                             child: TextField(
                               controller: widget.controller,
                               focusNode: focusNode,
+                              keyboardType: TextInputType.multiline, // KUNCI 1: Pakai multiline
+                              textInputAction: TextInputAction.newline, // KUNCI 2: Maksa tombol jadi Enter/Newline
+                              minLines: 1,
+                              maxLines: 1, // Batasi 1 baris jika ingin tingginya statis seperti di gambar
                               style: AppTextStyles.body(context),
+                              cursorColor: AppColors.primary,
                               decoration: InputDecoration(
                                 border: InputBorder.none,
                                 isCollapsed: true,
@@ -156,12 +149,11 @@ class _ChatInputState extends State<ChatInput> {
                                 hintStyle: AppTextStyles.body(context).copyWith(
                                   color: theme.textSecondary.withOpacity(0.72),
                                 ),
-                                contentPadding: const EdgeInsets.symmetric(vertical: 21),
                               ),
                             ),
                           ),
 
-                          // ATTACHMENT (Paperclip selalu menetap di dalam pill)
+                          // ATTACHMENT ICON
                           Padding(
                             padding: const EdgeInsets.only(left: 10, right: 20),
                             child: FaIcon(
@@ -175,7 +167,7 @@ class _ChatInputState extends State<ChatInput> {
                     ),
                   ),
 
-                  // TOMBOL INTERAKSI MANDIRI (VOICE / SEND)
+                  // TOMBOL INTERAKSI KANAN (VOICE / SEND)
                   SizedBox(
                     width: barHeight,
                     height: barHeight,
