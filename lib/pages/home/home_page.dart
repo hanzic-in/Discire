@@ -1,5 +1,3 @@
-Ini
-
 import 'package:flutter/material.dart';
 import 'home_content.dart';
 import '../chat/chat_list_page.dart';
