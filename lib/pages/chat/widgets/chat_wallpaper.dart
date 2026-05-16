@@ -1,8 +1,8 @@
-import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import '../../../core/theme/app_theme.dart';
 
-class ChatWallpaper extends StatefulWidget {
+class ChatWallpaper extends StatelessWidget {
   final Widget child;
 
   const ChatWallpaper({
@@ -11,104 +11,74 @@ class ChatWallpaper extends StatefulWidget {
   });
 
   @override
-  State<ChatWallpaper> createState() => _ChatWallpaperState();
-}
-
-class _ChatWallpaperState extends State<ChatWallpaper> {
-  ui.Image? _patternImage;
-
-  @override
-  void initState() {
-    super.initState();
-    _loadPattern();
-  }
-
-  Future<void> _loadPattern() async {
-    final pictureInfo = await vg.loadPicture(
-      const SvgAssetLoader('assets/chat/wallpapers/seamless_pattern_1.svg'),
-      null,
-    );
-
-    const tileSize = Size(160, 120);
-
-    final recorder = ui.PictureRecorder();
-    final canvas = Canvas(recorder);
-
-    
-    final svgSize = pictureInfo.size;
-    
-    canvas.save();
-    
-    final scaleX = tileSize.width / svgSize.width;
-    final scaleY = tileSize.height / svgSize.height;
-    canvas.scale(scaleX, scaleY);
-    
-    canvas.drawPicture(pictureInfo.picture);
-    canvas.restore();
-
-    final image = await recorder.endRecording().toImage(
-      tileSize.width.toInt(),
-      tileSize.height.toInt(),
-    );
-
-    if (mounted) {
-      setState(() => _patternImage = image);
-    }
-    
-    pictureInfo.picture.dispose();
-  }
-
-  @override
-  void dispose() {
-    _patternImage?.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    if (_patternImage == null) {
-      return Container(color: Colors.black, child: widget.child);
-    }
+    final theme = AppThemeExtension.of(context);
 
     return Stack(
       children: [
-        Container(color: Colors.black),
-        Positioned.fill(
-          child: Opacity(
-            opacity: 0.10,
-            child: CustomPaint(
-              size: Size.infinite,
-              painter: _TiledPatternPainter(_patternImage!),
+
+        // BASE
+        Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                const Color(0xFF141419),
+                theme.background,
+              ],
             ),
           ),
         ),
-        widget.child,
+
+        // TOP GLOW
+        Positioned(
+          top: -140,
+          right: -100,
+          child: Container(
+            width: 280,
+            height: 280,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              gradient: RadialGradient(
+                colors: [
+                  AppColors.primary.withOpacity(0.22),
+                  Colors.transparent,
+                ],
+              ),
+            ),
+          ),
+        ),
+
+        // SVG PATTERN
+        Positioned.fill(
+          child: Opacity(
+            opacity: 0.08,
+            child: Transform.scale(
+              scale: 0.45,
+              child: SvgPicture.asset(
+                'assets/chat/wallpapers/relio_pattern.svg',
+                fit: BoxFit.contain,
+                alignment: Alignment.topLeft,
+
+                colorFilter: ColorFilter.mode(
+                  AppColors.primaryLight.withOpacity(0.9),
+                  BlendMode.srcIn,
+                ),
+              ),
+            ),
+          ),
+        ),
+
+        // DARK OVERLAY
+        Positioned.fill(
+          child: Container(
+            color: Colors.black.withOpacity(0.10),
+          ),
+        ),
+
+        child,
       ],
     );
   }
-}
-
-class _TiledPatternPainter extends CustomPainter {
-  final ui.Image image;
-
-  _TiledPatternPainter(this.image);
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final paint = Paint()
-      ..shader = ImageShader(
-        image,
-        TileMode.repeated,
-        TileMode.repeated,
-        Matrix4.identity().storage,
-      );
-
-    canvas.drawRect(
-      Rect.fromLTWH(0, 0, size.width, size.height),
-      paint,
-    );
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }
