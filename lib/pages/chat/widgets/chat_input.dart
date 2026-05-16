@@ -21,6 +21,14 @@ class _ChatInputState extends State<ChatInput> {
   bool hasText = false;
   bool isFocused = false;
 
+  // Durasi utama untuk pergerakan layout (lebar, tinggi, posisi)
+  static const Duration _layoutDuration = Duration(milliseconds: 380);
+  // Durasi untuk transisi pergantian icon (fade & scale)
+  static const Duration _iconDuration = Duration(milliseconds: 240);
+  
+  // Kurva animasi utama agar tarikan melar dan membelahnya terasa organik
+  static const Curve _layoutCurve = Curves.easeInOutCubic;
+
   @override
   void initState() {
     super.initState();
@@ -53,17 +61,17 @@ class _ChatInputState extends State<ChatInput> {
     final theme = AppThemeExtension.of(context);
     const double minBarHeight = 64.0; 
     
-    // Gap pemisah sisi kanan saat background utama ditarik mundur (memisah)
+    // Jarak potong mundur pill utama pas membelah
     final double rightGap = isFocused ? 76.0 : 0.0; 
 
-    // Margin horizontal dinamis: pas idle memendek ke tengah, pas fokus melebar penuh
+    // Jarak ciut lebar saat idle ke fokus
     final double horizontalMargin = isFocused ? 0.0 : 32.0;
 
     return SafeArea(
       top: false,
       child: AnimatedPadding(
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.easeOutCubic,
+        duration: _layoutDuration,
+        curve: _layoutCurve,
         padding: EdgeInsets.fromLTRB(
           14 + horizontalMargin, 
           0, 
@@ -75,17 +83,18 @@ class _ChatInputState extends State<ChatInput> {
             children: [
               
               // ==========================================
-              // LAYER 1: BACKGROUND SYSTEM (DYNAMIC EXPAND)
+              // LAYER 1: BACKGROUND SYSTEM (SMOOTH TRANSITION)
               // ==========================================
               
-              // 1a. Lingkaran Background Tombol Kanan (Voice / Send)
-              // Selalu standby di paling kanan bawah
+              // 1a. Bulatan tombol kanan (Voice / Send)
               Positioned(
                 right: 0,
                 bottom: 0,
                 width: minBarHeight,
                 height: minBarHeight,
-                child: Container(
+                child: AnimatedContainer(
+                  duration: _iconDuration,
+                  curve: Curves.easeOut,
                   decoration: BoxDecoration(
                     gradient: hasText
                         ? const LinearGradient(
@@ -98,11 +107,10 @@ class _ChatInputState extends State<ChatInput> {
                 ),
               ),
 
-              // 1b. Pill Background Utama (Main Composer)
-              // Menutup penuh pas idle, memendek ke kiri pas dapet fokus
+              // 1b. Badan utama (Main Composer)
               AnimatedPositioned(
-                duration: const Duration(milliseconds: 280),
-                curve: Curves.easeInOutCubic,
+                duration: _layoutDuration,
+                curve: _layoutCurve,
                 left: 0,
                 right: rightGap,
                 top: 0,
@@ -122,17 +130,17 @@ class _ChatInputState extends State<ChatInput> {
               // LAYER 2: INTERFACES & ICONS (FOREGROUND)
               // ==========================================
               Row(
-                crossAxisAlignment: CrossAxisAlignment.end, // Komponen icon tetap di bawah saat field meninggi
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Expanded(
                     child: AnimatedPadding(
-                      duration: const Duration(milliseconds: 280),
-                      curve: Curves.easeInOutCubic,
+                      duration: _layoutDuration,
+                      curve: _layoutCurve,
                       padding: EdgeInsets.only(right: isFocused ? 12 : 0),
                       child: Container(
                         constraints: const BoxConstraints(
                           minHeight: minBarHeight,
-                          maxHeight: 160.0, // Batas maksimal tinggi bar sebelum scrollable
+                          maxHeight: 160.0,
                         ),
                         alignment: Alignment.center,
                         child: Row(
@@ -148,7 +156,7 @@ class _ChatInputState extends State<ChatInput> {
                               ),
                             ),
 
-                            // TEXT FIELD (Bebas kotak overlay & support multi-line enter)
+                            // TEXT FIELD
                             Expanded(
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(vertical: 18),
@@ -158,7 +166,7 @@ class _ChatInputState extends State<ChatInput> {
                                   keyboardType: TextInputType.multiline,
                                   textInputAction: TextInputAction.newline,
                                   minLines: 1,
-                                  maxLines: 5, // Otomatis bertambah tinggi hingga 5 baris
+                                  maxLines: 5,
                                   style: AppTextStyles.body(context),
                                   cursorColor: AppColors.primary,
                                   decoration: InputDecoration(
@@ -167,7 +175,7 @@ class _ChatInputState extends State<ChatInput> {
                                     enabledBorder: InputBorder.none,
                                     errorBorder: InputBorder.none,
                                     disabledBorder: InputBorder.none,
-                                    isDense: true, // Membunuh kotak padding pembatas bawaan material SDK
+                                    isDense: true,
                                     contentPadding: EdgeInsets.zero,
                                     hintText: 'Message on Relio...',
                                     hintStyle: AppTextStyles.body(context).copyWith(
@@ -193,13 +201,15 @@ class _ChatInputState extends State<ChatInput> {
                     ),
                   ),
 
-                  // TOMBOL INTERAKSI KANAN (VOICE / SEND)
+                  // TOMBOL INTERAKSI KANAN (VOICE / SEND WITH SOFT SWITCHER)
                   SizedBox(
                     width: minBarHeight,
                     height: minBarHeight,
                     child: Center(
                       child: AnimatedSwitcher(
-                        duration: const Duration(milliseconds: 180),
+                        duration: _iconDuration,
+                        switchInCurve: Curves.easeOutBack, // Beri sedikit efek pop-up mental halus pas icon masuk
+                        switchOutCurve: Curves.easeIn,
                         transitionBuilder: (child, animation) {
                           return FadeTransition(
                             opacity: animation,
