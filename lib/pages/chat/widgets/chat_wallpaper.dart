@@ -31,25 +31,6 @@ class ChatWallpaper extends StatelessWidget {
           ),
         ),
 
-        // TOP GLOW
-        Positioned(
-          top: -140,
-          right: -100,
-          child: Container(
-            width: 280,
-            height: 280,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              gradient: RadialGradient(
-                colors: [
-                  AppColors.primary.withOpacity(0.22),
-                  Colors.transparent,
-                ],
-              ),
-            ),
-          ),
-        ),
-
         // SVG PATTERN
         Positioned.fill(
           child: Opacity(
@@ -59,9 +40,9 @@ class ChatWallpaper extends StatelessWidget {
               padding: EdgeInsets.zero,
               gridDelegate:
               const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3,
+            crossAxisCount: 1,
               ),
-              itemCount: 30,
+              itemCount: 8,
               itemBuilder: (context, index) {
                 return SvgPicture.asset(
                   'assets/chat/wallpapers/relio_pattern.svg',
