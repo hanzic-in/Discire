@@ -30,10 +30,16 @@ class _ChatInputState extends State<ChatInput>
   void initState() {
     super.initState();
 
-    widget.controller.addListener(_onTextChanged);
-    focusNode.addListener(_onFocusChanged);
+    widget.controller.addListener(
+      _onTextChanged,
+    );
 
-    animationController = AnimationController(
+    focusNode.addListener(
+      _onFocusChanged,
+    );
+
+    animationController =
+        AnimationController(
       vsync: this,
       duration: const Duration(
         milliseconds: 460,
@@ -48,7 +54,9 @@ class _ChatInputState extends State<ChatInput>
 
   void _onTextChanged() {
     final typing =
-        widget.controller.text.trim().isNotEmpty;
+        widget.controller.text
+            .trim()
+            .isNotEmpty;
 
     if (typing != hasText) {
       setState(() {
@@ -58,7 +66,8 @@ class _ChatInputState extends State<ChatInput>
   }
 
   void _onFocusChanged() {
-    final focused = focusNode.hasFocus;
+    final focused =
+        focusNode.hasFocus;
 
     if (focused != isFocused) {
       setState(() {
@@ -80,6 +89,7 @@ class _ChatInputState extends State<ChatInput>
     );
 
     focusNode.dispose();
+
     animationController.dispose();
 
     super.dispose();
@@ -87,14 +97,17 @@ class _ChatInputState extends State<ChatInput>
 
   @override
   Widget build(BuildContext context) {
-    final theme = AppThemeExtension.of(context);
+    final theme =
+        AppThemeExtension.of(context);
 
     const double composerHeight = 64;
 
     return SafeArea(
       top: false,
+
       child: AnimatedBuilder(
         animation: splitAnimation,
+
         builder: (context, child) {
           final eased =
               Curves.easeOutExpo.transform(
@@ -118,10 +131,17 @@ class _ChatInputState extends State<ChatInput>
               12,
             ),
 
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(
-                minHeight: composerHeight,
-                maxHeight: 180,
+            child: AnimatedContainer(
+              duration: const Duration(
+                milliseconds: 180,
+              ),
+
+              constraints:
+                  const BoxConstraints(
+                minHeight:
+                    composerHeight,
+
+                maxHeight: 150,
               ),
 
               child: Stack(
@@ -130,22 +150,28 @@ class _ChatInputState extends State<ChatInput>
                   // BACKGROUND
                   Positioned.fill(
                     child: CustomPaint(
-                      painter: RelioComposerPainter(
+                      painter:
+                          RelioComposerPainter(
                         progress: eased,
-                        rightGap: rightGap,
+                        rightGap:
+                            rightGap,
 
                         backgroundColor:
-                            theme.card.withOpacity(
+                            theme.card
+                                .withOpacity(
                           0.96,
                         ),
 
-                        hasText: hasText,
+                        hasText:
+                            hasText,
 
                         activeColor:
-                            AppColors.primary,
+                            AppColors
+                                .primary,
 
                         activeColorLight:
-                            AppColors.primaryLight,
+                            AppColors
+                                .primaryLight,
                       ),
                     ),
                   ),
@@ -156,8 +182,11 @@ class _ChatInputState extends State<ChatInput>
                       child: CustomPaint(
                         painter:
                             RelioComposerBorderPainter(
-                          progress: eased,
-                          rightGap: rightGap,
+                          progress:
+                              eased,
+
+                          rightGap:
+                              rightGap,
                         ),
                       ),
                     ),
@@ -179,46 +208,58 @@ class _ChatInputState extends State<ChatInput>
                                 eased * 12,
                           ),
 
-                          child: IntrinsicHeight(
-                            child: Row(
-                              crossAxisAlignment:
-                                  CrossAxisAlignment.end,
+                          child: Row(
+                            crossAxisAlignment:
+                                CrossAxisAlignment.end,
 
-                              children: [
+                            children: [
 
-                                // EMOJI
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.only(
-                                    left: 22,
-                                    right: 16,
-                                    bottom: 18,
-                                  ),
-
-                                  child: FaIcon(
-                                    FontAwesomeIcons
-                                        .faceSmile,
-
-                                    size: 26,
-
-                                    color: theme
-                                        .textSecondary
-                                        .withOpacity(
-                                          0.92,
-                                        ),
-                                  ),
+                              // EMOJI
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(
+                                  left: 22,
+                                  right: 16,
+                                  bottom: 18,
                                 ),
 
-                                // TEXTFIELD
-                                Expanded(
-                                  child: Padding(
-                                    padding:
-                                        const EdgeInsets.only(
-                                      top: 16,
-                                      bottom: 16,
+                                child: FaIcon(
+                                  FontAwesomeIcons
+                                      .faceSmile,
+
+                                  size: 26,
+
+                                  color: theme
+                                      .textSecondary
+                                      .withOpacity(
+                                        0.92,
+                                      ),
+                                ),
+                              ),
+
+                              // TEXT FIELD
+                              Expanded(
+                                child:
+                                    Padding(
+                                  padding:
+                                      const EdgeInsets.only(
+                                    top: 16,
+                                    bottom: 16,
+                                  ),
+
+                                  child:
+                                      ConstrainedBox(
+                                    constraints:
+                                        const BoxConstraints(
+                                      minHeight:
+                                          32,
+
+                                      maxHeight:
+                                          120,
                                     ),
 
-                                    child: TextField(
+                                    child:
+                                        TextField(
                                       controller:
                                           widget
                                               .controller,
@@ -234,8 +275,14 @@ class _ChatInputState extends State<ChatInput>
                                           TextInputAction
                                               .newline,
 
-                                      minLines: 1,
-                                      maxLines: null,
+                                      minLines:
+                                          1,
+
+                                      maxLines:
+                                          null,
+
+                                      expands:
+                                          false,
 
                                       cursorColor:
                                           AppColors
@@ -246,6 +293,10 @@ class _ChatInputState extends State<ChatInput>
                                               .body(
                                         context,
                                       ),
+
+                                      textAlignVertical:
+                                          TextAlignVertical
+                                              .top,
 
                                       decoration:
                                           InputDecoration(
@@ -273,17 +324,24 @@ class _ChatInputState extends State<ChatInput>
                                             InputBorder
                                                 .none,
 
-                                        filled: false,
+                                        filled:
+                                            false,
 
                                         fillColor:
                                             Colors
                                                 .transparent,
 
-                                        isDense: true,
+                                        isDense:
+                                            true,
 
                                         contentPadding:
-                                            EdgeInsets
-                                                .zero,
+                                            const EdgeInsets.only(
+                                          top:
+                                              2,
+
+                                          bottom:
+                                              2,
+                                        ),
 
                                         hintText:
                                             'Message on Relio...',
@@ -303,94 +361,97 @@ class _ChatInputState extends State<ChatInput>
                                     ),
                                   ),
                                 ),
+                              ),
 
-                                // ATTACH
-                                AnimatedSwitcher(
-                                  duration:
-                                      const Duration(
-                                    milliseconds:
-                                        180,
-                                  ),
+                              // ATTACH
+                              AnimatedSwitcher(
+                                duration:
+                                    const Duration(
+                                  milliseconds:
+                                      180,
+                                ),
 
-                                  transitionBuilder:
-                                      (
-                                        child,
+                                transitionBuilder:
+                                    (
+                                      child,
+                                      animation,
+                                    ) {
+                                  return FadeTransition(
+                                    opacity:
                                         animation,
-                                      ) {
-                                    return FadeTransition(
-                                      opacity:
+
+                                    child:
+                                        ScaleTransition(
+                                      scale:
                                           animation,
 
                                       child:
-                                          ScaleTransition(
-                                        scale:
-                                            animation,
+                                          child,
+                                    ),
+                                  );
+                                },
 
-                                        child:
-                                            child,
-                                      ),
-                                    );
-                                  },
-
-                                  child:
-                                      hasText
-                                          ? const SizedBox(
-                                              key:
-                                                  ValueKey(
-                                                'empty',
-                                              ),
-
-                                              width:
-                                                  0,
-                                            )
-
-                                          : Padding(
-                                              key:
-                                                  const ValueKey(
-                                                'attach',
-                                              ),
-
-                                              padding:
-                                                  EdgeInsets.only(
-                                                left:
-                                                    18 +
-                                                        (eased *
-                                                            8),
-
-                                                right:
-                                                    22,
-
-                                                bottom:
-                                                    18,
-                                              ),
-
-                                              child:
-                                                  FaIcon(
-                                                FontAwesomeIcons
-                                                    .paperclip,
-
-                                                size:
-                                                    26,
-
-                                                color:
-                                                    theme
-                                                        .textSecondary
-                                                        .withOpacity(
-                                                          0.9,
-                                                        ),
-                                              ),
+                                child:
+                                    hasText
+                                        ? const SizedBox(
+                                            key:
+                                                ValueKey(
+                                              'empty',
                                             ),
-                                ),
-                              ],
-                            ),
+
+                                            width:
+                                                0,
+                                          )
+
+                                        : Padding(
+                                            key:
+                                                const ValueKey(
+                                              'attach',
+                                            ),
+
+                                            padding:
+                                                EdgeInsets.only(
+                                              left:
+                                                  18 +
+                                                      (eased *
+                                                          8),
+
+                                              right:
+                                                  22,
+
+                                              bottom:
+                                                  18,
+                                            ),
+
+                                            child:
+                                                FaIcon(
+                                              FontAwesomeIcons
+                                                  .paperclip,
+
+                                              size:
+                                                  26,
+
+                                              color:
+                                                  theme
+                                                      .textSecondary
+                                                      .withOpacity(
+                                                        0.9,
+                                                      ),
+                                            ),
+                                          ),
+                              ),
+                            ],
                           ),
                         ),
                       ),
 
                       // RIGHT BUTTON
                       SizedBox(
-                        width: composerHeight,
-                        height: composerHeight,
+                        width:
+                            composerHeight,
+
+                        height:
+                            composerHeight,
 
                         child: Center(
                           child:
@@ -398,6 +459,7 @@ class _ChatInputState extends State<ChatInput>
                             offset: Offset(
                               (1 - eased) *
                                   -10,
+
                               0,
                             ),
 
@@ -421,8 +483,11 @@ class _ChatInputState extends State<ChatInput>
                                   child:
                                       ScaleTransition(
                                     scale:
-                                        Tween<double>(
-                                      begin: 0.82,
+                                        Tween<
+                                            double>(
+                                      begin:
+                                          0.82,
+
                                       end: 1,
                                     ).animate(
                                       CurvedAnimation(
@@ -505,6 +570,7 @@ class _ChatInputState extends State<ChatInput>
 class RelioComposerPainter
     extends CustomPainter {
   final double progress;
+
   final double rightGap;
 
   final Color backgroundColor;
@@ -512,6 +578,7 @@ class RelioComposerPainter
   final bool hasText;
 
   final Color activeColor;
+
   final Color activeColorLight;
 
   RelioComposerPainter({
@@ -524,19 +591,25 @@ class RelioComposerPainter
   });
 
   @override
-  void paint(Canvas canvas, Size size) {
+  void paint(
+    Canvas canvas,
+    Size size,
+  ) {
     final radius =
         size.height / 2;
 
     final paint = Paint()
-      ..style = PaintingStyle.fill
+      ..style =
+          PaintingStyle.fill
+
       ..isAntiAlias = true;
 
     final mainRight =
         size.width - rightGap;
 
     // MAIN PILL
-    paint.color = backgroundColor;
+    paint.color =
+        backgroundColor;
 
     final mainRRect =
         RRect.fromLTRBR(
@@ -558,8 +631,13 @@ class RelioComposerPainter
       final path = Path();
 
       final gooeyFactor =
-          (1 - (progress / 0.98))
-              .clamp(0.0, 1.0);
+          (1 -
+                  (progress /
+                      0.98))
+              .clamp(
+        0.0,
+        1.0,
+      );
 
       final bridgeHeight =
           radius *
@@ -629,7 +707,9 @@ class RelioComposerPainter
 
     // BUTTON
     final buttonPaint = Paint()
-      ..style = PaintingStyle.fill
+      ..style =
+          PaintingStyle.fill
+
       ..isAntiAlias = true;
 
     if (hasText) {
@@ -659,7 +739,8 @@ class RelioComposerPainter
     final buttonRadius =
         radius *
             (0.74 +
-                (progress * 0.26));
+                (progress *
+                    0.26));
 
     final buttonLeft =
         size.width -
@@ -686,7 +767,8 @@ class RelioComposerPainter
   bool shouldRepaint(
     covariant RelioComposerPainter old,
   ) {
-    return old.progress != progress ||
+    return old.progress !=
+            progress ||
         old.hasText != hasText;
   }
 }
@@ -698,6 +780,7 @@ class RelioComposerPainter
 class RelioComposerBorderPainter
     extends CustomPainter {
   final double progress;
+
   final double rightGap;
 
   RelioComposerBorderPainter({
@@ -712,7 +795,8 @@ class RelioComposerBorderPainter
   ) {
     final paint = Paint()
       ..color =
-          Colors.white.withOpacity(
+          Colors.white
+              .withOpacity(
         0.045,
       )
 
@@ -749,7 +833,8 @@ class RelioComposerBorderPainter
     covariant RelioComposerBorderPainter
         oldDelegate,
   ) {
-    return oldDelegate.progress !=
+    return oldDelegate
+            .progress !=
         progress;
   }
 }
