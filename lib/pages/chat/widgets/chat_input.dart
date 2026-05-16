@@ -196,48 +196,23 @@ class _ChatInputState extends State<ChatInput>
                               // TEXTFIELD
                               Expanded(
                                 child: TextField(
-                                  controller:
-                                      widget
-                                          .controller,
-
-                                  focusNode:
-                                      focusNode,
-
+                                  controller: widget.controller,
+                                  focusNode: focusNode,
                                   minLines: 1,
                                   maxLines: 5,
-
-                                  cursorColor:
-                                      AppColors
-                                          .primary,
-
-                                  style:
-                                      AppTextStyles
-                                          .body(
+                                  cursorColor: AppColors.primary,
+                                  style: AppTextStyles.body(
                                     context,
                                   ),
 
-                                  decoration:
-                                      InputDecoration(
-                                    border:
-                                        InputBorder
-                                            .none,
-
-                                    isCollapsed:
-                                        true,
-
-                                    hintText:
-                                        'Message on Relio...',
-
-                                    hintStyle:
-                                        AppTextStyles
-                                            .body(
+                                  decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    isCollapsed: true,
+                                    hintText:'Message on Relio...',
+                                    hintStyle: AppTextStyles.body(
                                       context,
                                     ).copyWith(
-                                      color: theme
-                                          .textSecondary
-                                          .withOpacity(
-                                            0.72,
-                                          ),
+                                      color: theme.textSecondary.withOpacity(0.72,),
                                     ),
                                   ),
                                 ),
