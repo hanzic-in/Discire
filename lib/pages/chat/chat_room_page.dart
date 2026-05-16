@@ -72,7 +72,7 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
 
     return Scaffold(
       backgroundColor: theme.background,
-      resizeToAvoidBottomInset: true,
+      resizeToAvoidBottomInset: false,
 
       body: ChatWallpaper(
         child: SafeArea(
