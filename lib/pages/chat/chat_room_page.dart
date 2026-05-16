@@ -106,19 +106,19 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
                 ),
               ),
 
-              AnimatedContainer(
+              AnimatedPadding(
                 duration: const Duration(
-                  milliseconds: 120,
+                  milliseconds: 250,
                 ),
 
-                curve: Curves.easeOut,
-                margin: EdgeInsets.only(
+                curve: Curves.easeOutCubic,
+                padding: EdgeInsets.only(
                   bottom:
                   MediaQuery.of(context)
                   .viewInsets
                   .bottom,
                 ),
-
+                
                 child: ChatInput(
                   controller: controller,
                   onSend: sendMessage,
