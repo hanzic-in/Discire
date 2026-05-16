@@ -13,10 +13,10 @@ class ChatInput extends StatefulWidget {
   });
 
   @override
-  State <ChatInput> createState() => _ChatInputState();
+  State<ChatInput> createState() => _ChatInputState();
 }
 
-class _ChatInputState extends State<<ChatInput>
+class _ChatInputState extends State<ChatInput>
     with SingleTickerProviderStateMixin {
   final FocusNode _focusNode = FocusNode();
   final ScrollController _scrollController = ScrollController();
@@ -254,7 +254,7 @@ class _Content extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 _IconButton(
-                  FaIcon(FontAwesomeIcons.faceSmile),
+                  icon: FaIcon(FontAwesomeIcons.faceSmile),
                   padding: const EdgeInsets.only(
                     left: 22,
                     right: 16,
