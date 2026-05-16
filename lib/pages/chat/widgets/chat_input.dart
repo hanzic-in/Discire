@@ -17,13 +17,22 @@ class ChatInput extends StatefulWidget {
 }
 
 class _ChatInputState extends State<ChatInput> {
+  final FocusNode focusNode = FocusNode();
+
   bool hasText = false;
+  bool isFocused = false;
 
   @override
   void initState() {
     super.initState();
 
     widget.controller.addListener(_onTextChanged);
+
+    focusNode.addListener(() {
+      setState(() {
+        isFocused = focusNode.hasFocus;
+      });
+    });
   }
 
   void _onTextChanged() {
@@ -43,6 +52,8 @@ class _ChatInputState extends State<ChatInput> {
       _onTextChanged,
     );
 
+    focusNode.dispose();
+
     super.dispose();
   }
 
@@ -58,23 +69,36 @@ class _ChatInputState extends State<ChatInput> {
         24,
       ),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.end,
+        crossAxisAlignment:
+            CrossAxisAlignment.end,
         children: [
 
-          // MAIN INPUT PILL
+          // MAIN INPUT
           Expanded(
-            child: Container(
+            child: AnimatedContainer(
+              duration: const Duration(
+                milliseconds: 220,
+              ),
+
+              curve: Curves.easeOutCubic,
+
+              margin: EdgeInsets.only(
+                right: isFocused ? 10 : 0,
+              ),
+
               constraints: const BoxConstraints(
                 minHeight: 58,
                 maxHeight: 140,
               ),
 
-              padding: const EdgeInsets.symmetric(
-                horizontal: 14,
+              padding:
+                  const EdgeInsets.symmetric(
+                horizontal: 18,
               ),
 
               decoration: BoxDecoration(
-                color: theme.card.withOpacity(0.88),
+                color:
+                    theme.card.withOpacity(0.88),
 
                 borderRadius:
                     BorderRadius.circular(32),
@@ -90,34 +114,43 @@ class _ChatInputState extends State<ChatInput> {
                         .withOpacity(0.20),
 
                     blurRadius: 20,
-                    offset: const Offset(0, 8),
+                    offset: const Offset(
+                      0,
+                      8,
+                    ),
                   ),
                 ],
               ),
 
               child: Row(
                 crossAxisAlignment:
-                    CrossAxisAlignment.end,
+                    CrossAxisAlignment.center,
                 children: [
 
                   // EMOJI
                   Padding(
-                    padding: const EdgeInsets.only(
-                      bottom: 16,
+                    padding:
+                        const EdgeInsets.only(
                       right: 12,
                     ),
 
                     child: FaIcon(
-                      FontAwesomeIcons.faceSmile,
-                      size: 19,
-                      color: theme.textSecondary,
+                      FontAwesomeIcons
+                          .faceSmile,
+                      size: 20,
+                      color: theme
+                          .textSecondary
+                          .withOpacity(0.85),
                     ),
                   ),
 
                   // TEXTFIELD
                   Expanded(
                     child: TextField(
-                      controller: widget.controller,
+                      controller:
+                          widget.controller,
+
+                      focusNode: focusNode,
 
                       minLines: 1,
                       maxLines: 5,
@@ -130,8 +163,11 @@ class _ChatInputState extends State<ChatInput> {
                         context,
                       ),
 
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
+                      decoration:
+                          InputDecoration(
+                        border:
+                            InputBorder.none,
+
                         isCollapsed: true,
 
                         hintText:
@@ -145,26 +181,31 @@ class _ChatInputState extends State<ChatInput> {
 
                         contentPadding:
                             const EdgeInsets.symmetric(
-                          vertical: 18,
+                          vertical: 20,
                         ),
                       ),
                     ),
                   ),
 
-                  const SizedBox(width: 8),
+                  const SizedBox(width: 10),
 
-                  // ATTACH + CAMERA
+                  // ATTACH
                   AnimatedSwitcher(
-                    duration: const Duration(
+                    duration:
+                        const Duration(
                       milliseconds: 180,
                     ),
 
                     transitionBuilder:
-                        (child, animation) {
+                        (
+                          child,
+                          animation,
+                        ) {
                       return FadeTransition(
                         opacity: animation,
 
-                        child: ScaleTransition(
+                        child:
+                            ScaleTransition(
                           scale: animation,
                           child: child,
                         ),
@@ -172,86 +213,85 @@ class _ChatInputState extends State<ChatInput> {
                     },
 
                     child: hasText
-                        ? const SizedBox.shrink()
+                        ? const SizedBox
+                            .shrink()
 
-                        : Row(
+                        : Padding(
                             key:
                                 const ValueKey(
-                              'actions',
+                              'attach',
                             ),
 
-                            children: [
+                            padding:
+                                EdgeInsets.only(
+                              right:
+                                  isFocused
+                                      ? 2
+                                      : 0,
+                            ),
 
-                              // ATTACH
-                              Padding(
-                                padding:
-                                    const EdgeInsets.only(
-                                  bottom: 16,
-                                ),
+                            child: FaIcon(
+                              FontAwesomeIcons
+                                  .paperclip,
 
-                                child: FaIcon(
-                                  FontAwesomeIcons
-                                      .paperclip,
+                              size: 19,
 
-                                  size: 18,
-
-                                  color: theme
-                                      .textSecondary,
-                                ),
-                              ),
-
-                              const SizedBox(
-                                width: 16,
-                              ),
-
-                              // CAMERA
-                              Padding(
-                                padding:
-                                    const EdgeInsets.only(
-                                  bottom: 16,
-                                ),
-
-                                child: FaIcon(
-                                  FontAwesomeIcons
-                                      .camera,
-
-                                  size: 18,
-
-                                  color: theme
-                                      .textSecondary,
-                                ),
-                              ),
-                            ],
+                              color: theme
+                                  .textSecondary
+                                  .withOpacity(
+                                    0.85,
+                                  ),
+                            ),
                           ),
                   ),
+
+                  // MIC INSIDE (IDLE)
+                  if (!isFocused)
+                    Padding(
+                      padding:
+                          const EdgeInsets.only(
+                        left: 18,
+                      ),
+
+                      child: FaIcon(
+                        FontAwesomeIcons
+                            .microphone,
+
+                        size: 20,
+
+                        color: theme
+                            .textSecondary,
+                      ),
+                    ),
                 ],
               ),
             ),
           ),
 
-          const SizedBox(width: 10),
-
-          // MIC / SEND
+          // SEND / MIC OUTSIDE
           AnimatedSwitcher(
             duration: const Duration(
-              milliseconds: 180,
+              milliseconds: 220,
             ),
 
             transitionBuilder:
                 (child, animation) {
-              return ScaleTransition(
-                scale: animation,
+              return FadeTransition(
+                opacity: animation,
 
-                child: FadeTransition(
-                  opacity: animation,
+                child: ScaleTransition(
+                  scale: animation,
                   child: child,
                 ),
               );
             },
 
-            child: hasText
-                ? _sendButton(theme)
-                : _voiceButton(theme),
+            child: isFocused
+                ? hasText
+                    ? _sendButton(theme)
+                    : _voiceButton(theme)
+
+                : const SizedBox.shrink(),
           ),
         ],
       ),
@@ -274,7 +314,9 @@ class _ChatInputState extends State<ChatInput> {
 
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.22),
+            color:
+                Colors.black.withOpacity(0.22),
+
             blurRadius: 20,
             offset: const Offset(0, 8),
           ),
