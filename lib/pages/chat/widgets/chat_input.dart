@@ -27,14 +27,10 @@ class _ChatInputState extends State<<ChatInput>
   late final AnimationController _animationController;
   late final Animation<double> _splitAnimation;
 
-  // ─── Constants ─────────────────────────────────────────────
-
   static const double _composerHeight = 64;
   static const double _baseRadius = _composerHeight / 2;
   static const double _maxInputHeight = 120;
   static const double _maxContainerHeight = 150;
-
-  // ─── Lifecycle ─────────────────────────────────────────────
 
   @override
   void initState() {
@@ -69,8 +65,6 @@ class _ChatInputState extends State<<ChatInput>
     super.dispose();
   }
 
-  // ─── Event Handlers ────────────────────────────────────────
-
   void _onTextChanged() {
     final typing = widget.controller.text.trim().isNotEmpty;
     if (typing != _hasText) {
@@ -102,8 +96,6 @@ class _ChatInputState extends State<<ChatInput>
     _scrollToBottom();
   }
 
-  // ─── Build ─────────────────────────────────────────────────
-
   @override
   Widget build(BuildContext context) {
     final theme = AppThemeExtension.of(context);
@@ -132,7 +124,6 @@ class _ChatInputState extends State<<ChatInput>
               ),
               child: Stack(
                 children: [
-                  // ── Background Shape ─────────────────────────
                   _Background(
                     progress: eased,
                     rightGap: rightGap,
@@ -141,14 +132,10 @@ class _ChatInputState extends State<<ChatInput>
                     activeColor: AppColors.primary,
                     activeColorLight: AppColors.primaryLight,
                   ),
-
-                  // ── Border ───────────────────────────────────
                   _Border(
                     progress: eased,
                     rightGap: rightGap,
                   ),
-
-                  // ── Content ────────────────────────────────────
                   _Content(
                     eased: eased,
                     rightGap: rightGap,
@@ -260,14 +247,12 @@ class _Content extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
-        // ── Input Area ─────────────────────────────────────
         Expanded(
           child: Padding(
             padding: EdgeInsets.only(right: eased * 12),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                // Emoji Button
                 _IconButton(
                   icon: FontAwesomeIcons.faceSmile,
                   padding: const EdgeInsets.only(
@@ -277,8 +262,6 @@ class _Content extends StatelessWidget {
                   ),
                   color: theme.textSecondary.withOpacity(0.92),
                 ),
-
-                // TextField
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 16),
@@ -296,8 +279,6 @@ class _Content extends StatelessWidget {
                     ),
                   ),
                 ),
-
-                // Attach Button (hidden when typing)
                 _AttachButton(
                   visible: !hasText,
                   eased: eased,
@@ -307,8 +288,6 @@ class _Content extends StatelessWidget {
             ),
           ),
         ),
-
-        // ── Send/Mic Button ────────────────────────────────
         _ActionButton(
           hasText: hasText,
           isFocused: isFocused,
@@ -384,7 +363,7 @@ class _IconButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: padding,
-      child: FaIcon(icon, size: 26, color: color),
+      child: Icon(icon, size: 26, color: color),
     );
   }
 }
@@ -527,7 +506,6 @@ class _ComposerPainter extends CustomPainter {
 
     final mainRight = size.width - rightGap;
 
-    // ── Main Pill ──────────────────────────────────────────
     paint.color = backgroundColor;
 
     final mainRRect = RRect.fromLTRBR(
@@ -539,7 +517,6 @@ class _ComposerPainter extends CustomPainter {
     );
     canvas.drawRRect(mainRRect, paint);
 
-    // ── Gooey Bridge ─────────────────────────────────────
     if (progress > 0.01 && progress < 0.98) {
       final path = Path();
       final gooeyFactor = (1 - (progress / 0.98)).clamp(0.0, 1.0);
@@ -571,7 +548,6 @@ class _ComposerPainter extends CustomPainter {
       canvas.drawPath(path, paint);
     }
 
-    // ── Action Button ────────────────────────────────────
     final buttonPaint = Paint()
       ..style = PaintingStyle.fill
       ..isAntiAlias = true;
