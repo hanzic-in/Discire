@@ -51,10 +51,10 @@ class _ChatInputState extends State<ChatInput> {
   @override
   Widget build(BuildContext context) {
     final theme = AppThemeExtension.of(context);
-    const double barHeight = 54.0;
+    const double barHeight = 64.0; // Tinggi 64px sesuai desain awal Relio
     
-    // Menggunakan isFocused sebagai trigger pembelahan (sesuai screenshot)
-    final double leftGap = isFocused ? 62.0 : 0.0; 
+    // Trigger pemisahan dipicu saat text field fokus/diketuk
+    final double rightGap = isFocused ? 72.0 : 0.0; 
 
     return SafeArea(
       top: false,
@@ -66,33 +66,55 @@ class _ChatInputState extends State<ChatInput> {
             children: [
               
               // ==========================================
-              // LAYER 1: BACKGROUND YANG MEMBELAH (ANIMATED)
+              // LAYER 1: BACKGROUND YANG MEMBELAH KE KANAN
               // ==========================================
-
+              
+              // 1a. Lingkaran Background Tombol Kanan (Voice / Send)
+              // Standby di paling kanan, tertutup pill utama saat idle
               Positioned(
-                left: 0,
+                right: 0,
                 top: 0,
                 bottom: 0,
                 width: barHeight,
                 child: Container(
                   decoration: BoxDecoration(
-                    color: theme.card.withOpacity(0.94),
+                    // Menggunakan warna gradasi jika ada teks, atau warna card Relio biasa saat mic
+                    gradient: hasText
+                        ? const LinearGradient(
+                            colors: [AppColors.primaryLight, AppColors.primary],
+                          )
+                        : null,
+                    color: hasText ? null : theme.card.withOpacity(0.94),
                     shape: BoxShape.circle,
+                    boxShadow: isFocused 
+                        ? [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.2),
+                              blurRadius: 16,
+                              offset: const Offset(0, 6),
+                            )
+                          ]
+                        : null,
                   ),
                 ),
               ),
 
+              // 1b. Pill Background Utama (Main Composer)
+              // Sisi kanannya akan memendek ke kiri (rightGap) saat fokus
               AnimatedPositioned(
                 duration: const Duration(milliseconds: 280),
                 curve: Curves.easeInOutCubic,
-                left: leftGap,
-                right: 0,
+                left: 0,
+                right: rightGap,
                 top: 0,
                 bottom: 0,
                 child: Container(
                   decoration: BoxDecoration(
                     color: theme.card.withOpacity(0.94),
-                    borderRadius: BorderRadius.circular(27),
+                    borderRadius: BorderRadius.circular(34), // Melengkung khas Relio
+                    border: Border.all(
+                      color: Colors.white.withOpacity(0.045),
+                    ),
                   ),
                 ),
               ),
@@ -102,27 +124,25 @@ class _ChatInputState extends State<ChatInput> {
               // ==========================================
               Row(
                 children: [
-                  // Tombol Plus (+) statis di posisinya
-                  SizedBox(
-                    width: barHeight,
-                    height: barHeight,
-                    child: Center(
-                      child: FaIcon(
-                        FontAwesomeIcons.plus,
-                        size: 19,
-                        color: theme.textPrimary,
-                      ),
-                    ),
-                  ),
-
-                  // Konten area input yang ikut bergeser secara halus
+                  
+                  // Konten utama input yang ikut menyesuaikan lebar bar
                   Expanded(
                     child: AnimatedPadding(
                       duration: const Duration(milliseconds: 280),
                       curve: Curves.easeInOutCubic,
-                      padding: EdgeInsets.only(left: isFocused ? 8 : 0),
+                      padding: EdgeInsets.only(right: isFocused ? 12 : 0),
                       child: Row(
                         children: [
+                          // EMOJI (Paling Kiri)
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 20),
+                            child: FaIcon(
+                              FontAwesomeIcons.faceSmile,
+                              size: 23,
+                              color: theme.textSecondary.withOpacity(0.9),
+                            ),
+                          ),
+
                           // TEXT FIELD
                           Expanded(
                             child: TextField(
@@ -132,57 +152,58 @@ class _ChatInputState extends State<ChatInput> {
                               decoration: InputDecoration(
                                 border: InputBorder.none,
                                 isCollapsed: true,
-                                hintText: 'Balasan untuk ChatGPT...',
-                                contentPadding: const EdgeInsets.symmetric(vertical: 16),
+                                hintText: 'Message on Relio...',
+                                hintStyle: AppTextStyles.body(context).copyWith(
+                                  color: theme.textSecondary.withOpacity(0.72),
+                                ),
+                                contentPadding: const EdgeInsets.symmetric(vertical: 21),
                               ),
                             ),
                           ),
 
-                          // MIC ICON
+                          // ATTACHMENT (Paperclip selalu menetap di dalam pill)
                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            padding: const EdgeInsets.only(left: 10, right: 20),
                             child: FaIcon(
-                              FontAwesomeIcons.microphone,
-                              size: 19,
-                              color: theme.textSecondary.withOpacity(0.85),
-                            ),
-                          ),
-
-                          // RIGHT ACTION BUTTON (WAVE / SEND)
-                          Padding(
-                            padding: const EdgeInsets.only(right: 6),
-                            child: GestureDetector(
-                              onTap: hasText ? widget.onSend : null,
-                              child: AnimatedContainer(
-                                duration: const Duration(milliseconds: 200),
-                                height: 40,
-                                width: 40,
-                                decoration: BoxDecoration(
-                                  color: hasText ? AppColors.primary : Colors.blue[700],
-                                  shape: BoxShape.circle,
-                                ),
-                                child: Center(
-                                  child: AnimatedSwitcher(
-                                    duration: const Duration(milliseconds: 150),
-                                    child: hasText
-                                        ? const Icon(
-                                            Icons.arrow_upward_rounded,
-                                            key: ValueKey('send'),
-                                            color: Colors.white,
-                                            size: 22,
-                                          )
-                                        : const Icon(
-                                            Icons.graphic_eq_rounded,
-                                            key: ValueKey('wave'),
-                                            color: Colors.white,
-                                            size: 18,
-                                          ),
-                                    ),
-                                ),
-                              ),
+                              FontAwesomeIcons.paperclip,
+                              size: 23,
+                              color: theme.textSecondary.withOpacity(0.88),
                             ),
                           ),
                         ],
+                      ),
+                    ),
+                  ),
+
+                  // TOMBOL INTERAKSI MANDIRI (VOICE / SEND)
+                  SizedBox(
+                    width: barHeight,
+                    height: barHeight,
+                    child: Center(
+                      child: AnimatedSwitcher(
+                        duration: const Duration(milliseconds: 180),
+                        transitionBuilder: (child, animation) {
+                          return FadeTransition(
+                            opacity: animation,
+                            child: ScaleTransition(
+                              scale: animation,
+                              child: child,
+                            ),
+                          );
+                        },
+                        child: hasText
+                            ? const Icon(
+                                Icons.send_rounded,
+                                key: ValueKey('send'),
+                                color: Colors.white,
+                                size: 26,
+                              )
+                            : FaIcon(
+                                FontAwesomeIcons.microphone,
+                                key: const ValueKey('mic'),
+                                size: 22,
+                                color: isFocused ? theme.textPrimary : theme.textSecondary.withOpacity(0.88),
+                              ),
                       ),
                     ),
                   ),
