@@ -158,6 +158,7 @@ class _ChatInputState extends State<<ChatInput>
                     focusNode: _focusNode,
                     scrollController: _scrollController,
                     onSend: _handleSend,
+                    theme: theme,
                   ),
                 ],
               ),
@@ -240,6 +241,7 @@ class _Content extends StatelessWidget {
   final FocusNode focusNode;
   final ScrollController scrollController;
   final VoidCallback onSend;
+  final dynamic theme;
 
   const _Content({
     required this.eased,
@@ -250,12 +252,11 @@ class _Content extends StatelessWidget {
     required this.focusNode,
     required this.scrollController,
     required this.onSend,
+    required this.theme,
   });
 
   @override
   Widget build(BuildContext context) {
-    final theme = AppThemeExtension.of(context);
-
     return Row(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
@@ -346,13 +347,8 @@ class _ChatTextField extends StatelessWidget {
       expands: false,
       cursorColor: AppColors.primary,
       style: AppTextStyles.body(context),
-      
-      // KEY FIX: Cursor stick to bottom, not top
       textAlignVertical: TextAlignVertical.bottom,
-      
-      // Prevent extra scroll padding from pushing content
       scrollPadding: EdgeInsets.zero,
-
       decoration: InputDecoration(
         isDense: true,
         filled: false,
@@ -478,10 +474,10 @@ class _ActionButton extends StatelessWidget {
                 ? GestureDetector(
                     key: const ValueKey('send'),
                     onTap: onSend,
-                    child: const Icon(
-                      Icons.send_rounded,
+                    child: const FaIcon(
+                      FontAwesomeIcons.paperPlane,
                       color: Colors.white,
-                      size: 30,
+                      size: 26,
                     ),
                   )
                 : FaIcon(
