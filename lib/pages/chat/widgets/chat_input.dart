@@ -13,7 +13,7 @@ class ChatInput extends StatefulWidget {
   });
 
   @override
-  State<ChatInput> createState() => _ChatInputState();
+  State <ChatInput> createState() => _ChatInputState();
 }
 
 class _ChatInputState extends State<<ChatInput>
@@ -254,7 +254,7 @@ class _Content extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 _IconButton(
-                  icon: FontAwesomeIcons.faceSmile,
+                  FaIcon(FontAwesomeIcons.faceSmile),
                   padding: const EdgeInsets.only(
                     left: 22,
                     right: 16,
@@ -363,7 +363,7 @@ class _IconButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: padding,
-      child: Icon(icon, size: 26, color: color),
+      child: FaIcon(icon, size: 26, color: color),
     );
   }
 }
