@@ -519,14 +519,10 @@ class RelioComposerPainter
     }
 
     final buttonRadius =
-        radius *
-        (0.55 + (progress * 0.45));
+      radius * (0.92 + (progress * 0.08));
 
     final buttonLeft =
-        size.width -
-        (64 *
-            (0.72 +
-                progress * 0.28));
+      size.width - (64 * (progress * 0.96));
 
     final buttonRRect =
         RRect.fromLTRBR(
