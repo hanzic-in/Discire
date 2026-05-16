@@ -12,12 +12,51 @@ class ChatInput extends StatefulWidget {
     required this.onSend,
   });
 
-    @override
+  @override
+  State<ChatInput> createState() => _ChatInputState();
+}
+
+class _ChatInputState extends State<ChatInput> {
+  final FocusNode focusNode = FocusNode();
+  bool hasText = false;
+  bool isFocused = false;
+
+  @override
+  void initState() {
+    super.initState();
+    widget.controller.addListener(_onTextChanged);
+    focusNode.addListener(_onFocusChanged);
+  }
+
+  void _onTextChanged() {
+    final typing = widget.controller.text.trim().isNotEmpty;
+    if (typing != hasText) {
+      setState(() => hasText = typing);
+    }
+  }
+
+  void _onFocusChanged() {
+    if (focusNode.hasFocus != isFocused) {
+      setState(() => isFocused = focusNode.hasFocus);
+    }
+  }
+
+  @override
+  void dispose() {
+    widget.controller.removeListener(_onTextChanged);
+    focusNode.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final theme = AppThemeExtension.of(context);
     const double minBarHeight = 64.0; 
     
+    // Gap pemisah sisi kanan saat background utama ditarik mundur (memisah)
     final double rightGap = isFocused ? 76.0 : 0.0; 
+
+    // Margin horizontal dinamis: pas idle memendek ke tengah, pas fokus melebar penuh
     final double horizontalMargin = isFocused ? 0.0 : 32.0;
 
     return SafeArea(
@@ -25,15 +64,22 @@ class ChatInput extends StatefulWidget {
       child: AnimatedPadding(
         duration: const Duration(milliseconds: 300),
         curve: Curves.easeOutCubic,
-        padding: EdgeInsets.fromLTRB(14 + horizontalMargin, 0, 14 + horizontalMargin, 12),
+        padding: EdgeInsets.fromLTRB(
+          14 + horizontalMargin, 
+          0, 
+          14 + horizontalMargin, 
+          12,
+        ),
         child: IntrinsicHeight(
           child: Stack(
             children: [
               
               // ==========================================
-              // LAYER 1: BACKGROUND SYSTEM (DYNAMIC HEIGHT & WIDTH)
+              // LAYER 1: BACKGROUND SYSTEM (DYNAMIC EXPAND)
               // ==========================================
               
+              // 1a. Lingkaran Background Tombol Kanan (Voice / Send)
+              // Selalu standby di paling kanan bawah
               Positioned(
                 right: 0,
                 bottom: 0,
@@ -52,6 +98,8 @@ class ChatInput extends StatefulWidget {
                 ),
               ),
 
+              // 1b. Pill Background Utama (Main Composer)
+              // Menutup penuh pas idle, memendek ke kiri pas dapet fokus
               AnimatedPositioned(
                 duration: const Duration(milliseconds: 280),
                 curve: Curves.easeInOutCubic,
@@ -74,7 +122,7 @@ class ChatInput extends StatefulWidget {
               // LAYER 2: INTERFACES & ICONS (FOREGROUND)
               // ==========================================
               Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.end, // Komponen icon tetap di bawah saat field meninggi
                 children: [
                   Expanded(
                     child: AnimatedPadding(
@@ -84,7 +132,7 @@ class ChatInput extends StatefulWidget {
                       child: Container(
                         constraints: const BoxConstraints(
                           minHeight: minBarHeight,
-                          maxHeight: 160.0, 
+                          maxHeight: 160.0, // Batas maksimal tinggi bar sebelum scrollable
                         ),
                         alignment: Alignment.center,
                         child: Row(
@@ -100,7 +148,7 @@ class ChatInput extends StatefulWidget {
                               ),
                             ),
 
-                            // TEXT FIELD
+                            // TEXT FIELD (Bebas kotak overlay & support multi-line enter)
                             Expanded(
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(vertical: 18),
@@ -110,14 +158,16 @@ class ChatInput extends StatefulWidget {
                                   keyboardType: TextInputType.multiline,
                                   textInputAction: TextInputAction.newline,
                                   minLines: 1,
-                                  maxLines: 5,
+                                  maxLines: 5, // Otomatis bertambah tinggi hingga 5 baris
                                   style: AppTextStyles.body(context),
                                   cursorColor: AppColors.primary,
                                   decoration: InputDecoration(
                                     border: InputBorder.none,
                                     focusedBorder: InputBorder.none,
                                     enabledBorder: InputBorder.none,
-                                    isDense: true,
+                                    errorBorder: InputBorder.none,
+                                    disabledBorder: InputBorder.none,
+                                    isDense: true, // Membunuh kotak padding pembatas bawaan material SDK
                                     contentPadding: EdgeInsets.zero,
                                     hintText: 'Message on Relio...',
                                     hintStyle: AppTextStyles.body(context).copyWith(
