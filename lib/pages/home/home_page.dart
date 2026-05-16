@@ -22,13 +22,24 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     
     return Scaffold(
       backgroundColor: theme.background,
-      
       resizeToAvoidBottomInset: false,
       extendBody: true,
+      
       body: AnimatedSwitcher(
         duration: const Duration(milliseconds: 300),
         switchInCurve: Curves.easeOut,
         switchOutCurve: Curves.easeIn,
+        
+        layoutBuilder: (Widget? currentChild, List<Widget> previousChildren) {
+          return Stack(
+            alignment: Alignment.topLeft,
+            children: <Widget>[
+              ...previousChildren,
+              if (currentChild != null) currentChild,
+            ],
+          );
+        },
+        
         transitionBuilder: (child, animation) {
           return FadeTransition(
             opacity: animation,
