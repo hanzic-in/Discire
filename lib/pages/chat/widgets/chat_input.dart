@@ -16,7 +16,8 @@ class ChatInput extends StatefulWidget {
   State<ChatInput> createState() => _ChatInputState();
 }
 
-class _ChatInputState extends State<ChatInput> {
+class _ChatInputState extends State<ChatInput>
+    with TickerProviderStateMixin {
   final FocusNode focusNode = FocusNode();
 
   bool hasText = false;
@@ -61,306 +62,385 @@ class _ChatInputState extends State<ChatInput> {
   Widget build(BuildContext context) {
     final theme = AppThemeExtension.of(context);
 
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(
-        12,
-        0,
-        12,
-        24,
-      ),
-      child: Row(
-        crossAxisAlignment:
-            CrossAxisAlignment.end,
-        children: [
+    return SafeArea(
+      top: false,
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(
+          14,
+          0,
+          14,
+          12,
+        ),
+        child: Row(
+          crossAxisAlignment:
+              CrossAxisAlignment.end,
+          children: [
 
-          // MAIN INPUT
-          Expanded(
-            child: AnimatedContainer(
-              duration: const Duration(
-                milliseconds: 220,
-              ),
-
-              curve: Curves.easeOutCubic,
-
-              margin: EdgeInsets.only(
-                right: isFocused ? 10 : 0,
-              ),
-
-              constraints: const BoxConstraints(
-                minHeight: 58,
-                maxHeight: 140,
-              ),
-
-              padding:
-                  const EdgeInsets.symmetric(
-                horizontal: 18,
-              ),
-
-              decoration: BoxDecoration(
-                color:
-                    theme.card.withOpacity(0.88),
-
-                borderRadius:
-                    BorderRadius.circular(32),
-
-                border: Border.all(
-                  color: Colors.white
-                      .withOpacity(0.04),
+            // MAIN COMPOSER
+            Expanded(
+              child: AnimatedContainer(
+                duration: const Duration(
+                  milliseconds: 320,
                 ),
 
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black
-                        .withOpacity(0.20),
+                curve: Curves.easeOutQuart,
 
-                    blurRadius: 20,
-                    offset: const Offset(
-                      0,
-                      8,
-                    ),
-                  ),
-                ],
-              ),
+                margin: EdgeInsets.only(
+                  right: isFocused ? 6 : 0,
+                ),
 
-              child: Row(
-                crossAxisAlignment:
-                    CrossAxisAlignment.center,
-                children: [
+                constraints: const BoxConstraints(
+                  minHeight: 64,
+                  maxHeight: 150,
+                ),
 
-                  // EMOJI
-                  Padding(
-                    padding:
-                        const EdgeInsets.only(
-                      right: 12,
-                    ),
+                padding:
+                    const EdgeInsets.symmetric(
+                  horizontal: 20,
+                ),
 
-                    child: FaIcon(
-                      FontAwesomeIcons
-                          .faceSmile,
-                      size: 20,
-                      color: theme
-                          .textSecondary
-                          .withOpacity(0.85),
-                    ),
+                decoration: BoxDecoration(
+                  color:
+                      theme.card.withOpacity(0.94),
+
+                  borderRadius:
+                      BorderRadius.circular(
+                    34,
                   ),
 
-                  // TEXTFIELD
-                  Expanded(
-                    child: TextField(
-                      controller:
-                          widget.controller,
+                  border: Border.all(
+                    color: Colors.white
+                        .withOpacity(0.045),
+                  ),
 
-                      focusNode: focusNode,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black
+                          .withOpacity(0.22),
 
-                      minLines: 1,
-                      maxLines: 5,
-
-                      cursorColor:
-                          AppColors.primaryLight,
-
-                      style:
-                          AppTextStyles.body(
-                        context,
-                      ),
-
-                      decoration:
-                          InputDecoration(
-                        border:
-                            InputBorder.none,
-
-                        isCollapsed: true,
-
-                        hintText:
-                            'Message on Relio...',
-
-                        hintStyle:
-                            AppTextStyles
-                                .bodySecondary(
-                          context,
-                        ),
-
-                        contentPadding:
-                            const EdgeInsets.symmetric(
-                          vertical: 20,
-                        ),
+                      blurRadius: 24,
+                      offset: const Offset(
+                        0,
+                        10,
                       ),
                     ),
-                  ),
+                  ],
+                ),
 
-                  const SizedBox(width: 10),
+                child: Row(
+                  crossAxisAlignment:
+                      CrossAxisAlignment.center,
+                  children: [
 
-                  // ATTACH
-                  AnimatedSwitcher(
-                    duration:
-                        const Duration(
-                      milliseconds: 180,
-                    ),
-
-                    transitionBuilder:
-                        (
-                          child,
-                          animation,
-                        ) {
-                      return FadeTransition(
-                        opacity: animation,
-
-                        child:
-                            ScaleTransition(
-                          scale: animation,
-                          child: child,
-                        ),
-                      );
-                    },
-
-                    child: hasText
-                        ? const SizedBox
-                            .shrink()
-
-                        : Padding(
-                            key:
-                                const ValueKey(
-                              'attach',
-                            ),
-
-                            padding:
-                                EdgeInsets.only(
-                              right:
-                                  isFocused
-                                      ? 2
-                                      : 0,
-                            ),
-
-                            child: FaIcon(
-                              FontAwesomeIcons
-                                  .paperclip,
-
-                              size: 19,
-
-                              color: theme
-                                  .textSecondary
-                                  .withOpacity(
-                                    0.85,
-                                  ),
-                            ),
-                          ),
-                  ),
-
-                  // MIC INSIDE (IDLE)
-                  if (!isFocused)
+                    // EMOJI
                     Padding(
                       padding:
                           const EdgeInsets.only(
-                        left: 18,
+                        right: 14,
                       ),
 
                       child: FaIcon(
                         FontAwesomeIcons
-                            .microphone,
+                            .faceSmile,
 
-                        size: 20,
+                        size: 23,
 
                         color: theme
-                            .textSecondary,
+                            .textSecondary
+                            .withOpacity(0.9),
                       ),
                     ),
-                ],
+
+                    // TEXT FIELD
+                    Expanded(
+                      child: TextField(
+                        controller:
+                            widget.controller,
+
+                        focusNode: focusNode,
+
+                        minLines: 1,
+                        maxLines: 5,
+
+                        cursorColor:
+                            AppColors.primary,
+
+                        style:
+                            AppTextStyles.body(
+                          context,
+                        ),
+
+                        decoration:
+                            InputDecoration(
+                          border:
+                              InputBorder.none,
+
+                          isCollapsed: true,
+
+                          filled: false,
+
+                          hintText:
+                              'Message on Relio...',
+
+                          hintStyle:
+                              AppTextStyles
+                                  .body(
+                            context,
+                          ).copyWith(
+                            color: theme
+                                .textSecondary
+                                .withOpacity(
+                                  0.72,
+                                ),
+                          ),
+
+                          contentPadding:
+                              const EdgeInsets.symmetric(
+                            vertical: 21,
+                          ),
+                        ),
+                      ),
+                    ),
+
+                    // ATTACH
+                    AnimatedContainer(
+                      duration:
+                          const Duration(
+                        milliseconds: 320,
+                      ),
+
+                      curve:
+                          Curves.easeOutQuart,
+
+                      margin: EdgeInsets.only(
+                        left:
+                            isFocused ? 12 : 22,
+                      ),
+
+                      child: AnimatedOpacity(
+                        duration:
+                            const Duration(
+                          milliseconds: 180,
+                        ),
+
+                        opacity:
+                            hasText ? 0 : 1,
+
+                        child: FaIcon(
+                          FontAwesomeIcons
+                              .paperclip,
+
+                          size: 23,
+
+                          color: theme
+                              .textSecondary
+                              .withOpacity(
+                                0.88,
+                              ),
+                        ),
+                      ),
+                    ),
+
+                    // INSIDE MIC (IDLE)
+                    AnimatedContainer(
+                      duration:
+                          const Duration(
+                        milliseconds: 320,
+                      ),
+
+                      curve:
+                          Curves.easeOutQuart,
+
+                      width:
+                          isFocused ? 0 : 42,
+
+                      child: AnimatedOpacity(
+                        duration:
+                            const Duration(
+                          milliseconds: 180,
+                        ),
+
+                        opacity:
+                            isFocused ? 0 : 1,
+
+                        child: Padding(
+                          padding:
+                              const EdgeInsets.only(
+                            left: 18,
+                          ),
+
+                          child: FaIcon(
+                            FontAwesomeIcons
+                                .microphone,
+
+                            size: 23,
+
+                            color: theme
+                                .textSecondary
+                                .withOpacity(
+                                  0.88,
+                                ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
 
-          // SEND / MIC OUTSIDE
-          AnimatedSwitcher(
-            duration: const Duration(
-              milliseconds: 220,
-            ),
+            // OUTSIDE BUTTON
+            AnimatedSlide(
+              duration: const Duration(
+                milliseconds: 320,
+              ),
 
-            transitionBuilder:
-                (child, animation) {
-              return FadeTransition(
-                opacity: animation,
+              curve: Curves.easeOutQuart,
 
-                child: ScaleTransition(
-                  scale: animation,
-                  child: child,
+              offset: isFocused
+                  ? Offset.zero
+                  : const Offset(0.4, 0),
+
+              child: AnimatedOpacity(
+                duration: const Duration(
+                  milliseconds: 220,
                 ),
-              );
-            },
 
-            child: isFocused
-                ? hasText
-                    ? _sendButton(theme)
-                    : _voiceButton(theme)
+                opacity: isFocused ? 1 : 0,
 
-                : const SizedBox.shrink(),
-          ),
-        ],
-      ),
-    );
-  }
+                child: Padding(
+                  padding:
+                      const EdgeInsets.only(
+                    left: 2,
+                  ),
 
-  Widget _voiceButton(
-    AppThemeExtension theme,
-  ) {
-    return Container(
-      key: const ValueKey('voice'),
+                  child: GestureDetector(
+                    onTap:
+                        hasText
+                            ? widget.onSend
+                            : () {},
 
-      height: 58,
-      width: 58,
+                    child: AnimatedContainer(
+                      duration:
+                          const Duration(
+                        milliseconds: 220,
+                      ),
 
-      decoration: BoxDecoration(
-        color: theme.card.withOpacity(0.92),
+                      height: 64,
+                      width: 64,
 
-        shape: BoxShape.circle,
+                      decoration: BoxDecoration(
+                        gradient:
+                            hasText
+                                ? const LinearGradient(
+                                  colors: [
+                                    AppColors
+                                        .primaryLight,
+                                    AppColors
+                                        .primary,
+                                  ],
+                                )
 
-        boxShadow: [
-          BoxShadow(
-            color:
-                Colors.black.withOpacity(0.22),
+                                : null,
 
-            blurRadius: 20,
-            offset: const Offset(0, 8),
-          ),
-        ],
-      ),
+                        color:
+                            hasText
+                                ? null
+                                : theme.card
+                                    .withOpacity(
+                                      0.96,
+                                    ),
 
-      child: Center(
-        child: FaIcon(
-          FontAwesomeIcons.microphone,
-          size: 20,
-          color: theme.textPrimary,
-        ),
-      ),
-    );
-  }
+                        shape: BoxShape.circle,
 
-  Widget _sendButton(
-    AppThemeExtension theme,
-  ) {
-    return GestureDetector(
-      key: const ValueKey('send'),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black
+                                .withOpacity(
+                                  0.24,
+                                ),
 
-      onTap: widget.onSend,
+                            blurRadius: 24,
 
-      child: Container(
-        height: 58,
-        width: 58,
+                            offset:
+                                const Offset(
+                                  0,
+                                  10,
+                                ),
+                          ),
+                        ],
+                      ),
 
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              AppColors.primaryLight,
-              AppColors.primary,
-            ],
-          ),
+                      child: Center(
+                        child: AnimatedSwitcher(
+                          duration:
+                              const Duration(
+                            milliseconds:
+                                180,
+                          ),
 
-          shape: BoxShape.circle,
-        ),
+                          transitionBuilder:
+                              (
+                                child,
+                                animation,
+                              ) {
+                            return FadeTransition(
+                              opacity:
+                                  animation,
 
-        child: const Center(
-          child: Icon(
-            Icons.send_rounded,
-            color: Colors.white,
-          ),
+                              child:
+                                  ScaleTransition(
+                                scale:
+                                    animation,
+                                child:
+                                    child,
+                              ),
+                            );
+                          },
+
+                          child:
+                              hasText
+                                  ? const Icon(
+                                    Icons
+                                        .send_rounded,
+
+                                    key:
+                                        ValueKey(
+                                          'send',
+                                        ),
+
+                                    color:
+                                        Colors
+                                            .white,
+
+                                    size:
+                                        28,
+                                  )
+
+                                  : FaIcon(
+                                    FontAwesomeIcons
+                                        .microphone,
+
+                                    key:
+                                        const ValueKey(
+                                          'mic',
+                                        ),
+
+                                    size:
+                                        23,
+
+                                    color:
+                                        theme
+                                            .textPrimary,
+                                  ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
