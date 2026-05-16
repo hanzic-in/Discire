@@ -39,7 +39,10 @@ class _ChatInputState extends State<ChatInput> {
 
   @override
   void dispose() {
-    widget.controller.removeListener(_onTextChanged);
+    widget.controller.removeListener(
+      _onTextChanged,
+    );
+
     super.dispose();
   }
 
@@ -47,88 +50,92 @@ class _ChatInputState extends State<ChatInput> {
   Widget build(BuildContext context) {
     final theme = AppThemeExtension.of(context);
 
-    return Container(
-      margin: const EdgeInsets.fromLTRB(
-        AppSpacing.md,
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(
+        12,
         0,
-        AppSpacing.md,
-        AppSpacing.xl,
-      ),
-      padding: const EdgeInsets.all(6),
-      decoration: BoxDecoration(
-        color: theme.background.withOpacity(0.82),
-
-        borderRadius: BorderRadius.circular(32),
-
-        border: Border.all(
-          color: theme.divider.withOpacity(0.08),
-        ),
-
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.22),
-            blurRadius: 24,
-            offset: const Offset(0, 10),
-          ),
-        ],
+        12,
+        24,
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
 
-          // EMOJI
-          _circleButton(
-            context,
-            icon: FontAwesomeIcons.faceSmile,
-            onTap: () {},
-          ),
-
-          const SizedBox(width: AppSpacing.sm),
-
-          // INPUT
+          // MAIN INPUT PILL
           Expanded(
             child: Container(
               constraints: const BoxConstraints(
-                minHeight: 56,
+                minHeight: 58,
                 maxHeight: 140,
               ),
-              padding: const EdgeInsets.symmetric(
-                horizontal: AppSpacing.md,
-              ),
-              decoration: BoxDecoration(
-                color: theme.searchBar.withOpacity(0.45),
 
-                borderRadius: BorderRadius.circular(
-                  AppRadius.pill,
-                ),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 14,
+              ),
+
+              decoration: BoxDecoration(
+                color: theme.card.withOpacity(0.88),
+
+                borderRadius:
+                    BorderRadius.circular(32),
 
                 border: Border.all(
-                  color: theme.searchBarBorder
-                      .withOpacity(0.45),
+                  color: Colors.white
+                      .withOpacity(0.04),
                 ),
+
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black
+                        .withOpacity(0.20),
+
+                    blurRadius: 20,
+                    offset: const Offset(0, 8),
+                  ),
+                ],
               ),
+
               child: Row(
                 crossAxisAlignment:
                     CrossAxisAlignment.end,
                 children: [
 
-                  // TEXT FIELD
+                  // EMOJI
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      bottom: 16,
+                      right: 12,
+                    ),
+
+                    child: FaIcon(
+                      FontAwesomeIcons.faceSmile,
+                      size: 19,
+                      color: theme.textSecondary,
+                    ),
+                  ),
+
+                  // TEXTFIELD
                   Expanded(
                     child: TextField(
                       controller: widget.controller,
+
                       minLines: 1,
                       maxLines: 5,
-                      cursorColor: AppColors.primary,
+
+                      cursorColor:
+                          AppColors.primaryLight,
+
                       style:
-                          AppTextStyles.body(context),
+                          AppTextStyles.body(
+                        context,
+                      ),
 
                       decoration: InputDecoration(
                         border: InputBorder.none,
                         isCollapsed: true,
-                        filled: false,
 
                         hintText:
-                            "Message on Relio...",
+                            'Message on Relio...',
 
                         hintStyle:
                             AppTextStyles
@@ -144,7 +151,7 @@ class _ChatInputState extends State<ChatInput> {
                     ),
                   ),
 
-                  const SizedBox(width: AppSpacing.sm),
+                  const SizedBox(width: 8),
 
                   // ATTACH + CAMERA
                   AnimatedSwitcher(
@@ -156,6 +163,7 @@ class _ChatInputState extends State<ChatInput> {
                         (child, animation) {
                       return FadeTransition(
                         opacity: animation,
+
                         child: ScaleTransition(
                           scale: animation,
                           child: child,
@@ -171,46 +179,46 @@ class _ChatInputState extends State<ChatInput> {
                                 const ValueKey(
                               'actions',
                             ),
+
                             children: [
 
                               // ATTACH
-                              GestureDetector(
-                                onTap: () {},
-                                child: Padding(
-                                  padding:
-                                      const EdgeInsets.only(
-                                    bottom: 16,
-                                  ),
-                                  child: FaIcon(
-                                    FontAwesomeIcons
-                                        .paperclip,
-                                    size: 17,
-                                    color: theme
-                                        .textSecondary,
-                                  ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(
+                                  bottom: 16,
+                                ),
+
+                                child: FaIcon(
+                                  FontAwesomeIcons
+                                      .paperclip,
+
+                                  size: 18,
+
+                                  color: theme
+                                      .textSecondary,
                                 ),
                               ),
 
                               const SizedBox(
-                                width:
-                                    AppSpacing.md,
+                                width: 16,
                               ),
 
                               // CAMERA
-                              GestureDetector(
-                                onTap: () {},
-                                child: Padding(
-                                  padding:
-                                      const EdgeInsets.only(
-                                    bottom: 16,
-                                  ),
-                                  child: FaIcon(
-                                    FontAwesomeIcons
-                                        .camera,
-                                    size: 17,
-                                    color: theme
-                                        .textSecondary,
-                                  ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(
+                                  bottom: 16,
+                                ),
+
+                                child: FaIcon(
+                                  FontAwesomeIcons
+                                      .camera,
+
+                                  size: 18,
+
+                                  color: theme
+                                      .textSecondary,
                                 ),
                               ),
                             ],
@@ -221,9 +229,9 @@ class _ChatInputState extends State<ChatInput> {
             ),
           ),
 
-          const SizedBox(width: AppSpacing.sm),
+          const SizedBox(width: 10),
 
-          // SEND / VOICE
+          // MIC / SEND
           AnimatedSwitcher(
             duration: const Duration(
               milliseconds: 180,
@@ -233,6 +241,7 @@ class _ChatInputState extends State<ChatInput> {
                 (child, animation) {
               return ScaleTransition(
                 scale: animation,
+
                 child: FadeTransition(
                   opacity: animation,
                   child: child,
@@ -249,6 +258,39 @@ class _ChatInputState extends State<ChatInput> {
     );
   }
 
+  Widget _voiceButton(
+    AppThemeExtension theme,
+  ) {
+    return Container(
+      key: const ValueKey('voice'),
+
+      height: 58,
+      width: 58,
+
+      decoration: BoxDecoration(
+        color: theme.card.withOpacity(0.92),
+
+        shape: BoxShape.circle,
+
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.22),
+            blurRadius: 20,
+            offset: const Offset(0, 8),
+          ),
+        ],
+      ),
+
+      child: Center(
+        child: FaIcon(
+          FontAwesomeIcons.microphone,
+          size: 20,
+          color: theme.textPrimary,
+        ),
+      ),
+    );
+  }
+
   Widget _sendButton(
     AppThemeExtension theme,
   ) {
@@ -258,8 +300,8 @@ class _ChatInputState extends State<ChatInput> {
       onTap: widget.onSend,
 
       child: Container(
-        height: 56,
-        width: 56,
+        height: 58,
+        width: 58,
 
         decoration: const BoxDecoration(
           gradient: LinearGradient(
@@ -268,74 +310,14 @@ class _ChatInputState extends State<ChatInput> {
               AppColors.primary,
             ],
           ),
-          shape: BoxShape.circle,
-        ),
-
-        child: const Icon(
-          Icons.send_rounded,
-          color: Colors.white,
-        ),
-      ),
-    );
-  }
-
-  Widget _voiceButton(
-    AppThemeExtension theme,
-  ) {
-    return Container(
-      key: const ValueKey('voice'),
-
-      height: 56,
-      width: 56,
-
-      decoration: BoxDecoration(
-        color: theme.card.withOpacity(0.7),
-        shape: BoxShape.circle,
-
-        border: Border.all(
-          color: theme.divider.withOpacity(0.12),
-        ),
-      ),
-
-      child: Center(
-        child: FaIcon(
-          FontAwesomeIcons.microphone,
-          size: 18,
-          color: theme.textSecondary,
-        ),
-      ),
-    );
-  }
-
-  Widget _circleButton(
-    BuildContext context, {
-    required FaIconData icon,
-    required VoidCallback onTap,
-  }) {
-    final theme = AppThemeExtension.of(context);
-
-    return GestureDetector(
-      onTap: onTap,
-
-      child: Container(
-        height: 52,
-        width: 52,
-
-        decoration: BoxDecoration(
-          color: theme.card.withOpacity(0.7),
 
           shape: BoxShape.circle,
-
-          border: Border.all(
-            color: theme.divider.withOpacity(0.12),
-          ),
         ),
 
-        child: Center(
-          child: FaIcon(
-            icon,
-            size: 18,
-            color: theme.textSecondary,
+        child: const Center(
+          child: Icon(
+            Icons.send_rounded,
+            color: Colors.white,
           ),
         ),
       ),
