@@ -16,211 +16,359 @@ class ChatInput extends StatefulWidget {
   State<ChatInput> createState() => _ChatInputState();
 }
 
-class _ChatInputState extends State<ChatInput> with SingleTickerProviderStateMixin {
+class _ChatInputState extends State<ChatInput>
+    with SingleTickerProviderStateMixin {
   final FocusNode focusNode = FocusNode();
+
   bool hasText = false;
   bool isFocused = false;
 
-  late AnimationController _animationController;
-  late Animation<double> _splitAnimation;
+  late AnimationController animationController;
+  late Animation<double> splitAnimation;
 
   @override
   void initState() {
     super.initState();
+
     widget.controller.addListener(_onTextChanged);
     focusNode.addListener(_onFocusChanged);
 
-    _animationController = AnimationController(
+    animationController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 380),
+      duration: const Duration(
+        milliseconds: 420,
+      ),
     );
 
-    _splitAnimation = CurvedAnimation(
-      parent: _animationController,
-      curve: Curves.easeInOutCubic,
+    splitAnimation = CurvedAnimation(
+      parent: animationController,
+      curve: Curves.easeOutQuart,
     );
   }
 
   void _onTextChanged() {
-    final typing = widget.controller.text.trim().isNotEmpty;
+    final typing =
+        widget.controller.text.trim().isNotEmpty;
+
     if (typing != hasText) {
-      setState(() => hasText = typing);
+      setState(() {
+        hasText = typing;
+      });
     }
   }
 
   void _onFocusChanged() {
-    if (focusNode.hasFocus != isFocused) {
-      setState(() => isFocused = focusNode.hasFocus);
-      if (focusNode.hasFocus) {
-        _animationController.forward();
+    final focused = focusNode.hasFocus;
+
+    if (focused != isFocused) {
+      setState(() {
+        isFocused = focused;
+      });
+
+      if (focused) {
+        animationController.forward();
       } else {
-        _animationController.reverse();
+        animationController.reverse();
       }
     }
   }
 
   @override
   void dispose() {
-    widget.controller.removeListener(_onTextChanged);
+    widget.controller.removeListener(
+      _onTextChanged,
+    );
+
     focusNode.dispose();
-    _animationController.dispose();
+    animationController.dispose();
+
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     final theme = AppThemeExtension.of(context);
-    const double barHeight = 64.0; 
+
+    const double composerHeight = 64;
 
     return SafeArea(
       top: false,
       child: AnimatedBuilder(
-        animation: _splitAnimation,
+        animation: splitAnimation,
+
         builder: (context, child) {
-          final double value = _splitAnimation.value;
-          // Mengatur ciut lebar bar saat idle ke fokus
-          final double horizontalMargin = (1 - value) * 32.0;
-          final double rightGap = value * 76.0;
+          final value = splitAnimation.value;
+
+          final rightGap = value * 78;
+
+          final sidePadding =
+              (1 - value) * 28;
 
           return Padding(
-            padding: EdgeInsets.fromLTRB(14 + horizontalMargin, 0, 14 + horizontalMargin, 12),
-            child: IntrinsicHeight(
+            padding: EdgeInsets.fromLTRB(
+              14 + sidePadding,
+              0,
+              14 + sidePadding,
+              12,
+            ),
+
+            child: SizedBox(
+              height: composerHeight,
+
               child: Stack(
                 children: [
-                  
-                  // ==========================================
-                  // LAYER 1: GOOEY CUSTOM PAINTER (BACKGROUND)
-                  // Menggambar efek melar organik yang tajam dan anti-gerigi
-                  // ==========================================
+
+                  // BACKGROUND SHAPE
                   Positioned.fill(
                     child: CustomPaint(
-                      painter: GooeySplitPainter(
+                      painter: RelioComposerPainter(
                         progress: value,
-                        color: theme.card.withOpacity(0.94),
                         rightGap: rightGap,
-                        barHeight: barHeight,
+                        backgroundColor:
+                            theme.card.withOpacity(
+                          0.95,
+                        ),
+
                         hasText: hasText,
-                        activeColor: AppColors.primary,
-                        activeColorLight: AppColors.primaryLight,
+
+                        activeColor:
+                            AppColors.primary,
+
+                        activeColorLight:
+                            AppColors.primaryLight,
                       ),
                     ),
                   ),
 
-                  // Border halus luar pembungkus komposer
-                  AnimatedPositioned(
-                    duration: const Duration(milliseconds: 380),
-                    curve: Curves.easeInOutCubic,
-                    left: 0,
-                    right: rightGap,
-                    top: 0,
-                    bottom: 0,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(34),
-                        border: Border.all(
-                          color: Colors.white.withOpacity(0.045),
+                  // BORDER
+                  Positioned.fill(
+                    child: IgnorePointer(
+                      child: CustomPaint(
+                        painter:
+                            RelioComposerBorderPainter(
+                          progress: value,
+                          rightGap: rightGap,
                         ),
                       ),
                     ),
                   ),
 
-                  // ==========================================
-                  // LAYER 2: FOREGROUND CONTENT (INTERFACES)
-                  // ==========================================
+                  // CONTENT
                   Row(
-                    crossAxisAlignment: CrossAxisAlignment.end,
+                    crossAxisAlignment:
+                        CrossAxisAlignment.center,
                     children: [
+
+                      // MAIN COMPOSER
                       Expanded(
-                        child: AnimatedPadding(
-                          duration: const Duration(milliseconds: 380),
-                          curve: Curves.easeInOutCubic,
-                          padding: EdgeInsets.only(right: isFocused ? 12 : 0),
-                          child: Container(
-                            constraints: const BoxConstraints(
-                              minHeight: barHeight,
-                              maxHeight: 160.0,
-                            ),
-                            alignment: Alignment.center,
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
-                                  child: FaIcon(
-                                    FontAwesomeIcons.faceSmile,
-                                    size: 23,
-                                    color: theme.textSecondary.withOpacity(0.9),
-                                  ),
+                        child: Padding(
+                          padding:
+                              EdgeInsets.only(
+                            right:
+                                value * 10,
+                          ),
+
+                          child: Row(
+                            children: [
+
+                              // EMOJI
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(
+                                  left: 22,
+                                  right: 18,
                                 ),
-                                Expanded(
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(vertical: 18),
-                                    child: TextField(
-                                      controller: widget.controller,
-                                      focusNode: focusNode,
-                                      keyboardType: TextInputType.multiline,
-                                      textInputAction: TextInputAction.newline,
-                                      minLines: 1,
-                                      maxLines: 5,
-                                      style: AppTextStyles.body(context),
-                                      cursorColor: AppColors.primary,
-                                      decoration: InputDecoration(
-                                        border: InputBorder.none,
-                                        focusedBorder: InputBorder.none,
-                                        enabledBorder: InputBorder.none,
-                                        isDense: true,
-                                        contentPadding: EdgeInsets.zero,
-                                        hintText: 'Message on Relio...',
-                                        hintStyle: AppTextStyles.body(context).copyWith(
-                                          color: theme.textSecondary.withOpacity(0.72),
-                                        ),
+
+                                child: FaIcon(
+                                  FontAwesomeIcons
+                                      .faceSmile,
+
+                                  size: 23,
+
+                                  color: theme
+                                      .textSecondary
+                                      .withOpacity(
+                                        0.9,
                                       ),
+                                ),
+                              ),
+
+                              // TEXTFIELD
+                              Expanded(
+                                child: TextField(
+                                  controller:
+                                      widget
+                                          .controller,
+
+                                  focusNode:
+                                      focusNode,
+
+                                  minLines: 1,
+                                  maxLines: 5,
+
+                                  cursorColor:
+                                      AppColors
+                                          .primary,
+
+                                  style:
+                                      AppTextStyles
+                                          .body(
+                                    context,
+                                  ),
+
+                                  decoration:
+                                      InputDecoration(
+                                    border:
+                                        InputBorder
+                                            .none,
+
+                                    isCollapsed:
+                                        true,
+
+                                    hintText:
+                                        'Message on Relio...',
+
+                                    hintStyle:
+                                        AppTextStyles
+                                            .body(
+                                      context,
+                                    ).copyWith(
+                                      color: theme
+                                          .textSecondary
+                                          .withOpacity(
+                                            0.72,
+                                          ),
                                     ),
                                   ),
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 10, right: 20, bottom: 20),
+                              ),
+
+                              // ATTACH
+                              AnimatedOpacity(
+                                duration:
+                                    const Duration(
+                                  milliseconds:
+                                      180,
+                                ),
+
+                                opacity:
+                                    hasText
+                                        ? 0
+                                        : 1,
+
+                                child: Padding(
+                                  padding:
+                                      EdgeInsets.only(
+                                    left:
+                                        18 +
+                                        (value *
+                                            6),
+
+                                    right: 20,
+                                  ),
+
                                   child: FaIcon(
-                                    FontAwesomeIcons.paperclip,
+                                    FontAwesomeIcons
+                                        .paperclip,
+
                                     size: 23,
-                                    color: theme.textSecondary.withOpacity(0.88),
+
+                                    color: theme
+                                        .textSecondary
+                                        .withOpacity(
+                                          0.88,
+                                        ),
                                   ),
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                         ),
                       ),
 
-                      // TOMBOL VOICE / SEND
+                      // RIGHT BUTTON
                       SizedBox(
-                        width: barHeight,
-                        height: barHeight,
+                        width: composerHeight,
+                        height: composerHeight,
+
                         child: Center(
-                          child: AnimatedSwitcher(
-                            duration: const Duration(milliseconds: 200),
-                            transitionBuilder: (child, animation) {
-                              return FadeTransition(
-                                opacity: animation,
-                                child: ScaleTransition(
-                                  scale: animation,
-                                  child: child,
-                                ),
-                              );
-                            },
-                            child: hasText
-                                ? const Icon(
-                                    Icons.send_rounded,
-                                    key: ValueKey('send'),
-                                    color: Colors.white,
-                                    size: 26,
-                                  )
-                                : FaIcon(
-                                    FontAwesomeIcons.microphone,
-                                    key: const ValueKey('mic'),
-                                    size: 22,
-                                    color: isFocused ? theme.textPrimary : theme.textSecondary.withOpacity(0.88),
+                          child:
+                              Transform.translate(
+                            offset: Offset(
+                              (1 - value) *
+                                  -6,
+                              0,
+                            ),
+
+                            child:
+                                AnimatedSwitcher(
+                              duration:
+                                  const Duration(
+                                milliseconds:
+                                    180,
+                              ),
+
+                              transitionBuilder:
+                                  (
+                                    child,
+                                    animation,
+                                  ) {
+                                return FadeTransition(
+                                  opacity:
+                                      animation,
+
+                                  child:
+                                      ScaleTransition(
+                                    scale:
+                                        animation,
+                                    child:
+                                        child,
                                   ),
+                                );
+                              },
+
+                              child:
+                                  hasText
+                                      ? const Icon(
+                                        Icons
+                                            .send_rounded,
+
+                                        key:
+                                            ValueKey(
+                                              'send',
+                                            ),
+
+                                        color:
+                                            Colors
+                                                .white,
+
+                                        size:
+                                            28,
+                                      )
+
+                                      : FaIcon(
+                                        FontAwesomeIcons
+                                            .microphone,
+
+                                        key:
+                                            const ValueKey(
+                                              'mic',
+                                            ),
+
+                                        size:
+                                            22,
+
+                                        color:
+                                            isFocused
+                                                ? theme
+                                                    .textPrimary
+                                                : theme
+                                                    .textSecondary
+                                                    .withOpacity(
+                                                      0.88,
+                                                    ),
+                                      ),
+                            ),
                           ),
                         ),
                       ),
@@ -236,23 +384,26 @@ class _ChatInputState extends State<ChatInput> with SingleTickerProviderStateMix
   }
 }
 
-// ==========================================
-// CUSTOM PAINTER UNTUK EFEK JELI LENGKET (ANTI-ALIASED)
-// ==========================================
-class GooeySplitPainter extends CustomPainter {
+// =========================
+// MAIN SHAPE
+// =========================
+
+class RelioComposerPainter
+    extends CustomPainter {
   final double progress;
-  final Color color;
   final double rightGap;
-  final double barHeight;
+
+  final Color backgroundColor;
+
   final bool hasText;
+
   final Color activeColor;
   final Color activeColorLight;
 
-  GooeySplitPainter({
+  RelioComposerPainter({
     required this.progress,
-    required this.color,
     required this.rightGap,
-    required this.barHeight,
+    required this.backgroundColor,
     required this.hasText,
     required this.activeColor,
     required this.activeColorLight,
@@ -260,72 +411,197 @@ class GooeySplitPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
+    const double radius = 32;
+
     final paint = Paint()
-      ..color = color
       ..style = PaintingStyle.fill
-      ..isAntiAlias = true; // Kunci biar super halus halus tipis pinggirannya
+      ..isAntiAlias = true;
 
-    final radius = barHeight / 2;
-    final mainPillRight = size.width - rightGap;
+    final mainRight =
+        size.width - rightGap;
 
-    // 1. Gambar Main Composer Pill (Sisi Kiri)
-    final mainRRect = RRect.fromLTRBR(0, 0, mainPillRight, size.height, Radius.circular(radius));
+    // MAIN PILL
+    paint.color = backgroundColor;
+
+    final mainRRect = RRect.fromLTRBR(
+      0,
+      0,
+      mainRight,
+      size.height,
+      const Radius.circular(radius),
+    );
+
     canvas.drawRRect(mainRRect, paint);
 
-    // 2. Gambar Jembatan Jeli/Elastis (Hanya muncul pas progress 5% - 75%)
-    if (progress > 0.05 && progress < 0.75) {
+    // GOOEY BRIDGE
+    if (progress > 0.04 &&
+        progress < 0.88) {
       final path = Path();
-      // Faktor ketebalan jembatan yang makin mengecil saat ditarik jauh
-      final gooeyFactor = (1 - (progress / 0.75)).clamp(0.0, 1.0);
-      final bridgeHeight = radius * gooeyFactor;
 
-      final startX = mainPillRight - radius;
-      final endX = size.width - radius;
-      final centerY = size.height / 2;
+      final gooeyFactor =
+          (1 - (progress / 0.88))
+              .clamp(0.0, 1.0);
 
-      path.moveTo(startX, centerY - radius);
-      // Kurva atas jembatan jeli
-      path.cubicTo(
-        startX + (rightGap * 0.3), centerY - bridgeHeight,
-        endX - (rightGap * 0.3), centerY - bridgeHeight,
-        endX, centerY - radius,
+      final bridgeHeight =
+          radius *
+          0.62 *
+          gooeyFactor;
+
+      final startX =
+          mainRight - radius;
+
+      final endX =
+          size.width - radius;
+
+      final centerY =
+          size.height / 2;
+
+      path.moveTo(
+        startX,
+        centerY - radius,
       );
-      path.lineTo(endX, centerY + radius);
-      // Kurva bawah jembatan jeli
+
       path.cubicTo(
-        endX - (rightGap * 0.3), centerY + bridgeHeight,
-        startX + (rightGap * 0.3), centerY + bridgeHeight,
-        startX, centerY + radius,
+        startX + (rightGap * 0.28),
+        centerY - bridgeHeight,
+
+        endX - (rightGap * 0.32),
+        centerY - bridgeHeight,
+
+        endX,
+        centerY - radius,
       );
+
+      path.lineTo(
+        endX,
+        centerY + radius,
+      );
+
+      path.cubicTo(
+        endX - (rightGap * 0.32),
+        centerY + bridgeHeight,
+
+        startX + (rightGap * 0.28),
+        centerY + bridgeHeight,
+
+        startX,
+        centerY + radius,
+      );
+
       path.close();
+
       canvas.drawPath(path, paint);
     }
 
-    // 3. Gambar Bulatan Kanannya
+    // RIGHT BUTTON
     final buttonPaint = Paint()
       ..style = PaintingStyle.fill
       ..isAntiAlias = true;
 
     if (hasText) {
-      buttonPaint.shader = LinearGradient(
-        colors: [activeColorLight, activeColor],
-      ).createShader(Rect.fromLTWH(size.width - barHeight, size.height - barHeight, barHeight, barHeight));
+      buttonPaint.shader =
+          LinearGradient(
+            colors: [
+              activeColorLight,
+              activeColor,
+            ],
+          ).createShader(
+            Rect.fromLTWH(
+              size.width - 64,
+              0,
+              64,
+              64,
+            ),
+          );
     } else {
-      buttonPaint.color = color;
+      buttonPaint.color =
+          backgroundColor;
     }
 
-    canvas.drawCircle(
-      Offset(size.width - radius, size.height - radius),
-      radius,
+    final buttonRadius =
+        radius *
+        (0.55 + (progress * 0.45));
+
+    final buttonLeft =
+        size.width -
+        (64 *
+            (0.72 +
+                progress * 0.28));
+
+    final buttonRRect =
+        RRect.fromLTRBR(
+          buttonLeft,
+          0,
+          size.width,
+          size.height,
+          Radius.circular(
+            buttonRadius,
+          ),
+        );
+
+    canvas.drawRRect(
+      buttonRRect,
       buttonPaint,
     );
   }
 
   @override
-  bool overrideWithDevicePixelRatio() => true;
+  bool shouldRepaint(
+    covariant RelioComposerPainter old,
+  ) {
+    return old.progress != progress ||
+        old.hasText != hasText;
+  }
+}
+
+// =========================
+// BORDER
+// =========================
+
+class RelioComposerBorderPainter
+    extends CustomPainter {
+  final double progress;
+  final double rightGap;
+
+  RelioComposerBorderPainter({
+    required this.progress,
+    required this.rightGap,
+  });
 
   @override
-  bool shouldRepaint(covariant GooeySplitPainter oldDelegate) {
-    return oldDelegate.progress != progress || oldDelegate.hasText != hasText;
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..color =
+          Colors.white.withOpacity(
+        0.045,
+      )
+
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 1
+      ..isAntiAlias = true;
+
+    final radius = 32.0;
+
+    final mainRight =
+        size.width - rightGap;
+
+    final rect = RRect.fromLTRBR(
+      0,
+      0,
+      mainRight,
+      size.height,
+      Radius.circular(radius),
+    );
+
+    canvas.drawRRect(rect, paint);
+  }
+
+  @override
+  bool shouldRepaint(
+    covariant RelioComposerBorderPainter
+        oldDelegate,
+  ) {
+    return oldDelegate.progress !=
+        progress;
   }
 }
