@@ -80,15 +80,13 @@ class _GroupsPageState extends State<GroupsPage> {
   @override
   Widget build(BuildContext context) {
     final theme = AppThemeExtension.of(context);
-    
     final double staticGradientHeight = MediaQuery.sizeOf(context).height * 0.42;
-    
-    final double keyboardHeight = MediaQuery.viewInsetsOf(context).bottom;
 
     return MainLayout(
       usePadding: false,
       child: Stack(
         children: [
+          // Gradient Background
           Positioned(
             top: 0,
             left: 0,
@@ -105,22 +103,26 @@ class _GroupsPageState extends State<GroupsPage> {
               ),
             ),
           ),
-
           SafeArea(
             bottom: false,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                // REUSABLE HEADER
                 const AppHeader(
                   title: 'Groups',
                   subtitle: 'Find your people',
                 ),
+
+                // REUSABLE SEARCH
                 AppSearchBar(
                   hint: 'Search groups...',
                   onChanged: (value) => setState(() => searchQuery = value),
                 ),
 
                 const SizedBox(height: AppSpacing.xl),
+
+                // REUSABLE TABS
                 FilterChips(
                   items: tabs,
                   selectedIndex: currentTab,
@@ -132,11 +134,11 @@ class _GroupsPageState extends State<GroupsPage> {
                 // GRID
                 Expanded(
                   child: GridView.builder(
-                    padding: EdgeInsets.fromLTRB(
+                    padding: const EdgeInsets.fromLTRB(
                       AppSpacing.screenPadding, 
                       0,
                       AppSpacing.screenPadding, 
-                      140 + keyboardHeight,
+                      140,
                     ),
                     physics: const BouncingScrollPhysics(),
                     itemCount: filteredGroups.length,
