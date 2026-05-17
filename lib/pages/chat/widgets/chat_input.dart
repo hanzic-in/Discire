@@ -251,7 +251,7 @@ class _Content extends StatelessWidget {
           child: Padding(
             padding: EdgeInsets.only(right: eased * 12),
             child: Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 _IconButton(
                   icon: HugeIcon(
@@ -266,7 +266,7 @@ class _Content extends StatelessWidget {
                 ),
                 Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.only(bottom: 1),
+                    padding: const EdgeInsets.zero
                     child: ConstrainedBox(
                       constraints: const BoxConstraints(
                         minHeight: 32,
@@ -330,7 +330,7 @@ class _ChatTextField extends StatelessWidget {
       cursorColor: AppColors.primary,
       style: AppTextStyles.body(context).copyWith(
         fontSize: 16,
-        height: 1.25,
+        height: 1.0,
         ),
       textAlignVertical: TextAlignVertical.center,
       
@@ -346,12 +346,12 @@ class _ChatTextField extends StatelessWidget {
         errorBorder: InputBorder.none,
         focusedErrorBorder: InputBorder.none,
         
-        contentPadding: const EdgeInsets.symmetric(vertical: 4),
+        contentPadding: const EdgeInsets.zero
         
         hintText: 'Type Message...',
         hintStyle: AppTextStyles.body(context).copyWith(
           fontSize: 16,
-          height: 1.25,
+          height: 1.0,
           color: theme.textSecondary.withOpacity(0.72),
         ),
       ),
