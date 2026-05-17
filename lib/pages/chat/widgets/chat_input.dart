@@ -254,7 +254,11 @@ class _Content extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 _IconButton(
-                  icon: FontAwesomeIcons.faceSmile,
+                  icon: FaIcon(
+                    FontAwesomeIcons.faceSmile,
+                    size: 26, 
+                    color: theme.textSecondary.withOpacity(0.92),
+                  ),
                   padding: const EdgeInsets.only(
                     left: 22,
                     right: 16,
