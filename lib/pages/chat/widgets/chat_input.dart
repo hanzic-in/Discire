@@ -106,7 +106,7 @@ class _ChatInputState extends State<ChatInput>
         animation: _splitAnimation,
         builder: (context, child) {
           final eased = Curves.easeOutExpo.transform(_splitAnimation.value);
-          final rightGap = Curves.easeOutBack.transform(eased) * 82;
+          final rightGap = Curves.easeOutBack.transform(eased) * 72;
           final sidePadding = (1 - eased) * 28;
 
           return Padding(
@@ -249,7 +249,7 @@ class _Content extends StatelessWidget {
       children: [
         Expanded(
           child: Padding(
-            padding: EdgeInsets.only(right: eased * 12),
+            padding: EdgeInsets.only(right: eased * 6),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -405,7 +405,7 @@ class _AttachButton extends StatelessWidget {
               key: const ValueKey('attach'),
               padding: EdgeInsets.only(
                 left: 14 + (eased * 6),
-                right: 18,
+                right: 12,
               ),
               child: HugeIcon(
                 icon: HugeIcons.strokeRoundedFolderAttachment,
