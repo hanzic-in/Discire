@@ -255,7 +255,7 @@ class _Content extends StatelessWidget {
               children: [
                 _IconButton(
                   icon: HugeIcon(
-                    icon: HugeIcons.emojiSmile,
+                    icon: HugeIcons.strokeroundedRelieved01,
                     size: 26, 
                     color: theme.textSecondary.withOpacity(0.92),
                   ),
@@ -407,7 +407,7 @@ class _AttachButton extends StatelessWidget {
                 right: 22,
               ),
               child: HugeIcon(
-                icon: HugeIcons.attachment,
+                icon: HugeIcons.strokeroundedFolderAttachment,
                 size: 25,
                 color: color,
               ),
@@ -465,14 +465,14 @@ class _ActionButton extends StatelessWidget {
                   child: Transform.translate(
                       offset: const Offset(-1, 0),
                     child: const HugeIcon(
-                      icon: HugeIcons.sentRectangle,
+                      icon: HugeIcons.strokeroundedSent,
                       color: Colors.white,
                       size: 25,
                       ),
                     ),
                   )
                 : HugeIcon(
-                    icon: HugeIcons.microphone,
+                    icon: HugeIcons.strokeroundedMic02,
                     key: const ValueKey('mic'),
                     size: 26,
                     color: isFocused
