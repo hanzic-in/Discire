@@ -266,7 +266,7 @@ class _Content extends StatelessWidget {
                 ),
                 Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.zero,
+                    padding: EdgeInsets.zero,
                     child: ConstrainedBox(
                       constraints: const BoxConstraints(
                         minHeight: 32,
