@@ -263,7 +263,6 @@ class _Content extends StatelessWidget {
                     left: 22,
                     right: 16,
                   ),
-                  color: theme.textSecondary.withOpacity(0.92),
                 ),
                 Expanded(
                   child: Padding(
@@ -406,7 +405,6 @@ class _AttachButton extends StatelessWidget {
               padding: EdgeInsets.only(
                 left: 18 + (eased * 8),
                 right: 22,
-                bottom: 18,
               ),
               child: FaIcon(
                 FontAwesomeIcons.paperclip,
