@@ -372,7 +372,11 @@ class _IconButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: padding,
-      child: icon,
+      child: FaIcon(
+        icon,
+        size: 26,
+        color: color,
+        ),
     );
   }
 }
