@@ -328,7 +328,10 @@ class _ChatTextField extends StatelessWidget {
       maxLines: null,
       expands: false,
       cursorColor: AppColors.primary,
-      style: AppTextStyles.body(context),
+      style: AppTextStyles.body(context).copyWith(
+        fontSize: 16,
+        height: 1.25,
+        ),
       textAlignVertical: TextAlignVertical.center,
       
       scrollPadding: EdgeInsets.zero,
@@ -343,15 +346,12 @@ class _ChatTextField extends StatelessWidget {
         errorBorder: InputBorder.none,
         focusedErrorBorder: InputBorder.none,
         
-        contentPadding: const EdgeInsets.only(
-          top: 7,
-          bottom: 5,
-          left: 0,
-          right: 0,
-        ),
+        contentPadding: const EdgeInsets.symmetric(vertical: 8),
         
         hintText: 'Type Message...',
         hintStyle: AppTextStyles.body(context).copyWith(
+          fontSize: 16,
+          height: 1.25,
           color: theme.textSecondary.withOpacity(0.72),
         ),
       ),
