@@ -1,4 +1,4 @@
-package com.example.discire_app
+package com.example.relio_app
 
 import io.flutter.embedding.android.FlutterActivity
 
