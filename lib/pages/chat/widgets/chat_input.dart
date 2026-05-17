@@ -245,29 +245,25 @@ class _Content extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      crossAxisAlignment: CrossAxisAlignment.end,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Expanded(
           child: Padding(
             padding: EdgeInsets.only(right: eased * 12),
             child: Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 _IconButton(
-                  icon: FaIcon(
-                    FontAwesomeIcons.faceSmile,
-                    size: 26,
-                    color: theme.textSecondary.withOpacity(0.92),
-                  ), 
+                  icon: FontAwesomeIcons.faceSmile,
                   padding: const EdgeInsets.only(
                     left: 22,
                     right: 16,
-                    bottom: 18,
                   ),
+                  color: theme.textSecondary.withOpacity(0.92),
                 ),
                 Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    padding: const EdgeInsets.symmetric(vertical: 8),
                     child: ConstrainedBox(
                       constraints: const BoxConstraints(
                         minHeight: 32,
@@ -302,6 +298,7 @@ class _Content extends StatelessWidget {
     );
   }
 }
+
 
 class _ChatTextField extends StatelessWidget {
   final TextEditingController controller;
