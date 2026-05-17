@@ -360,10 +360,12 @@ class _ChatTextField extends StatelessWidget {
 class _IconButton extends StatelessWidget {
   final Widget icon;
   final EdgeInsets padding;
+  final Color color;
 
   const _IconButton({
     required this.icon,
     required this.padding,
+    required this.color,
   });
 
   @override
