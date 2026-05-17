@@ -251,7 +251,7 @@ class _Content extends StatelessWidget {
           child: Padding(
             padding: EdgeInsets.only(right: eased * 12),
             child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 _IconButton(
                   icon: HugeIcon(
@@ -266,7 +266,7 @@ class _Content extends StatelessWidget {
                 ),
                 Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8),
+                    padding: const EdgeInsets.only(bottom: 1),
                     child: ConstrainedBox(
                       constraints: const BoxConstraints(
                         minHeight: 32,
@@ -346,7 +346,7 @@ class _ChatTextField extends StatelessWidget {
         errorBorder: InputBorder.none,
         focusedErrorBorder: InputBorder.none,
         
-        contentPadding: const EdgeInsets.symmetric(vertical: 5),
+        contentPadding: const EdgeInsets.symmetric(vertical: 4),
         
         hintText: 'Type Message...',
         hintStyle: AppTextStyles.body(context).copyWith(
@@ -441,7 +441,7 @@ class _ActionButton extends StatelessWidget {
       height: size,
       child: Center(
         child: Transform.translate(
-          offset: Offset((1 - eased) * -10, 0),
+          offset: Offset((1 - eased) * -6, 0),
           child: AnimatedSwitcher(
             duration: const Duration(milliseconds: 220),
             transitionBuilder: (child, animation) {
