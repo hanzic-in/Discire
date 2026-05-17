@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:hugeicons/hugeicons.dart';
 import '../../../core/theme/app_theme.dart';
 
 class ChatInput extends StatefulWidget {
@@ -254,8 +254,8 @@ class _Content extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 _IconButton(
-                  icon: FaIcon(
-                    FontAwesomeIcons.faceSmile,
+                  icon: HugeIcon(
+                    HugeIcons.strokeRoundUnavailableSmile,
                     size: 26, 
                     color: theme.textSecondary.withOpacity(0.92),
                   ),
@@ -406,9 +406,9 @@ class _AttachButton extends StatelessWidget {
                 left: 18 + (eased * 8),
                 right: 22,
               ),
-              child: FaIcon(
-                FontAwesomeIcons.paperclip,
-                size: 26,
+              child: HugeIcon(
+                HugeIcons.strokeRoundAttachment01,
+                size: 25,
                 color: color,
               ),
             )
