@@ -374,7 +374,7 @@ class _IconButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: padding,
-      child: child,
+      child: icon,
     );
   }
 }
