@@ -509,7 +509,7 @@ class _ComposerPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    const double baseHeight = 64;
+    const double baseHeight = 56;
     const double baseRadius = baseHeight / 2;
 
     final paint = Paint()
@@ -569,9 +569,9 @@ class _ComposerPainter extends CustomPainter {
         colors: [activeColorLight, activeColor],
       ).createShader(
         Rect.fromLTWH(
-          size.width - 64,
+          size.width - 56,
           size.height - baseHeight,
-          64,
+          56,
           baseHeight,
         ),
       );
@@ -581,7 +581,7 @@ class _ComposerPainter extends CustomPainter {
 
     final pullOut = Curves.easeOutBack.transform(progress);
     final buttonRadius = baseRadius * (0.74 + (progress * 0.26));
-    final buttonLeft = size.width - (64 * pullOut);
+    final buttonLeft = size.width - (56 * pullOut);
 
     final buttonRRect = RRect.fromLTRBR(
       buttonLeft,
