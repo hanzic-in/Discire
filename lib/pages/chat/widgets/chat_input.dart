@@ -329,7 +329,8 @@ class _ChatTextField extends StatelessWidget {
       expands: false,
       cursorColor: AppColors.primary,
       style: AppTextStyles.body(context),
-      textAlignVertical: TextAlignVertical.bottom,
+      textAlignVertical: TextAlignVertical.center,
+      
       scrollPadding: EdgeInsets.zero,
       decoration: InputDecoration(
         isDense: true,
@@ -341,8 +342,15 @@ class _ChatTextField extends StatelessWidget {
         disabledBorder: InputBorder.none,
         errorBorder: InputBorder.none,
         focusedErrorBorder: InputBorder.none,
-        contentPadding: const EdgeInsets.symmetric(vertical: 2),
-        hintText: 'Message on Relio...',
+        
+        contentPadding: const EdgeInsets.only(
+          top: 7,
+          bottom: 5,
+          left: 0,
+          right: 0,
+        ),
+        
+        hintText: 'Type Message...',
         hintStyle: AppTextStyles.body(context).copyWith(
           color: theme.textSecondary.withOpacity(0.72),
         ),
@@ -350,6 +358,7 @@ class _ChatTextField extends StatelessWidget {
     );
   }
 }
+
 
 class _IconButton extends StatelessWidget {
   final Widget icon;
