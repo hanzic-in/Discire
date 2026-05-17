@@ -346,7 +346,7 @@ class _ChatTextField extends StatelessWidget {
         errorBorder: InputBorder.none,
         focusedErrorBorder: InputBorder.none,
         
-        contentPadding: const EdgeInsets.symmetric(vertical: 4),
+        contentPadding: const EdgeInsets.symmetric(vertical: 5),
         
         hintText: 'Type Message...',
         hintStyle: AppTextStyles.body(context).copyWith(
