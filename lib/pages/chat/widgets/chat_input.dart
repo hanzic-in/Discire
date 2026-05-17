@@ -336,7 +336,6 @@ class _ChatTextField extends StatelessWidget {
       
       scrollPadding: EdgeInsets.zero,
       decoration: InputDecoration(
-        isDense: true,
         filled: false,
         fillColor: Colors.transparent,
         border: InputBorder.none,
@@ -346,7 +345,9 @@ class _ChatTextField extends StatelessWidget {
         errorBorder: InputBorder.none,
         focusedErrorBorder: InputBorder.none,
         
-        contentPadding: EdgeInsets.zero,
+        contentPadding: const EdgeInsets.only(
+          bottom: 2,
+        ),
         
         hintText: 'Type Message...',
         hintStyle: AppTextStyles.body(context).copyWith(
