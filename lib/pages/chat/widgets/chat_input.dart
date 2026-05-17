@@ -27,7 +27,7 @@ class _ChatInputState extends State<ChatInput>
   late final AnimationController _animationController;
   late final Animation<double> _splitAnimation;
 
-  static const double _composerHeight = 64;
+  static const double _composerHeight = 56;
   static const double _baseRadius = _composerHeight / 2;
   static const double _maxInputHeight = 120;
   static const double _maxContainerHeight = 150;
@@ -260,8 +260,8 @@ class _Content extends StatelessWidget {
                     color: theme.textSecondary.withOpacity(0.92),
                   ),
                   padding: const EdgeInsets.only(
-                    left: 22,
-                    right: 16,
+                    left: 18,
+                    right: 12,
                   ),
                 ),
                 Expanded(
@@ -346,7 +346,7 @@ class _ChatTextField extends StatelessWidget {
         errorBorder: InputBorder.none,
         focusedErrorBorder: InputBorder.none,
         
-        contentPadding: const EdgeInsets.symmetric(vertical: 8),
+        contentPadding: const EdgeInsets.symmetric(vertical: 4),
         
         hintText: 'Type Message...',
         hintStyle: AppTextStyles.body(context).copyWith(
@@ -403,8 +403,8 @@ class _AttachButton extends StatelessWidget {
           ? Padding(
               key: const ValueKey('attach'),
               padding: EdgeInsets.only(
-                left: 18 + (eased * 8),
-                right: 22,
+                left: 14 + (eased * 6),
+                right: 18,
               ),
               child: HugeIcon(
                 icon: HugeIcons.strokeRoundedFolderAttachment,
@@ -434,7 +434,7 @@ class _ActionButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const double size = 64;
+    const double size = 56;
 
     return SizedBox(
       width: size,
