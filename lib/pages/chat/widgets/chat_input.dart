@@ -462,16 +462,19 @@ class _ActionButton extends StatelessWidget {
                 ? GestureDetector(
                     key: const ValueKey('send'),
                     onTap: onSend,
-                    child: const FaIcon(
-                      FontAwesomeIcons.paperPlane,
+                  child: Transform.translate(
+                      offset: const Offset(-1, 0),
+                    child: const HugeIcon(
+                      icon: HugeIcons.strokeRoundSent,
                       color: Colors.white,
-                      size: 26,
+                      size: 25,
+                      ),
                     ),
                   )
-                : FaIcon(
-                    FontAwesomeIcons.microphone,
+                : HugeIcon(
+                    icon: HugeIcons.strokeRoundMic01,
                     key: const ValueKey('mic'),
-                    size: 28,
+                    size: 26,
                     color: isFocused
                         ? theme.textPrimary
                         : theme.textSecondary.withOpacity(0.92),
