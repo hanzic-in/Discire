@@ -1,6 +1,6 @@
 {
-    "name": "discire_app",
-    "short_name": "discire_app",
+    "name": "relio_app",
+    "short_name": "relio_app",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
